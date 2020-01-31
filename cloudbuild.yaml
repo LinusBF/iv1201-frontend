@@ -17,4 +17,4 @@ steps:
 
   - name: "gcr.io/cloud-builders/gcloud"
     id: "Deploy Cloud Run Service"
-    args: ["run", "deploy", "global-apps-frontend", "--project", "global-application-example", "--region", "europe-west1", "--image", "gcr.io/global-application-example/global-apps-frontend", "--platform", "managed"]
+    args: ["run", "deploy", "global-apps-frontend", "--project", "global-application-example", "--region", "europe-west1", "--allow-unauthenticated", "--image", "gcr.io/global-application-example/global-apps-frontend", "--platform", "managed"]
