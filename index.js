@@ -3,7 +3,7 @@
 const express = require('express');
 const app = express();
 
-const backendConnection = require('src/backendConnection');
+const backendConnection = require('./src/backendConnection');
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
