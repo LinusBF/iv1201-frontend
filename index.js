@@ -17,7 +17,7 @@ app.get('/', (req, res) => {
 
 app.get('/server-side-call', (req, res) => {
   backendConnection
-    .post('/', {data: 'this is front end talking'})
+    .post('/', {data: {message: 'this is front end talking'}})
     .then(response => {
       console.info(`Received ${response} from backend`);
       res.status(200).send(response);
