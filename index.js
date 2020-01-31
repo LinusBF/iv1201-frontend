@@ -28,6 +28,25 @@ app.get('/server-side-call', (req, res) => {
     });
 });
 
+app.get('/addApplicant', (req, res) => {
+  const name = req.query.name;
+  const newApplicant = {
+    name,
+    test: 'other value',
+    testBool: true,
+  };
+  backendConnection
+    .post('/addApplicant', {data: newApplicant})
+    .then(response => {
+      console.info(`Received ${response} from backend`);
+      res.status(200).send(response);
+    })
+    .catch(err => {
+      console.error(`Request to backend failed with error ${err}`);
+      res.status(500).send('Please check the logs!');
+    });
+});
+
 const port = process.env.PORT || 8080;
 app.listen(port, () => {
   console.log('Hello world listening on port', port);
