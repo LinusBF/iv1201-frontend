@@ -1,0 +1,11 @@
+---
+extends:
+  - 'eslint:recommended'
+  - 'plugin:react/recommended'
+  - prettier
+parserOptions:
+  sourceType: module
+  ecmaFeatures:
+    jsx: true
+rules:
+  node/no-unsupported-features/es-syntax: off

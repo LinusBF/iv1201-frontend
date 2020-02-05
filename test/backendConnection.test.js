@@ -6,7 +6,7 @@ const sinon = require('sinon');
 const sinonChai = require('sinon-chai');
 const request = require('request-promise-native');
 
-const backendConnection = require('../src/backendConnection');
+const backendConnection = require('../server/backendConnection');
 
 chai.use(sinonChai);
 

@@ -11,6 +11,12 @@ steps:
     env:
       - NODE_ENV=development
 
+  - name: "node:10.15.1"
+    id: "Build Application with Webpack"
+    args: ["yarn", "build"]
+    env:
+      - NODE_ENV=production
+
   - name: "gcr.io/cloud-builders/gcloud"
     id: "Upload docker image to gcr.io"
     args: ["builds", "submit" ,"--project" ,"global-application-example" ,"--tag" ,"gcr.io/global-application-example/global-apps-frontend"]

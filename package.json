@@ -2,9 +2,11 @@
   "name": "frontend",
   "version": "1.0.0",
   "description": "A demo of a global application setup",
-  "main": "index.js",
+  "main": "server/index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "node server/index.js",
+    "dev": "webpack --mode development && node server/index.js",
+    "build": "webpack --mode production",
     "test": "mocha"
   },
   "repository": {
@@ -14,12 +16,21 @@
   "author": "Linus Bein Fahlander, Melker Mossberg, Erik Lenas",
   "license": "ISC",
   "devDependencies": {
+    "@babel/core": "^7.8.4",
+    "@babel/preset-env": "^7.8.4",
+    "@babel/preset-react": "^7.8.3",
     "@google-cloud/nodejs-repo-tools": "^3.3.0",
+    "babel-loader": "^8.0.6",
     "chai": "^4.2.0",
+    "css-loader": "^3.4.2",
     "dotenv": "^8.2.0",
+    "file-loader": "^5.0.2",
+    "html-webpack-plugin": "^3.2.0",
     "husky": "^4.0.10",
     "mocha": "^7.0.0",
-    "proxyquire": "^2.1.3"
+    "proxyquire": "^2.1.3",
+    "webpack": "^4.41.5",
+    "webpack-cli": "^3.3.10"
   },
   "mocha": {
     "spec": "test/**/*.test.js",
@@ -48,13 +59,16 @@
     "eslint-config-prettier": "^6.9.0",
     "eslint-plugin-node": "^11.0.0",
     "eslint-plugin-prettier": "^3.1.2",
+    "eslint-plugin-react": "^7.18.3",
     "express": "^4.17.1",
     "lint-staged": "^10.0.1",
     "prettier": "^1.19.1",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
     "request": "^2.88.0",
     "request-promise-native": "^1.0.8",
     "sinon": "^8.1.1",
     "sinon-chai": "^3.4.0",
-    "snyk": "^1.279.0"
+    "snyk": "1.290.1"
   }
 }
