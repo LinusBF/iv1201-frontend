@@ -30,6 +30,19 @@ app.get('/addApplicant', (req, res) => {
     });
 });
 
+app.get('/debug', (req, res) => {
+  backendConnection
+    .get('/')
+    .then(response => {
+      console.info(`Received ${response} from backend`);
+      res.status(200).send(response);
+    })
+    .catch(err => {
+      console.error(`Request to backend failed with error ${err}`);
+      res.status(500).send('Please check the logs!');
+    });
+});
+
 app.get('/*', (req, res) => {
   res.sendFile(HTML_FILE);
 });

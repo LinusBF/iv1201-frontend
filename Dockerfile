@@ -18,5 +18,8 @@ RUN yarn install --only=production
 # Copy local code to the container image.
 COPY . ./
 
+ENV BASE_BACKEND_URL='https://global-apps-backend-uevpdyoiea-ew.a.run.app'
+ENV BASE_BACKEND_URL_DEV='https://global-apps-dev-backend-uevpdyoiea-ew.a.run.app';
+
 # Run the web service on container startup.
 CMD [ "yarn", "start" ]
