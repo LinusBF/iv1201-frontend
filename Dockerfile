@@ -18,6 +18,7 @@ RUN yarn install --only=production
 # Copy local code to the container image.
 COPY . ./
 
+ENV NODE_ENV="production"
 ENV BASE_BACKEND_URL='https://global-apps-backend-uevpdyoiea-ew.a.run.app'
 ENV BASE_BACKEND_URL_DEV='https://global-apps-dev-backend-uevpdyoiea-ew.a.run.app';
 
