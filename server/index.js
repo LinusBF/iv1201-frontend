@@ -35,7 +35,7 @@ app.get('/debug', (req, res) => {
     .get('/')
     .then(response => {
       console.info(`Received ${response} from backend`);
-      res.status(200).send(response);
+      res.status(200).send({backend: response, envChecker: process.env.NODE_ENV});
     })
     .catch(err => {
       console.error(`Request to backend failed with error ${err}`);
