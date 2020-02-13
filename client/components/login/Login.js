@@ -6,10 +6,10 @@ function mapStateToProps(state) {
   return {};
 }
 
-class Layout extends Component {
+class Login extends Component {
   render() {
     return <div></div>;
   }
 }
 
-export default connect(mapStateToProps)(Layout);
+export default connect(mapStateToProps)(Login);
