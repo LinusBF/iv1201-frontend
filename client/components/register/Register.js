@@ -12,12 +12,12 @@ class Login extends Component {
     e.preventDefault();
     firebase
       .auth()
-      .signInWithEmailAndPassword(e.target[0].value, e.target[1].value)
+      .createUserWithEmailAndPassword(e.target[0].value, e.target[1].value)
       .then(r => {
         console.error(r);
       })
       .catch(e => {
-        console.error('login not succesful', e);
+        console.error('sign up not succesful', e);
       });
   }
 
