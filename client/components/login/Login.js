@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import firebase from '../../firebaseConfig';
-import {Form, Button} from 'react-bootstrap';
+import {Form, Button, ButtonToolbar} from 'react-bootstrap';
+import './Login.css';
 
 class Login extends Component {
   constructor(props) {
@@ -25,18 +26,29 @@ class Login extends Component {
     return (
       <div className={'loginForm'}>
         <Form onSubmit={this.handleSubmit}>
-          <Form.Group controlId="formBasicEmail">
-            <Form.Label>Email address</Form.Label>
-            <Form.Control type="email" placeholder="Enter email" />
+          <Form.Group style={{marginBottom: 0}} controlId="formBasicEmail">
+            <Form.Control className={'input'} type="email" placeholder="Enter your email" />
           </Form.Group>
-
-          <Form.Group controlId="formBasicPassword">
-            <Form.Label>Password</Form.Label>
-            <Form.Control type="password" placeholder="Password" />
+          <Form.Group style={{marginTop: 0}} controlId="formBasicPassword">
+            <Form.Control className={'input'} type="password" placeholder="Enter your Password" />
           </Form.Group>
-          <Button variant="primary" type="submit">
-            Login
-          </Button>
+          <ButtonToolbar>
+            <Button style={{width: '33%', marginTop: '10px'}} variant="dark" type="submit">
+              Login
+            </Button>
+            <Button
+              style={{
+                width: '33%',
+                marginTop: '10px',
+                border: '1px solid grey',
+                marginLeft: '15px',
+              }}
+              type="submit"
+              variant={'light'}
+            >
+              Sign Up
+            </Button>
+          </ButtonToolbar>
         </Form>
       </div>
     );
