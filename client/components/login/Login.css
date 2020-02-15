@@ -2,9 +2,42 @@
     width: 20%;
     margin: auto;
     margin-top: 250px;
+    font-family: 'Open Sans', sans-serif !important;
+}
+
+#headlines {
+    font-size: 40px;
 }
 
 .input {
     height: 60px;
     margin-bottom: 0;
+}
+
+#loginButton {
+    width: 33%;
+    margin-top: 10px;
+    font-size: 13px;
+    padding: 12px;
+}
+
+#signUpButton {
+    width: 33%;
+    margin-top: 10px;
+    border: 1px solid grey;
+    margin-left: 15px;
+    font-size: 13px;
+    padding: 12px;
+    background-color: white;
+}
+
+#inputPass {
+    height: 60px;
+    font-size: 13px;
+}
+
+
+#inputMail {
+    height: 60px;
+    font-size: 13px;
 }

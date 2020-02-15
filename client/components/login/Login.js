@@ -25,27 +25,23 @@ class Login extends Component {
   render() {
     return (
       <div className={'loginForm'}>
+        <div id={'headlines'}>
+          You are here to
+          <br />
+          Make people laugh
+        </div>
         <Form onSubmit={this.handleSubmit}>
           <Form.Group style={{marginBottom: 0}} controlId="formBasicEmail">
-            <Form.Control className={'input'} type="email" placeholder="Enter your email" />
+            <Form.Control id={'inputMail'} type="email" placeholder="Enter your email" />
           </Form.Group>
           <Form.Group style={{marginTop: 0}} controlId="formBasicPassword">
-            <Form.Control className={'input'} type="password" placeholder="Enter your Password" />
+            <Form.Control id={'inputPass'} type="password" placeholder="Enter your Password" />
           </Form.Group>
           <ButtonToolbar>
-            <Button style={{width: '33%', marginTop: '10px'}} variant="dark" type="submit">
+            <Button id={'loginButton'} type="submit" variant={'dark'}>
               Login
             </Button>
-            <Button
-              style={{
-                width: '33%',
-                marginTop: '10px',
-                border: '1px solid grey',
-                marginLeft: '15px',
-              }}
-              type="submit"
-              variant={'light'}
-            >
+            <Button id={'signUpButton'} type="submit" variant={'light'}>
               Sign Up
             </Button>
           </ButtonToolbar>
