@@ -1,24 +1,51 @@
+.logo {
+    display: flex;
+    margin-left: 200px;
+    margin-top: 15px;
+}
+
+.logoright {
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+}
+
 .loginForm {
     width: 20%;
     margin: auto;
-    margin-top: 250px;
-    font-family: 'Open Sans', sans-serif !important;
+    margin-top: 170px;
+
 }
 
-#headlines {
-    font-size: 40px;
+#headline1 {
+    font-size: 35px;
+    font-weight: bold;
+    color: #000000;
+    opacity: 0.3;
 }
 
-.input {
-    height: 60px;
-    margin-bottom: 0;
+#headline2 {
+    font-size: 35px;
+    font-weight: bold;
+    color: #000000;
+    opacity: 1;
 }
+
+#headline3 {
+    font-size: 15px;
+    color: #000000;
+    opacity: 0.3;
+    margin-top: 10px;
+    margin-bottom:20px;
+}
+
 
 #loginButton {
     width: 33%;
     margin-top: 10px;
     font-size: 13px;
     padding: 12px;
+    font-family: 'Open Sans', sans-serif !important;
 }
 
 #signUpButton {
@@ -29,15 +56,25 @@
     font-size: 13px;
     padding: 12px;
     background-color: white;
+    font-family: 'Open Sans', sans-serif !important;
 }
 
 #inputPass {
     height: 60px;
     font-size: 13px;
+    font-family: 'Open Sans', sans-serif !important;
 }
 
 
 #inputMail {
     height: 60px;
     font-size: 13px;
+    font-family: 'Open Sans', sans-serif !important;
+}
+
+@media screen and (max-width: 800px){
+    .loginForm {
+        width: 90%;
+        margin-top: 5px;
+    }
 }
