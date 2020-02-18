@@ -4,11 +4,10 @@ var admin = require('firebase-admin');
 
 /**
  * @param idToken
- * @returns {Promise<unknown>}
+ * @returns {Promise<uid>}
  */
 function verifyToken(idToken) {
-  return new Promise(function(resolve) {
-    admin.initializeApp();
+  return new Promise(function(resolve, reject) {
     admin
       .auth()
       .verifyIdToken(idToken)
@@ -16,7 +15,7 @@ function verifyToken(idToken) {
         resolve(decodedToken.uid);
       })
       .catch(reason => {
-        resolve(reason);
+        reject(reason);
       });
   });
 }

@@ -3,10 +3,50 @@ version: v1.13.5
 # ignores vulnerabilities until expiry date; change duration by modifying expiry date
 ignore:
   SNYK-JS-DOTPROP-543489:
-    - '@google-cloud/nodejs-repo-tools > ava > dot-prop':
-        reason: None given
-        expires: '2020-03-06T14:10:32.399Z'
+    - '@iarna/cli > update-notifier > configstore > dot-prop':
+        reason: l
+        expires: '2020-03-17T09:02:16.776Z'
+    - libnpx > update-notifier > configstore > dot-prop:
+        reason: l
+        expires: '2020-03-17T09:02:16.777Z'
+    - libcipm > lock-verify > @iarna/cli > update-notifier > configstore > dot-prop:
+        reason: l
+        expires: '2020-03-17T09:02:16.777Z'
+    - libnpm > lock-verify > @iarna/cli > update-notifier > configstore > dot-prop:
+        reason: l
+        expires: '2020-03-17T09:02:16.777Z'
     - '@google-cloud/nodejs-repo-tools > ava > update-notifier > configstore > dot-prop':
-        reason: None given
-        expires: '2020-03-06T14:10:32.399Z'
+        reason: l
+        expires: '2020-03-17T09:14:31.066Z'
+    - npm > libnpx > update-notifier > configstore > dot-prop:
+        reason: l
+        expires: '2020-03-17T09:14:31.066Z'
+    - libcipm > lock-verify > @iarna/cli > update-notifier > configstore > dot-prop:
+        reason: l
+        expires: '2020-03-17T09:14:31.066Z'
+    - libnpm > lock-verify > @iarna/cli > update-notifier > configstore > dot-prop:
+        reason: l
+        expires: '2020-03-17T09:14:31.066Z'
+    - '@google-cloud/nodejs-repo-tools > ava > dot-prop':
+        reason: l
+        expires: '2020-03-17T09:14:31.065Z'
+    - '@iarna/cli > update-notifier > configstore > dot-prop':
+        reason: l
+        expires: '2020-03-17T09:14:31.065Z'
+    - libnpx > update-notifier > configstore > dot-prop:
+        reason: l
+        expires: '2020-03-17T09:14:31.065Z'
+    - npm > update-notifier > configstore > dot-prop:
+        reason: l
+        expires: '2020-03-17T09:14:31.065Z'
+  'npm:mem:20180117':
+    - '@iarna/cli > yargs > os-locale > mem':
+        reason: l
+        expires: '2020-03-17T09:14:31.066Z'
+    - libcipm > lock-verify > @iarna/cli > yargs > os-locale > mem:
+        reason: l
+        expires: '2020-03-17T09:14:31.066Z'
+    - libnpm > lock-verify > @iarna/cli > yargs > os-locale > mem:
+        reason: l
+        expires: '2020-03-17T09:14:31.066Z'
 patch: {}
