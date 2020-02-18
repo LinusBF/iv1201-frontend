@@ -17,7 +17,17 @@ class Login extends Component {
       .auth()
       .signInWithEmailAndPassword(e.target[0].value, e.target[1].value)
       .then(r => {
-        console.error(r);
+        console.info(r);
+        firebase
+          .auth()
+          .currentUser.getIdToken(/* forceRefresh */ true)
+          .then(function(idToken) {
+            console.info(idToken);
+            // ...
+          })
+          .catch(function(error) {
+            console.error(error);
+          });
       })
       .catch(e => {
         console.error('login not succesful', e);
@@ -32,8 +42,8 @@ class Login extends Component {
             <img src={clown} alt={'...'} />
           </div>
           <div className={'logoright'}>
-            <div>asdfasf</div>
-            <div>asdfasddf</div>
+            <div className={'logoHeader1'}>HireTheseClowns</div>
+            <div className={'logoHeader2'}>Recruitment Service</div>
           </div>
         </div>
         <div className={'loginForm'}>
