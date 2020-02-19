@@ -1,0 +1,18 @@
+#listGroup {
+}
+
+#listGroup .list-group-item {
+    height: 50px;
+    margin: 0;
+    padding: 7px;
+}
+
+#listGroup .list-group-item p {
+    margin-top: 5px;
+}
+
+#listGroup .list-group-item .alert {
+    padding: .4rem 0.7rem;
+    font-size: 0.8rem;
+}
+
