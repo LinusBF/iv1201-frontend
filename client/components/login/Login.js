@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import firebase from '../../firebaseConfig';
 import {Form, Button, ButtonToolbar} from 'react-bootstrap';
+import {connect} from 'react-redux';
+import {login} from '../../redux/actions';
 import './Login.css';
 import clown from '../../Images/flat.svg';
 
@@ -72,4 +74,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default connect(null, {login})(Login);
