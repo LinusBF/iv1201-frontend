@@ -1,9 +1,23 @@
-const initialState = {login: false};
+import {LOGGED_IN, LOGGED_OUT} from '../actionTypes';
+
+const initialState = {loggedIn: false};
 
 // eslint-disable-next-line no-unused-vars
 export default function(state = initialState, action) {
-  return {
-    ...state,
-    login: action.login,
-  };
+  if (action.payload === undefined) return state;
+  switch (action.type) {
+    case LOGGED_IN: {
+      return {
+        ...state,
+        loggedIn: action.payload.loggedIn,
+        idToken: action.payload.idToken,
+      };
+    }
+    case LOGGED_OUT: {
+      return {
+        ...state,
+        loggedIn: action.payload.loggedIn,
+      };
+    }
+  }
 }
