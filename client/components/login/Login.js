@@ -15,18 +15,18 @@ class Login extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    // eslint-disable-next-line react/prop-types
+    const that = this;
     firebase
       .auth()
       .signInWithEmailAndPassword(e.target[0].value, e.target[1].value)
       .then(r => {
-        // eslint-disable-next-line react/prop-types
-        this.props.login();
         console.info(r);
         firebase
           .auth()
           .currentUser.getIdToken(/* forceRefresh */ true)
           .then(function(idToken) {
+            // eslint-disable-next-line react/prop-types
+            that.props.login(idToken);
             console.info(idToken);
             // ...
           })

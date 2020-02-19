@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import firebase from '../../firebaseConfig';
 import {Form, Button, ButtonToolbar} from 'react-bootstrap';
+import {connect} from 'react-redux';
+import {login} from '../../redux/actions';
 import '../login/Login.css';
 import clown from '../../Images/flat.svg';
 
@@ -12,14 +14,27 @@ class Register extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
+    const that = this;
     firebase
       .auth()
       .createUserWithEmailAndPassword(e.target[0].value, e.target[1].value)
       .then(r => {
         console.info(r);
+        firebase
+          .auth()
+          .currentUser.getIdToken(/* forceRefresh */ true)
+          .then(function(idToken) {
+            // eslint-disable-next-line react/prop-types
+            that.props.login(idToken);
+            console.info(idToken);
+            // ...
+          })
+          .catch(function(error) {
+            console.error(error);
+          });
       })
       .catch(e => {
-        console.error('login not succesful', e);
+        console.error('sign up not successful', e);
       });
   }
 
@@ -61,4 +76,4 @@ class Register extends Component {
   }
 }
 
-export default Register;
+export default connect(null, {login})(Register);
