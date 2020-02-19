@@ -33,12 +33,12 @@ class Applications extends Component {
         </div>
 
         <ListGroup className={'container justify-content-md-center'} id={'listGroup'}>
-          <ListGroupItem className={'list-group-item list-group-item-action active flex-column align-items-start'}>
-            <div className='d-flex w-100 justify-content-between'>
+          <ListGroupItem className={'list-group-item list-group-item-action active flex-column align-items-start'} id={'listGroup-header'}>
+            <div className='d-flex w-100 justify-content-between' >
               <div style={{marginRight: '-0.2rem'}}><p>Received</p></div>
-              <div style={{marginRight: '2.2rem'}}><p>Name</p></div>
+              <div style={{marginRight: '3.2rem'}}><p>Name</p></div>
               <div style={{marginRight: '-2.4rem'}}><p>Age</p></div>
-              <div style={{marginRight: '-3.2rem'}}><p>Skills</p></div>
+              <div style={{marginRight: '-2.2rem'}}><p>Skills</p></div>
               <div style={{marginRight: '-3rem'}}><p>Days</p></div>
               <div style={{marginRight: '2rem'}}><p>Start</p></div>
               <div style={{marginRight: '1.6rem'}}><p>Decision</p></div>
