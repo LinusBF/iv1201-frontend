@@ -15,10 +15,13 @@ class Login extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
+    // eslint-disable-next-line react/prop-types
     firebase
       .auth()
       .signInWithEmailAndPassword(e.target[0].value, e.target[1].value)
       .then(r => {
+        // eslint-disable-next-line react/prop-types
+        this.props.login();
         console.info(r);
         firebase
           .auth()
@@ -74,4 +77,5 @@ class Login extends Component {
   }
 }
 
+// eslint-disable-next-line no-undef
 export default connect(null, {login})(Login);
