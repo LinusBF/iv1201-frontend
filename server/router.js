@@ -7,7 +7,7 @@ module.exports = router => {
   /**
    * Request a single application
    */
-  router.post('/application', (req, res) => {
+  router.post('/fetch-application', (req, res) => {
     console.info('Received a post request to fetch one application');
     const idToken = req.body.token;
     verifyToken(idToken)
@@ -28,7 +28,7 @@ module.exports = router => {
   /**
    * Requests payload of several applications
    */
-  router.get('/applications', (req, res) => {
+  router.get('/fetch-applications', (req, res) => {
     console.info('Received a get request to fetch applications');
     const count = req.body.count;
     const offset = req.body.offset;
