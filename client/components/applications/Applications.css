@@ -7,6 +7,20 @@
     padding: 7px;
 }
 
+#listGroup .list-group-item .colHead {
+    padding-top: 7px;
+}
+
+#listGroup .list-group-item a:link, a:visited  {
+     color: #989692;
+ }
+#listGroup .list-group-item a:hover  {
+    color: #545454;
+}
+#listGroup .list-group-item a:active  {
+    color: #000000;
+}
+
 #listGroup .list-group-item p {
     margin-top: 5px;
 }

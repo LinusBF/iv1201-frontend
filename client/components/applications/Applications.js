@@ -15,6 +15,7 @@ class Applications extends Component {
       //items: Array.from({length: 20}),
       items: data.apps.slice(0,20)
     };
+    this.sort = this.sort.bind(this);
     this.fetchMoreData = this.fetchMoreData.bind(this);
   }
 
@@ -26,6 +27,17 @@ class Applications extends Component {
         items: this.state.items.concat(data.apps.slice(0,this.state.loadedSoFar+20))
       });
     }, 1500);
+  }
+
+  sort(col){
+    console.log(this.state.items);
+    const a = new Date(this.state.items[0].applyDate);
+    const b = new Date(this.state.items[1].applyDate);
+    const updatedArray = this.state.items.sort((a,b) => {
+      return a>b ? -1 : a<b ? 1 : 0
+    });
+    this.setState({items: updatedArray});
+    this.forceUpdate();
   }
 
   calcAge(ssn){
@@ -48,13 +60,13 @@ class Applications extends Component {
         <ListGroup id={'listGroup'} className={'container justify-content-md-center'} >
           <ListGroupItem className={'list-group-item list-group-item-action active flex-column align-items-start'} id={'listGroup-header'}>
             <div className='d-flex w-100 justify-content-between' >
-              <div className={'col-2-sm'} style={{marginRight: '4rem'}}><p>Received</p></div>
-              <div className={'col-3'}><p>Name</p></div>
-              <div className={'col'}><p>Age</p></div>
-              <div className={'col'}><p>Skills</p></div>
-              <div className={'col'}><p>Days</p></div>
-              <div className={'col'}><p>Start</p></div>
-              <div className={'col'}><p>Decision</p></div>
+              <div className={'colHead col-2-sm'} style={{marginRight: '4rem'}}><a href={'#'} onClick={() => {this.sort(1)}}>Received</a></div>
+              <div className={'colHead col-3'}><a href="#" onClick={() => {this.sort(2)}}>Name</a></div>
+              <div className={'colHead col'}><a href={"#"} onClick={() => {this.sort(3)}}>Age</a></div>
+              <div className={'colHead col'}><a href={"#"} onClick={() => {this.sort(4)}}>Skills</a></div>
+              <div className={'colHead col'}><a href={"#"} onClick={() => {this.sort(5)}}>Days</a></div>
+              <div className={'colHead col'}><a href={"#"} onClick={() => {this.sort(6)}}>Start</a></div>
+              <div className={'colHead col'}><a href={"#"} onClick={() => {this.sort(7)}}>Decision</a></div>
             </div>
           </ListGroupItem>
           <InfiniteScroll
