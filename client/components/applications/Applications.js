@@ -5,7 +5,8 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import {ListGroupItem} from 'react-bootstrap';
 import './Applications.css';
 import clown from '../../Images/flat.svg';
-import data from './fakeApplicationData'
+import data from './fakeApplicationData';
+import sortOnDate from './apllicationSort';
 
 class Applications extends Component {
   constructor(props) {
@@ -31,12 +32,7 @@ class Applications extends Component {
 
   sort(col){
     console.log(this.state.items);
-    const a = new Date(this.state.items[0].applyDate);
-    const b = new Date(this.state.items[1].applyDate);
-    const updatedArray = this.state.items.sort((a,b) => {
-      return a>b ? -1 : a<b ? 1 : 0
-    });
-    this.setState({items: updatedArray});
+    this.setState({items: sortOnDate(this.state.items)});
     this.forceUpdate();
   }
 
