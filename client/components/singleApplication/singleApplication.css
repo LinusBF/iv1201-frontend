@@ -1,0 +1,11 @@
+.card-body .row {
+    margin: 0;
+}
+
+.card-body .row .col{
+    padding: 0;
+}
+
+.card-body form h5:not(:first-child){
+    margin-top: 1rem;
+}

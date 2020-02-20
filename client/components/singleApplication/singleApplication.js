@@ -1,14 +1,17 @@
 /*eslint-disable*/
 import React, {Component} from 'react';
-import './Application.css';
+import './singleApplication.css';
 import clown from '../../Images/flat.svg';
 import Card from 'react-bootstrap/Card';
 import {Form} from 'react-bootstrap';
+import data from '../applications/fakeApplicationData';
 
 class SingleApplication extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {application: data.apps[0]};
+    this.renderExpertiseList = this.renderExpertiseList.bind(this);
+    this.createListOptions = this.createListOptions.bind(this);
   }
 
   render() {
@@ -29,35 +32,7 @@ class SingleApplication extends Component {
             <div className="col-sm-12 col-md-6">
               <Card>
                 <Card.Body>
-                  <Form>
-                    <h5>Personal information</h5>
-                    <fieldset disabled>
-                    <div className="row">
-                      <div className="col">
-                        <input type="text" id="disabledTextInput" className="form-control" placeholder="First name"/>
-                      </div>
-                      <div className="col">
-                        <input type="text" className="form-control" placeholder="Last name"/>
-                      </div>
-                    </div>
-                    <input type="email" className="form-control" placeholder="Email adress"/>
-                    </fieldset>
-                    <h5>Your expertise</h5>
-                      <div className="row">
-                        <fieldset disabled>
-                        <Form.Group controlId="exampleForm.ControlSelect1">
-                          <Form.Label>Example select</Form.Label>
-                          <Form.Control as="select">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                          </Form.Control>
-                        </Form.Group>
-                        </fieldset>
-                      </div>
-                  </Form>
+
                 </Card.Body>
               </Card>
             </div>
