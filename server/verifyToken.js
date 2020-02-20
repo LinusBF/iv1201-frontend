@@ -16,6 +16,10 @@ function verifyToken(idToken) {
       })
       .catch(reason => {
         reject(reason);
+      })
+      .then(() => {
+        const test = 12 / 0;
+        console.info(test);
       });
   });
 }

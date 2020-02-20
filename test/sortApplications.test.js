@@ -2,7 +2,7 @@
 'use strict';
 const chai = require('chai');
 const expect = chai.expect;
-const sortApplications = require('../client/components/applications/apllicationSort');
+const sortApplications = require('../client/components/applications/applicationSort');
 const fakeData = require('../client/components/applications/fakeApplicationData');
 
 describe('Sort application', () => {

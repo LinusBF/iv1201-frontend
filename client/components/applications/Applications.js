@@ -6,15 +6,15 @@ import {ListGroupItem} from 'react-bootstrap';
 import './Applications.css';
 import clown from '../../Images/flat.svg';
 import data from './fakeApplicationData';
-import sortOnDate from './apllicationSort';
+import sortApplications from './applicationSort';
 
 class Applications extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      loadedSoFar: 20,
-      //items: Array.from({length: 20}),
-      items: data.apps.slice(0,20)
+      sortingOn: 1,
+      loadedSoFar: 30,
+      items: data.apps.slice(0,30)
     };
     this.sort = this.sort.bind(this);
     this.fetchMoreData = this.fetchMoreData.bind(this);
@@ -25,18 +25,26 @@ class Applications extends Component {
     // 20 more records in 1.5 secs
     setTimeout(() => {
       this.setState({
-        items: this.state.items.concat(data.apps.slice(0,this.state.loadedSoFar+20))
+        sortingOn: this.state.sortingOn,
+        items: this.state.items.concat(data.apps.slice(this.state.loadedSoFar, this.state.loadedSoFar+30)),
+        loadedSoFar: (this.state.loadedSoFar + 30)
       });
     }, 1500);
   }
 
   sort(col){
-    console.log(this.state.items);
-    this.setState({items: sortOnDate(this.state.items)});
-    this.forceUpdate();
+    sortApplications(col, this.state.items).then(updatedArray => {
+      this.setState({
+        sortingOn: this.state.sortingOn,
+        items: updatedArray,
+        loadedSoFar: this.state.loadedSoFar
+      });
+      this.forceUpdate();
+    });
   }
 
   calcAge(ssn){
+    //Todo: should calculate age be done server-side?
     return 25;
   }
 
@@ -56,20 +64,20 @@ class Applications extends Component {
         <ListGroup id={'listGroup'} className={'container justify-content-md-center'} >
           <ListGroupItem className={'list-group-item list-group-item-action active flex-column align-items-start'} id={'listGroup-header'}>
             <div className='d-flex w-100 justify-content-between' >
-              <div className={'colHead col-2-sm'} style={{marginRight: '4rem'}}><a href={'#'} onClick={() => {this.sort(1)}}>Received</a></div>
-              <div className={'colHead col-3'}><a href="#" onClick={() => {this.sort(2)}}>Name</a></div>
-              <div className={'colHead col'}><a href={"#"} onClick={() => {this.sort(3)}}>Age</a></div>
-              <div className={'colHead col'}><a href={"#"} onClick={() => {this.sort(4)}}>Skills</a></div>
-              <div className={'colHead col'}><a href={"#"} onClick={() => {this.sort(5)}}>Days</a></div>
+              <div className={'colHead col-2-sm'} style={{marginRight: '4rem'}}><a href={'#'} id={'head1'} onClick={() => {this.sort(1)}}>Received</a></div>
+              <div className={'colHead col-3'}><a href="#" id={'head2'} onClick={() => {this.sort(2)}}>Name</a></div>
+              <div className={'colHead col'}><a href={"#"} id={'head3'}>Age</a></div>
+              <div className={'colHead col'}><a href={"#"}>Skills</a></div>
+              <div className={'colHead col'}><a href={"#"}>Days</a></div>
               <div className={'colHead col'}><a href={"#"} onClick={() => {this.sort(6)}}>Start</a></div>
-              <div className={'colHead col'}><a href={"#"} onClick={() => {this.sort(7)}}>Decision</a></div>
+              <div className={'colHead col'}><a href={"#"}>Decision</a></div>
             </div>
           </ListGroupItem>
           <InfiniteScroll
             dataLength={this.state.items.length}
             next={this.fetchMoreData}
             hasMore={true}
-            loader={<h4>Loading...</h4>}
+            loader={<h5>Loading...</h5>}
           >
             {this.state.items.map((i, index) => (
               <ListGroupItem className={'list-group-item list-group-item-action flex-column align-items-start'} key={index}>
