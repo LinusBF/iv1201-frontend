@@ -1,33 +1,62 @@
 /*eslint-disable*/
-import React, {Component} from 'react';
+import React, {Component, createElement} from 'react';
 import './ApplicationForm.css';
-import data from '../applications/fakeApplicationData';
+import data from './fakeSingleApplicationData';
 import {Form} from 'react-bootstrap';
 import Card from 'react-bootstrap/Card';
 
 class ApplicationForm extends Component {
   constructor(props) {
     super(props);
-    this.state = {application: data.apps[0]};
+    this.state = {
+      expertises: data.expertises,
+      expSelections: ['Select an expertise']
+    };
+    this.createListOptions = this.createListOptions.bind(this);
+    this.createLists = this.createLists.bind(this);
+    this.renderExpertiseList = this.renderExpertiseList.bind(this);
+    this.addExpertiseRow = this.addExpertiseRow.bind(this);
   }
+
+  addExpertiseRow(key, index){
+    if (index === this.state.expSelections.length-1){
+      const oldArray = this.state.expSelections;
+      const newArray = oldArray.concat(['new item']);
+      this.setState({
+        expertises: this.state.expertises,
+        expSelections: newArray
+      });
+      this.forceUpdate();
+      console.log(this.state.expSelections);
+    };
+  }
+
   createListOptions(){
-    let options = [];
-    this.state.application.expertise.forEach((key, i) => {
+    let options = [<option>Select an expertise</option>];
+    this.state.expertises.forEach((key, i) => {
       options.push(<option key={i}>{key}</option>)
     });
-    return options
+    return options;
+  }
+  createLists(array){
+    const lists = [];
+    array.forEach((key, index) => {
+      lists.push(<Form.Control onChange={()=>{this.addExpertiseRow(key, index)}} as="select">
+        {this.createListOptions()}
+      </Form.Control>)
+    });
+    return lists;
   }
   renderExpertiseList(){
     return (
-      <fieldset className={'w-100'}>
-        <Form.Group>
-          <Form.Label>Example select</Form.Label>
-          <Form.Control as="select" id={'form-control'}>
-            {this.createListOptions()}
-            <option>1</option>
-          </Form.Control>
-        </Form.Group>
-      </fieldset>
+      <div className="row">
+        <fieldset className={'w-100'}>
+          <Form.Group id={'optionsContainer'}>
+            <Form.Label>Example select</Form.Label>
+            {this.createLists(this.state.expSelections)}
+          </Form.Group>
+        </fieldset>
+      </div>
     );
   };
 
@@ -36,9 +65,9 @@ class ApplicationForm extends Component {
       <div className={'container justify-content-md-center'}>
         <Card className={'col-7'}>
           <Card.Body>
-            <Form w-50>
+            <Form>
               <h5>Personal information</h5>
-              <fieldset disabled>
+              <fieldset>
                 <div className="row">
                   <div className="col">
                     <input type="text" id="disabledTextInput" className="form-control" placeholder="First name"/>
@@ -50,9 +79,7 @@ class ApplicationForm extends Component {
                 <input type="email" className="form-control" placeholder="Email adress"/>
               </fieldset>
               <h5>Your expertise</h5>
-              <div className="row">
-                {this.renderExpertiseList()}
-              </div>
+              {this.renderExpertiseList()}
             </Form>
           </Card.Body>
         </Card>

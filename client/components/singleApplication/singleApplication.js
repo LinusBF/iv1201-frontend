@@ -4,7 +4,7 @@ import './singleApplication.css';
 import clown from '../../Images/flat.svg';
 import Card from 'react-bootstrap/Card';
 import {Form} from 'react-bootstrap';
-import data from '../applications/fakeApplicationData';
+import data from '../applicationForm/fakeSingleApplicationData';
 
 class SingleApplication extends Component {
   constructor(props) {
