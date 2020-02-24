@@ -7,6 +7,7 @@ import Card from 'react-bootstrap/Card';
 import DatePickRow from './DatePickRow';
 
 import 'react-datepicker/dist/react-datepicker.css';
+import Button from 'react-bootstrap/Button';
 
 class ApplicationForm extends Component {
   constructor(props) {
@@ -15,11 +16,14 @@ class ApplicationForm extends Component {
       dateRows: [{fromDate: null, toDate: null}],
       expertises: data.expertises,
       expSelections: ['Select an expertise'],
+      letter: 'Please write about yourself here.',
     };
     this.createLists = this.createLists.bind(this);
     this.addExpertiseRow = this.addExpertiseRow.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.addDatePickRow = this.addDatePickRow.bind(this);
+    this.letterChange = this.letterChange.bind(this);
+    this.updateDate = this.updateDate.bind(this);
   }
   createLists(state) {
     const lists = [];
@@ -48,6 +52,7 @@ class ApplicationForm extends Component {
   addExpertiseRow(state, key, index) {
     if (index === state.expSelections.length - 1) {
       this.setState({
+        letter: state.letter,
         dateRows: state.dateRows,
         expertises: state.expertises,
         expSelections: state.expSelections.concat(['new item']),
@@ -58,11 +63,55 @@ class ApplicationForm extends Component {
   addDatePickRow(e) {
     e.preventDefault();
     this.setState({
+      letter: this.state.letter,
       dateRows: this.state.dateRows.concat([{fromDate: null, toDate: null}]),
       expertises: this.state.expertises,
       expSelections: this.state.expSelections,
     });
     this.forceUpdate();
+  }
+  updateDate(i, val, action) {
+    const newArray = [];
+    switch (action) {
+      case 'delete':
+        this.state.dateRows.forEach((entry, index) => {
+          if (index === i) return;
+          newArray.push(entry);
+        });
+        break;
+      case 'updateFrom':
+        this.state.dateRows.forEach((entry, index) => {
+          if (index === i) {
+            newArray.push([{fromDate: val}, {toDate: this.state.dateRows[i].toDate}]);
+            return;
+          }
+          newArray.push(entry);
+        });
+        break;
+      case 'updateTo':
+        this.state.dateRows.forEach((entry, index) => {
+          if (index === i) {
+            newArray.push([{fromDate: this.state.dateRows[i].fromDate}, {toDate: val}]);
+            return;
+          }
+          newArray.push(entry);
+        });
+        break;
+      default:
+        break;
+    }
+
+    console.log(newArray);
+    this.setState({
+      letter: this.state.letter,
+      dateRows: newArray,
+      expertises: this.state.expertises,
+      expSelections: this.state.expSelections,
+    });
+    this.forceUpdate();
+  }
+  letterChange(event) {
+    this.setState({value: event.target.value});
   }
   handleSubmit(event) {
     event.preventDefault();
@@ -79,9 +128,14 @@ class ApplicationForm extends Component {
   render() {
     const datePickRows = [];
     for (let i = 0; i < this.state.dateRows.length; i++) {
-      console.log(this.state.dateRows[i]);
       datePickRows.push(
         <DatePickRow
+          deleteHandler={() => {
+            this.deleteRow(i);
+          }}
+          updateDate={(val, action) => {
+            this.updateDate(i, val, action);
+          }}
           fromDate={this.state.dateRows[i].fromDate}
           toDate={this.state.dateRows[i].toDate}
         />
@@ -126,9 +180,30 @@ class ApplicationForm extends Component {
               <h5>Your availability</h5>
               <div id={'availabilityContainer'} className="w-100">
                 {datePickRows}
-                <button onClick={this.addDatePickRow}>Add row</button>
+                <Button
+                  onClick={this.addDatePickRow}
+                  className={'mt-2'}
+                  variant="primary"
+                  size="md"
+                  block
+                >
+                  Add row
+                </Button>
               </div>
-              <button>Submit</button>
+              <h5>Perdonal Letter</h5>
+              <div id={'availabilityContainer'} className="w-100">
+                <Form.Group controlId="exampleForm.ControlTextarea1">
+                  <Form.Control
+                    value={this.state.letter}
+                    onChange={this.letterChange}
+                    as="textarea"
+                    rows="3"
+                  />
+                </Form.Group>
+              </div>
+              <Button className={'mt-4'} variant="primary" size="md" block>
+                Submit application
+              </Button>
             </Form>
           </Card.Body>
         </Card>

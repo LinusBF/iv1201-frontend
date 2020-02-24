@@ -3,6 +3,8 @@ import DatePicker from 'react-datepicker';
 import {Form} from 'react-bootstrap';
 
 import 'react-datepicker/dist/react-datepicker.css';
+import Button from 'react-bootstrap/Button';
+import Icon from '../Icons';
 
 class DatePickRow extends Component {
   constructor(props) {
@@ -11,8 +13,10 @@ class DatePickRow extends Component {
       fromDate: this.props.fromDate,
       toDate: this.props.toDate,
     };
+
     this.changeFromDate = this.changeFromDate.bind(this);
     this.changeToDate = this.changeToDate.bind(this);
+    this.deleteRow = this.deleteRow.bind(this);
   }
 
   changeFromDate(date) {
@@ -20,17 +24,23 @@ class DatePickRow extends Component {
       fromDate: date,
       toDate: this.state.toDate,
     });
+    this.props.updateDate(date, 'updateFrom');
   }
   changeToDate(date) {
     this.setState({
       fromDate: this.state.fromDate,
       toDate: date,
     });
+    this.props.updateDate(date, 'updateTo');
+  }
+  deleteRow(event) {
+    event.preventDefault();
+    this.props.updateDate(null, 'delete');
   }
 
   render() {
     return (
-      <Form.Group className={'w-100 justify-content-sm-center row'}>
+      <Form.Group className={'w-100 row mt-2'}>
         <div className="col-5">
           <DatePicker
             selected={this.state.fromDate}
@@ -40,10 +50,7 @@ class DatePickRow extends Component {
             placeholderText="Select from date"
           />
         </div>
-        <div className="col-2">
-          <p>to:</p>
-        </div>
-        <div className="col-5">
+        <div className="col-5 ml-2">
           <DatePicker
             selected={this.state.toDate}
             className={'w-100'}
@@ -51,6 +58,11 @@ class DatePickRow extends Component {
             onChange={this.changeToDate}
             placeholderText="Select to date"
           />
+        </div>
+        <div className="col-1">
+          <Button variant={'outline-danger'} onClick={this.deleteRow}>
+            <Icon icon={'bin2'} />
+          </Button>
         </div>
       </Form.Group>
     );
