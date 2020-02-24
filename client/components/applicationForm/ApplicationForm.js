@@ -1,4 +1,4 @@
-/*eslint-disable*/
+/* eslint-disable max-lines */
 import React, {Component} from 'react';
 import './ApplicationForm.css';
 import data from './fakeSingleApplicationData';
@@ -12,27 +12,22 @@ class ApplicationForm extends Component {
       expertises: data.expertises,
       expSelections: ['Select an expertise'],
     };
-    this.createListOptions = this.createListOptions.bind(this);
     this.createLists = this.createLists.bind(this);
     this.addExpertiseRow = this.addExpertiseRow.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-
-  // Expertise-picker
   createLists(state) {
-    const expertiseList = state.expertises;
-    const selections = state.expSelections;
     const lists = [];
-    selections.forEach((key, index) => {
+    state.expSelections.forEach((key, index) => {
       lists.push(
         <Form.Control
           name={'expertise'}
           onChange={() => {
-            this.addExpertiseRow(key, index);
+            this.addExpertiseRow(this.state, key, index);
           }}
           as="select"
         >
-          {this.createListOptions(expertiseList)}
+          {this.createListOptions(state.expertises)}
         </Form.Control>
       );
     });
@@ -45,22 +40,15 @@ class ApplicationForm extends Component {
     });
     return options;
   }
-  addExpertiseRow(key, index) {
-    if (index === this.state.expSelections.length - 1) {
-      const newArray = this.state.expSelections.concat(['new item']);
+  addExpertiseRow(state, key, index) {
+    if (index === state.expSelections.length - 1) {
       this.setState({
-        expertises: this.state.expertises,
-        expSelections: newArray,
+        expertises: state.expertises,
+        expSelections: state.expSelections.concat(['new item']),
       });
       this.forceUpdate();
-      console.log(this.state.expSelections);
     }
   }
-
-  /**
-   * Final action - send the form
-   * @param event
-   */
   handleSubmit(event) {
     event.preventDefault();
     // eslint-disable-next-line no-undef
