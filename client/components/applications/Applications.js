@@ -67,9 +67,9 @@ class Applications extends Component {
               <div className={'colHead col-2-sm'} style={{marginRight: '4rem'}}><a href={'#'} id={'head1'} onClick={() => {this.sort(1)}}>Received</a></div>
               <div className={'colHead col-3'}><a href="#" id={'head2'} onClick={() => {this.sort(2)}}>Name</a></div>
               <div className={'colHead col'}><a href={"#"} id={'head3'}>Age</a></div>
-              <div className={'colHead col'}><a href={"#"}>Skills</a></div>
-              <div className={'colHead col'}><a href={"#"}>Days</a></div>
-              <div className={'colHead col'}><a href={"#"} onClick={() => {this.sort(6)}}>Start</a></div>
+              <div className={'colHead col'} style={{marginLeft: '-2rem'}}><a href={"#"}>Skills</a></div>
+              <div className={'colHead col'} style={{marginLeft: '-2rem'}}><a href={"#"}>Days</a></div>
+              <div className={'colHead col'} style={{marginLeft: '-2rem'}}><a href={"#"} onClick={() => {this.sort(6)}}>Start</a></div>
               <div className={'colHead col'}><a href={"#"}>Decision</a></div>
             </div>
           </ListGroupItem>
