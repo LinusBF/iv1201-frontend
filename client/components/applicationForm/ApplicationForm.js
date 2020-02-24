@@ -4,6 +4,7 @@ import './ApplicationForm.css';
 import data from './fakeSingleApplicationData';
 import {Form} from 'react-bootstrap';
 import Card from 'react-bootstrap/Card';
+import {forEach} from 'react-bootstrap/cjs/ElementChildren';
 
 class ApplicationForm extends Component {
   constructor(props) {
@@ -14,14 +15,13 @@ class ApplicationForm extends Component {
     };
     this.createListOptions = this.createListOptions.bind(this);
     this.createLists = this.createLists.bind(this);
-    this.renderExpertiseList = this.renderExpertiseList.bind(this);
     this.addExpertiseRow = this.addExpertiseRow.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   addExpertiseRow(key, index){
     if (index === this.state.expSelections.length-1){
-      const oldArray = this.state.expSelections;
-      const newArray = oldArray.concat(['new item']);
+      const newArray = this.state.expSelections.concat(['new item']);
       this.setState({
         expertises: this.state.expertises,
         expSelections: newArray
@@ -32,54 +32,55 @@ class ApplicationForm extends Component {
   }
 
   createListOptions(){
-    let options = [<option>Select an expertise</option>];
+    let options = [<option key={0}>Select an expertise</option>];
     this.state.expertises.forEach((key, i) => {
-      options.push(<option key={i}>{key}</option>)
+      options.push(<option key={i+1}>{key}</option>)
     });
     return options;
   }
   createLists(array){
     const lists = [];
     array.forEach((key, index) => {
-      lists.push(<Form.Control onChange={()=>{this.addExpertiseRow(key, index)}} as="select">
+      lists.push(<Form.Control name={'expertise'} onChange={()=>{this.addExpertiseRow(key, index)}} as="select">
         {this.createListOptions()}
       </Form.Control>)
     });
     return lists;
   }
-  renderExpertiseList(){
-    return (
-      <div className="row">
-        <fieldset className={'w-100'}>
-          <Form.Group id={'optionsContainer'}>
-            <Form.Label>Example select</Form.Label>
-            {this.createLists(this.state.expSelections)}
-          </Form.Group>
-        </fieldset>
-      </div>
-    );
-  };
+
+  handleSubmit(event){
+    event.preventDefault();
+    const data = new FormData(event.target).entries();
+    let printVal;
+    while ((printVal = data.next()).done === false){
+      console.log(printVal);
+    };
+  }
 
   render() {
     return (
       <div className={'container justify-content-md-center'}>
         <Card className={'col-7'}>
           <Card.Body>
-            <Form>
+            <Form onSubmit={this.handleSubmit}>
               <h5>Personal information</h5>
-              <fieldset>
                 <div className="row">
                   <div className="col">
-                    <input type="text" id="disabledTextInput" className="form-control" placeholder="First name"/>
+                    <input type="text" name={'firstName'} className="form-control" placeholder="First name"/>
                   </div>
                   <div className="col">
-                    <input type="text" className="form-control" placeholder="Last name"/>
+                    <input type="text" name={'lastName'} className="form-control" placeholder="Last name"/>
                   </div>
                 </div>
-                <input type="email" className="form-control" placeholder="Email adress"/>
-              </fieldset>
-              <h5>Your expertise</h5>
-              {this.renderExpertiseList()}
+                <input type="email" name={'email'} className="form-control" placeholder="Email adress"/>
+                <h5>Your expertise</h5>
+                <div className="row w-100">
+                  <Form.Group id={'optionsContainer'} className={'w-100'}>
+                    <Form.Label>Example select</Form.Label>
+                    {this.createLists(this.state.expSelections)}
+                  </Form.Group>
+                </div>
+              <button type={'submit'}>Submit</button>
             </Form>
           </Card.Body>
         </Card>
