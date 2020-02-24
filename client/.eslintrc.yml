@@ -9,3 +9,5 @@ parserOptions:
     jsx: true
 rules:
   node/no-unsupported-features/es-syntax: off
+  node/no-unpublished-import: off
+  react/prop-types: off
