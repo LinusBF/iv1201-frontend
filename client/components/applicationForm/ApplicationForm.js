@@ -19,6 +19,23 @@ class ApplicationForm extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  // Expertise-picker
+  createLists(array){
+    const lists = [];
+    array.forEach((key, index) => {
+      lists.push(<Form.Control name={'expertise'} onChange={()=>{this.addExpertiseRow(key, index)}} as="select">
+        {this.createListOptions()}
+      </Form.Control>)
+    });
+    return lists;
+  }
+  createListOptions(){
+    let options = [<option key={0}>Select an expertise</option>];
+    this.state.expertises.forEach((key, i) => {
+      options.push(<option key={i+1}>{key}</option>)
+    });
+    return options;
+  }
   addExpertiseRow(key, index){
     if (index === this.state.expSelections.length-1){
       const newArray = this.state.expSelections.concat(['new item']);
@@ -31,30 +48,19 @@ class ApplicationForm extends Component {
     };
   }
 
-  createListOptions(){
-    let options = [<option key={0}>Select an expertise</option>];
-    this.state.expertises.forEach((key, i) => {
-      options.push(<option key={i+1}>{key}</option>)
-    });
-    return options;
-  }
-  createLists(array){
-    const lists = [];
-    array.forEach((key, index) => {
-      lists.push(<Form.Control name={'expertise'} onChange={()=>{this.addExpertiseRow(key, index)}} as="select">
-        {this.createListOptions()}
-      </Form.Control>)
-    });
-    return lists;
-  }
-
+  /**
+   * Final action - send the form
+   * @param event
+   */
   handleSubmit(event){
     event.preventDefault();
     const data = new FormData(event.target).entries();
-    let printVal;
-    while ((printVal = data.next()).done === false){
-      console.log(printVal);
+    let entry;
+    const valueArray = [];
+    while ((entry = data.next()).done === false){
+      valueArray.push(entry.value)
     };
+    console.log(valueArray);
   }
 
   render() {

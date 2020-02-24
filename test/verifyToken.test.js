@@ -9,8 +9,7 @@ const projectConfig = {
   databaseURL: 'https://global-application-example.firebaseio.com',
 };
 
-// eslint-disable-next-line no-unused-vars
-const test = require('firebase-functions-test')(projectConfig, 'test/firebase.key.json');
+require('firebase-functions-test')(projectConfig, 'test/firebase.key.json');
 
 describe('Cloud Functions', () => {
   before(() => {
