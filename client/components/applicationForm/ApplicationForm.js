@@ -74,15 +74,17 @@ class ApplicationForm extends Component {
     const newArray = [];
     switch (action) {
       case 'delete':
+        console.log(`${action} ${i}`);
         this.state.dateRows.forEach((entry, index) => {
           if (index === i) return;
           newArray.push(entry);
         });
+        console.log(`After delete: ${newArray.length}`);
         break;
       case 'updateFrom':
         this.state.dateRows.forEach((entry, index) => {
           if (index === i) {
-            newArray.push([{fromDate: val}, {toDate: this.state.dateRows[i].toDate}]);
+            newArray.push({fromDate: val, toDate: this.state.dateRows[i].toDate});
             return;
           }
           newArray.push(entry);
@@ -91,7 +93,7 @@ class ApplicationForm extends Component {
       case 'updateTo':
         this.state.dateRows.forEach((entry, index) => {
           if (index === i) {
-            newArray.push([{fromDate: this.state.dateRows[i].fromDate}, {toDate: val}]);
+            newArray.push({fromDate: this.state.dateRows[i].fromDate, toDate: val});
             return;
           }
           newArray.push(entry);
@@ -108,7 +110,6 @@ class ApplicationForm extends Component {
       expertises: this.state.expertises,
       expSelections: this.state.expSelections,
     });
-    this.forceUpdate();
   }
   letterChange(event) {
     this.setState({value: event.target.value});
@@ -128,11 +129,11 @@ class ApplicationForm extends Component {
   render() {
     const datePickRows = [];
     for (let i = 0; i < this.state.dateRows.length; i++) {
+      console.log(`New FromDate: ${this.state.dateRows[i].fromDate}`);
+      console.log(`New toDate: ${this.state.dateRows[i].toDate}`);
       datePickRows.push(
         <DatePickRow
-          deleteHandler={() => {
-            this.deleteRow(i);
-          }}
+          key={i}
           updateDate={(val, action) => {
             this.updateDate(i, val, action);
           }}
@@ -201,7 +202,7 @@ class ApplicationForm extends Component {
                   />
                 </Form.Group>
               </div>
-              <Button className={'mt-4'} variant="primary" size="md" block>
+              <Button type={'submit'} variant={'primary'} size={'md'} className={'mt-2'} block>
                 Submit application
               </Button>
             </Form>
