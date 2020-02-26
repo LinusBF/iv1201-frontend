@@ -5,6 +5,7 @@ import Register from '../register/Register';
 import Applications from '../applications/Applications';
 import SingleApplication from '../singleApplication/singleApplication';
 import ApplicationForm from '../applicationForm/ApplicationForm';
+import ExpertiseComponent from '../applicationForm/expertisepicker/ExpertiseComponent';
 
 class Layout extends Component {
   constructor(props) {
@@ -18,6 +19,7 @@ class Layout extends Component {
           <Route path="/Applications" render={() => <Applications />} />
           <Route path="/SingleApplication" render={() => <SingleApplication />} />
           <Route path="/ApplicationForm" render={() => <ApplicationForm />} />
+          <Route path="/expertise" render={() => <ExpertiseComponent />} />
           <Route path="/" render={() => <Login />} />
         </Switch>
       </div>
