@@ -16,20 +16,17 @@ class Login extends Component {
   }
 
   handleSubmit(e) {
-    e.preventDefault();
     const that = this;
     firebase
       .auth()
-      .signInWithEmailAndPassword(e.target[0].value, e.target[1].value)
-      .then(r => {
-        console.info(r);
+      .signInWithEmailAndPassword(e.email, e.password)
+      .then(() => {
         firebase
           .auth()
           .currentUser.getIdToken(/* forceRefresh */ true)
           .then(function(idToken) {
             // eslint-disable-next-line react/prop-types
             that.props.login(idToken);
-            console.info(idToken);
             // ...
           })
           .catch(function(error) {
@@ -56,7 +53,7 @@ class Login extends Component {
           >
             {/* eslint-disable-next-line no-unused-vars */}
             {({handleSubmit, handleChange, handleBlur, values, touched, isInvalid, errors}) => (
-              <Form noValidate onSubmit={this.handleSubmit}>
+              <Form noValidate onSubmit={handleSubmit}>
                 <Form.Group style={{marginBottom: 0}} controlId="formBasicEmail">
                   <Form.Control
                     className={'inputMail'}
@@ -75,7 +72,13 @@ class Login extends Component {
                     className={'inputPass'}
                     type="password"
                     placeholder="Enter your Password"
+                    name="password"
+                    onBlur={handleBlur}
+                    value={values.password}
+                    onChange={handleChange}
+                    isInvalid={touched.password && errors.password}
                   />
+                  <Form.Control.Feedback type="invalid">{errors.password}</Form.Control.Feedback>
                 </Form.Group>
                 <ButtonToolbar>
                   <Button id={'loginButton'} type="submit" variant={'dark'}>
@@ -93,6 +96,4 @@ class Login extends Component {
     );
   }
 }
-
-// eslint-disable-next-line no-undef
 export default connect(null, {login})(Login);
