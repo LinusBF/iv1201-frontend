@@ -8,7 +8,9 @@ import Button from 'react-bootstrap/Button';
 import DatePickerComponent from './datepicker/DatePickerComponent';
 import ExpertiseComponent from './expertisepicker/ExpertiseComponent';
 import FormatSubmission from './formatSubmission';
+// eslint-disable-next-line no-unused-vars
 import {FormWithConstraints, FieldFeedbacks, FieldFeedback} from 'react-form-with-constraints';
+import PersonalDetailsComponent from './PersonalDetailsComponent';
 
 class ApplicationForm extends Component {
   constructor(props) {
@@ -51,82 +53,17 @@ class ApplicationForm extends Component {
               noValidate
             >
               <h5>Personal information</h5>
-              <div id="personalDetails">
-                <div className="row">
-                  <div className="col">
-                    <input
-                      type="text"
-                      name={'firstName'}
-                      onChange={this.handleChange}
-                      className="form-control"
-                      placeholder="First name"
-                      required
-                    />
-                    <FieldFeedbacks for="firstName">
-                      <FieldFeedback when={value => !/^$|^[a-zA-Z]+$/.test(value)}>
-                        Only letters...
-                      </FieldFeedback>
-                      <FieldFeedback when={value => value.length < 3}>Too short...</FieldFeedback>
-                    </FieldFeedbacks>
-                  </div>
-                  <div className="col">
-                    <input
-                      type="text"
-                      name={'lastName'}
-                      onChange={this.handleChange}
-                      className="form-control"
-                      placeholder="Last name"
-                      required
-                    />
-                    <FieldFeedbacks for="lastName">
-                      <FieldFeedback when={value => !/^$|^[a-zA-Z]+$/.test(value)}>
-                        Only letters...
-                      </FieldFeedback>
-                      <FieldFeedback when={value => value.length < 3}>Too short...</FieldFeedback>
-                    </FieldFeedbacks>
-                  </div>
-                </div>
-                <input
-                  type="text"
-                  name={'ssn'}
-                  autoComplete={'off'}
-                  className="form-control"
-                  onChange={this.handleChange}
-                  placeholder="Personal number"
-                  required
-                />
-                <FieldFeedbacks for="ssn">
-                  <FieldFeedback when={value => value.length === 0}>Mandatory field!</FieldFeedback>
-                  <FieldFeedback when={value => value.length !== 12}>YYYYMMDDXXX</FieldFeedback>
-                  <FieldFeedback when={value => !/^(19|20)?[0-9]{6}[- ]?[0-9]{4}$/.test(value)}>
-                    YYYYMMDDXXX
-                  </FieldFeedback>
-                </FieldFeedbacks>
-                <input
-                  type="email"
-                  name={'email'}
-                  className="form-control"
-                  placeholder="Email adress"
-                  onChange={this.handleChange}
-                  required
-                />
-                <FieldFeedbacks for="email">
-                  <FieldFeedback when={value => value.length === 0}>Mandatory field!</FieldFeedback>
-                  <FieldFeedback when={value => !/\S+@\S+/.test(value)}>
-                    Invalid email
-                  </FieldFeedback>
-                </FieldFeedbacks>
-              </div>
+              <PersonalDetailsComponent changeHandler={this.handleChange} />
               <h5>Your expertise</h5>
               <div className="row w-100">
-                <ExpertiseComponent />
+                <ExpertiseComponent changeHandler={this.handleChange} />
               </div>
               <h5 className={'mt-2'}>Your availability</h5>
               <div id={'availabilityContainer'} className="w-100">
-                <DatePickerComponent />
+                <DatePickerComponent changeHandler={this.handleChange} />
               </div>
               <h5>Personal Letter</h5>
-              <div id={'availabilityContainer'} className="w-100">
+              <div className="w-100">
                 <Form.Group controlId="exampleForm.ControlTextarea1">
                   <Form.Control
                     placeholder={'Enter some text here'}
