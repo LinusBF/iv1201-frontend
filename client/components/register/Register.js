@@ -8,6 +8,7 @@ import Logo from '../logo/Logo';
 import {Formik} from 'formik';
 import {loginFormSchema} from '../../yupSchemas/loginSchema';
 import {Redirect} from 'react-router-dom';
+
 class Register extends Component {
   constructor(props) {
     super(props);
@@ -87,7 +88,6 @@ class Register extends Component {
             )}
           </Formik>
         </div>
-        {console.log(this.props.loggedIn)}
         {this.props.loggedIn === true ? <Redirect to="/ApplicationForm" /> : <div></div>}
       </div>
     );
