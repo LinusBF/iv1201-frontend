@@ -35,10 +35,16 @@ class ExpertiseRow extends Component {
     if (!this.state.shouldRender) return null;
     return (
       <div className={'w-100 row mt-2'}>
-        <Form.Control className="col-10" name={'expertise'} as="select">
+        <Form.Control className="col-8" name={'expertise'} as="select">
           {options}
         </Form.Control>
-        <div className="col-1">
+        <input
+          type="text"
+          name={'years'}
+          className="form-control col ml-2 mr-0 pl-2"
+          placeholder="Years"
+        />
+        <div className="col-2-sm">
           <Button variant={'outline-danger'} onClick={this.deleteList}>
             <Icon icon={'bin2'} />
           </Button>

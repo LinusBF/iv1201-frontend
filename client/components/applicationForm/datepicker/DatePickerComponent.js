@@ -1,4 +1,3 @@
-/* eslint-disable max-lines */
 import React, {Component} from 'react';
 import DatePickerRow from './DatePickerRow';
 import Button from 'react-bootstrap/Button';

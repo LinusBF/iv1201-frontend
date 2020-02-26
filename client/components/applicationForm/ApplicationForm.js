@@ -7,6 +7,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import Button from 'react-bootstrap/Button';
 import DatePickerComponent from './datepicker/DatePickerComponent';
 import ExpertiseComponent from './expertisepicker/ExpertiseComponent';
+import FormatSubmission from './formatSubmission';
 
 class ApplicationForm extends Component {
   constructor(props) {
@@ -31,6 +32,7 @@ class ApplicationForm extends Component {
     while ((entry = data.next()).done === false) {
       valueArray.push(entry.value);
     }
+    console.log(FormatSubmission(valueArray));
   }
 
   render() {
@@ -40,30 +42,39 @@ class ApplicationForm extends Component {
           <Card.Body>
             <Form onSubmit={this.handleSubmit}>
               <h5>Personal information</h5>
-              <div className="row">
-                <div className="col">
-                  <input
-                    type="text"
-                    name={'firstName'}
-                    className="form-control"
-                    placeholder="First name"
-                  />
+              <div id="personalDetails">
+                <div className="row">
+                  <div className="col">
+                    <input
+                      type="text"
+                      name={'firstName'}
+                      className="form-control"
+                      placeholder="First name"
+                    />
+                  </div>
+                  <div className="col">
+                    <input
+                      type="text"
+                      name={'lastName'}
+                      className="form-control"
+                      placeholder="Last name"
+                    />
+                  </div>
                 </div>
-                <div className="col">
-                  <input
-                    type="text"
-                    name={'lastName'}
-                    className="form-control"
-                    placeholder="Last name"
-                  />
-                </div>
+                <input
+                  type="text"
+                  name={'ssn'}
+                  autoComplete={'off'}
+                  className="form-control"
+                  placeholder="Personal number"
+                />
+                <input
+                  type="email"
+                  name={'email'}
+                  className="form-control"
+                  placeholder="Email adress"
+                />
               </div>
-              <input
-                type="email"
-                name={'email'}
-                className="form-control"
-                placeholder="Email adress"
-              />
               <h5>Your expertise</h5>
               <div className="row w-100">
                 <ExpertiseComponent />
