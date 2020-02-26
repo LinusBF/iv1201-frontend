@@ -6,68 +6,31 @@ import Card from 'react-bootstrap/Card';
 import 'react-datepicker/dist/react-datepicker.css';
 import Button from 'react-bootstrap/Button';
 import DatePickerComponent from './datepicker/DatePickerComponent';
+import ExpertiseComponent from './expertisepicker/ExpertiseComponent';
 
 class ApplicationForm extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      dateRows: [{fromDate: null, toDate: null}],
-      expSelections: ['Select an expertise'],
-      letter: 'Please write about yourself here.',
-    };
-    this.createLists = this.createLists.bind(this);
-    this.addExpertiseRow = this.addExpertiseRow.bind(this);
+    this.state = {letter: ''};
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.letterChange = this.letterChange.bind(this);
+    this.personalLetterChange = this.personalLetterChange.bind(this);
   }
-  createLists(state) {
-    const lists = [];
-    state.expSelections.forEach((key, index) => {
-      lists.push(
-        <Form.Control
-          name={'expertise'}
-          onChange={() => {
-            this.addExpertiseRow(this.state, key, index);
-          }}
-          as="select"
-        >
-          {this.createListOptions(state.expertises)}
-        </Form.Control>
-      );
-    });
-    return lists;
-  }
-  createListOptions(expertiseList) {
-    let options = [<option key={0}>Select an expertise</option>];
-    expertiseList.forEach((key, i) => {
-      options.push(<option key={i + 1}>{key}</option>);
-    });
-    return options;
-  }
-  addExpertiseRow(state, key, index) {
-    if (index === state.expSelections.length - 1) {
-      this.setState({
-        letter: state.letter,
-        dateRows: state.dateRows,
-        expertises: state.expertises,
-        expSelections: state.expSelections.concat(['new item']),
-      });
-      this.forceUpdate();
-    }
-  }
-  letterChange(event) {
-    this.setState({value: event.target.value});
+  personalLetterChange(event) {
+    let state = this.state;
+    state['letter'] = event.target.value;
+    this.setState(state);
   }
   handleSubmit(event) {
     event.preventDefault();
     // eslint-disable-next-line no-undef
-    const data = new FormData(event.target).entries();
+    const formData = new FormData(event.target);
+    formData.append('letter', this.state.letter);
+    const data = formData.entries();
     let entry;
     const valueArray = [];
     while ((entry = data.next()).done === false) {
       valueArray.push(entry.value);
     }
-    console.log(valueArray);
   }
 
   render() {
@@ -103,20 +66,19 @@ class ApplicationForm extends Component {
               />
               <h5>Your expertise</h5>
               <div className="row w-100">
-                <Form.Group id={'optionsContainer'} className={'w-100'}>
-                  {this.createLists(this.state)}
-                </Form.Group>
+                <ExpertiseComponent />
               </div>
-              <h5>Your availability</h5>
+              <h5 className={'mt-2'}>Your availability</h5>
               <div id={'availabilityContainer'} className="w-100">
                 <DatePickerComponent />
               </div>
-              <h5>Perdonal Letter</h5>
+              <h5>Personal Letter</h5>
               <div id={'availabilityContainer'} className="w-100">
                 <Form.Group controlId="exampleForm.ControlTextarea1">
                   <Form.Control
+                    placeholder={'Enter some text here'}
                     value={this.state.letter}
-                    onChange={this.letterChange}
+                    onChange={this.personalLetterChange}
                     as="textarea"
                     rows="3"
                   />

@@ -40,7 +40,7 @@ class DatePickerRow extends Component {
             selected={this.state.fromDate}
             className={'w-100'}
             onChange={this.changeFromDate}
-            name={'from'}
+            name={'availableFrom'}
             placeholderText="Select from date"
           />
         </div>
@@ -50,7 +50,7 @@ class DatePickerRow extends Component {
             selected={this.state.toDate}
             className={'w-100'}
             onChange={this.changeToDate}
-            name={'to'}
+            name={'availableTo'}
             placeholderText="Select to date"
           />
         </div>

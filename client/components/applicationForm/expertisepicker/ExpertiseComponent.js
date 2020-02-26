@@ -2,7 +2,6 @@
 import React, {Component} from 'react';
 import Button from 'react-bootstrap/Button';
 import {Form} from 'react-bootstrap';
-import Card from 'react-bootstrap/Card';
 import ExpertiseRow from './ExpertiseRow';
 
 class ExpertiseComponent extends Component {
@@ -28,17 +27,13 @@ class ExpertiseComponent extends Component {
     return arr;
   }
   render() {
-    const allLists = [];
-    allLists.push(this.renderAllLists());
+    const allLists = this.renderAllLists();
     return (
-      <div className={'container justify-content-md-center'}>
-        <Card className={'col-7'}>
-          <h5>TEST</h5>
-          <Form.Group>{allLists}</Form.Group>
-          <Button onClick={this.addList} className={'mt-2'} variant="primary" size="md" block>
-            Add expertise
-          </Button>
-        </Card>
+      <div className={'row w-100'}>
+        <Form.Group className={'w-100'}>{allLists}</Form.Group>
+        <Button onClick={this.addList} className={'mt-0 mb-4'} variant="primary" size="md" block>
+          Add expertise
+        </Button>
       </div>
     );
   }

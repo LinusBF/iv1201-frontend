@@ -30,9 +30,8 @@ class DatePickerComponent extends Component {
     allRows.push(this.renderAllRows());
     return (
       <div>
-        <h5>TEST</h5>
         {allRows}
-        <Button onClick={this.addRow} className={'mt-2'} variant="primary" size="md" block>
+        <Button onClick={this.addRow} className={'mt-2 mb-4'} variant="primary" size="md" block>
           Add row
         </Button>
       </div>
