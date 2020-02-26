@@ -29,7 +29,7 @@ class ExpertiseComponent extends Component {
   render() {
     const allLists = this.renderAllLists();
     return (
-      <div className={'row w-100'}>
+      <div id={'expertises'} className={'row w-100'}>
         <Form.Group className={'w-100'}>{allLists}</Form.Group>
         <Button onClick={this.addList} className={'mt-0 mb-4'} variant="primary" size="md" block>
           Add expertise
