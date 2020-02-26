@@ -51,7 +51,7 @@ class ExpertiseRow extends Component {
         <FieldFeedbacks for="years">
           <FieldFeedback when="valueMissing">Mandatory</FieldFeedback>
           <FieldFeedback when={value => !/[+-]?([0-9]*[.])?[0-9]+$/.test(value)}>
-            Number
+            Numbers
           </FieldFeedback>
         </FieldFeedbacks>
         <div className="col-2-sm">

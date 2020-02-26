@@ -50,6 +50,7 @@ class DatePickerRow extends Component {
       <Form.Group className={'w-100 row mt-2'}>
         <div className="col-5">
           <DatePicker
+            dateFormat="yyyy/MM/dd"
             autoComplete={'off'}
             selected={this.state.fromDate}
             className={'w-100'}
@@ -63,6 +64,7 @@ class DatePickerRow extends Component {
         </FieldFeedbacks>
         <div className="col-5 m-0">
           <DatePicker
+            dateFormat="yyyy/MM/dd"
             autoComplete={'off'}
             selected={this.state.toDate}
             className={'w-100'}

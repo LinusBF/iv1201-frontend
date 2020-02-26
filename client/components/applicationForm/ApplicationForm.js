@@ -24,12 +24,14 @@ class ApplicationForm extends Component {
     let state = this.state;
     state['letter'] = event.target.value;
     this.setState(state);
+    this.handleChange(event);
   }
   handleChange(e) {
     this.form.validateFields(e.target);
   }
   handleSubmit(event) {
     event.preventDefault();
+    this.form.validateFields();
     // eslint-disable-next-line no-undef
     const formData = new FormData(event.target);
     formData.append('letter', this.state.letter);
@@ -63,16 +65,26 @@ class ApplicationForm extends Component {
                 <DatePickerComponent changeHandler={this.handleChange} />
               </div>
               <h5>Personal Letter</h5>
-              <div className="w-100">
+              <div id={'letter'} className="w-100">
                 <Form.Group controlId="exampleForm.ControlTextarea1">
                   <Form.Control
-                    placeholder={'Enter some text here'}
+                    placeholder={'Enter your personal letter here'}
                     value={this.state.letter}
                     onChange={this.personalLetterChange}
                     as="textarea"
+                    name={'letter'}
                     rows="3"
+                    required
                   />
                 </Form.Group>
+                <FieldFeedbacks for="letter">
+                  <FieldFeedback when="valueMissing">
+                    Personal letter is a mandatory field...
+                  </FieldFeedback>
+                  <FieldFeedback when={value => value.length > 200}>
+                    Yeeeeez man, 200 chars maximum!
+                  </FieldFeedback>
+                </FieldFeedbacks>
               </div>
               <Button type={'submit'} variant={'primary'} size={'md'} className={'mt-2'} block>
                 Submit application

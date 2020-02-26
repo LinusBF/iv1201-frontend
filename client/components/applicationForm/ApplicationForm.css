@@ -64,3 +64,7 @@
     padding: 0 1rem 0 0;
     font-size: 0.8rem;
 }
+#letter span{
+    margin: -0.7rem 0 0.8rem 0;
+    text-align: left;
+}
