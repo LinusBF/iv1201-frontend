@@ -4,14 +4,10 @@ import './singleApplication.css';
 import clown from '../../Images/flat.svg';
 import Card from 'react-bootstrap/Card';
 import {Form} from 'react-bootstrap';
-import data from '../applicationForm/fakeSingleApplicationData';
 
 class SingleApplication extends Component {
   constructor(props) {
     super(props);
-    this.state = {application: data.apps[0]};
-    this.renderExpertiseList = this.renderExpertiseList.bind(this);
-    this.createListOptions = this.createListOptions.bind(this);
   }
 
   render() {

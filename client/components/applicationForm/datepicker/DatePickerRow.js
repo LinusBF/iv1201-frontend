@@ -1,47 +1,35 @@
 import React, {Component} from 'react';
 import DatePicker from 'react-datepicker';
-import {Form} from 'react-bootstrap';
-
 import 'react-datepicker/dist/react-datepicker.css';
 import Button from 'react-bootstrap/Button';
-import Icon from '../Icons';
+import Icon from '../../Icons';
+import {Form} from 'react-bootstrap';
 
-class DatePickRow extends Component {
+class DatePickerRow extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      fromDate: null,
+      toDate: null,
       shouldRender: true,
-      fromDate: this.props.fromDate,
-      toDate: this.props.toDate,
     };
-
     this.changeFromDate = this.changeFromDate.bind(this);
     this.changeToDate = this.changeToDate.bind(this);
     this.deleteRow = this.deleteRow.bind(this);
   }
-
-  changeFromDate(date) {
-    this.setState({
-      shouldRender: this.state.shouldRender,
-      fromDate: date,
-      toDate: this.state.toDate !== null ? new Date(this.state.toDate) : null,
-    });
-    this.props.updateDate(date, 'updateFrom');
+  changeFromDate(newDate) {
+    let state = this.state;
+    state['fromDate'] = newDate;
+    this.setState(state);
   }
-  changeToDate(date) {
-    this.setState({
-      shouldRender: this.state.shouldRender,
-      fromDate: this.state.fromDate !== null ? new Date(this.state.fromDate) : null,
-      toDate: date,
-    });
-    this.props.updateDate(date, 'updateTo');
+  changeToDate(newDate) {
+    let state = this.state;
+    state['toDate'] = newDate;
+    this.setState(state);
   }
-  deleteRow(event) {
-    event.preventDefault();
+  deleteRow() {
     this.setState({shouldRender: false});
-    this.props.updateDate(null, 'delete');
   }
-
   render() {
     if (!this.state.shouldRender) return null;
     return (
@@ -51,8 +39,8 @@ class DatePickRow extends Component {
             autoComplete={'off'}
             selected={this.state.fromDate}
             className={'w-100'}
-            name={'availableFrom'}
             onChange={this.changeFromDate}
+            name={'availableFrom'}
             placeholderText="Select from date"
           />
         </div>
@@ -61,8 +49,8 @@ class DatePickRow extends Component {
             autoComplete={'off'}
             selected={this.state.toDate}
             className={'w-100'}
-            name={'availableTo'}
             onChange={this.changeToDate}
+            name={'availableTo'}
             placeholderText="Select to date"
           />
         </div>
@@ -75,4 +63,4 @@ class DatePickRow extends Component {
     );
   }
 }
-export default DatePickRow;
+export default DatePickerRow;
