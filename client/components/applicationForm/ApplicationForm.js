@@ -22,6 +22,7 @@ class ApplicationForm extends Component {
   }
   handleSubmit(event) {
     event.preventDefault();
+    console.log('SUBMIT');
     // eslint-disable-next-line no-undef
     const formData = new FormData(event.target);
     formData.append('letter', this.state.letter);
@@ -31,6 +32,7 @@ class ApplicationForm extends Component {
     while ((entry = data.next()).done === false) {
       valueArray.push(entry.value);
     }
+    console.log(valueArray);
   }
 
   render() {
