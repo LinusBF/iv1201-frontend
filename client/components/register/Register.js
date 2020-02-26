@@ -7,28 +7,23 @@ import '../login/Login.css';
 import Logo from '../logo/Logo';
 import {Formik} from 'formik';
 import {loginFormSchema} from '../../yupSchemas/loginSchema';
-
+import {Redirect} from 'react-router-dom';
 class Register extends Component {
   constructor(props) {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-
   handleSubmit(e) {
     const that = this;
     firebase
       .auth()
       .createUserWithEmailAndPassword(e.email, e.password)
-      .then(r => {
-        console.info(r);
+      .then(() => {
         firebase
           .auth()
           .currentUser.getIdToken(/* forceRefresh */ true)
           .then(function(idToken) {
-            // eslint-disable-next-line react/prop-types
             that.props.login(idToken);
-            console.info(idToken);
-            // ...
           })
           .catch(function(error) {
             console.error(error);
@@ -38,7 +33,6 @@ class Register extends Component {
         console.error('sign up not successful', e);
       });
   }
-
   render() {
     return (
       <div>
@@ -93,9 +87,13 @@ class Register extends Component {
             )}
           </Formik>
         </div>
+        {console.log(this.props.loggedIn)}
+        {this.props.loggedIn === true ? <Redirect to="/ApplicationForm" /> : <div></div>}
       </div>
     );
   }
 }
-
-export default connect(null, {login})(Register);
+function mapStateToProps(state) {
+  return {loggedIn: state.login.loggedIn};
+}
+export default connect(mapStateToProps, {login})(Register);
