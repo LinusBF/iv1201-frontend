@@ -4,7 +4,7 @@ import {Form, Button, ButtonToolbar} from 'react-bootstrap';
 import {connect} from 'react-redux';
 import {login} from '../../redux/actions';
 import './Login.css';
-import clown from '../../Images/flat.svg';
+import Logo from '../logo/Logo';
 
 class Login extends Component {
   constructor(props) {
@@ -42,15 +42,7 @@ class Login extends Component {
   render() {
     return (
       <div>
-        <div className={'logo'}>
-          <div className={'clownIcon'}>
-            <img src={clown} alt={'...'} />
-          </div>
-          <div className={'logoright'}>
-            <div className={'logoHeader1'}>HireTheseClowns</div>
-            <div className={'logoHeader2'}>Recruitment Service</div>
-          </div>
-        </div>
+        <Logo />
         <div className={'loginForm'}>
           <div id={'headline1'}>You are here to</div>
           <div id={'headline2'}>Make people laugh</div>
