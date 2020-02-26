@@ -47,14 +47,14 @@
     font-family: 'Open Sans', sans-serif !important;
 }
 
-#inputPass {
+.inputPass {
     height: 60px;
     font-size: 13px;
     font-family: 'Open Sans', sans-serif !important;
 }
 
 
-#inputMail {
+.inputMail {
     height: 60px;
     font-size: 13px;
     font-family: 'Open Sans', sans-serif !important;
