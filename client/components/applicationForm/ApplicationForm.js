@@ -31,17 +31,25 @@ class ApplicationForm extends Component {
   }
   handleSubmit(event) {
     event.preventDefault();
-    this.form.validateFields();
-    // eslint-disable-next-line no-undef
-    const formData = new FormData(event.target);
-    formData.append('letter', this.state.letter);
-    const data = formData.entries();
-    let entry;
-    const valueArray = [];
-    while ((entry = data.next()).done === false) {
-      valueArray.push(entry.value);
-    }
-    console.log(FormatSubmission(valueArray));
+    this.form.validateFields().then(r => {
+      console.log(r);
+      if (!this.form.isValid()) {
+        console.log('form is invalid: do not submit');
+        // eslint-disable-next-line no-undef
+      } else {
+        console.log('form is valid: submit');
+        // eslint-disable-next-line no-undef
+        const formData = new FormData(event.target);
+        formData.append('letter', this.state.letter);
+        const data = formData.entries();
+        let entry;
+        const valueArray = [];
+        while ((entry = data.next()).done === false) {
+          valueArray.push(entry.value);
+        }
+        console.log(FormatSubmission(valueArray));
+      }
+    });
   }
 
   render() {

@@ -4,7 +4,6 @@ import 'react-datepicker/dist/react-datepicker.css';
 import Button from 'react-bootstrap/Button';
 import Icon from '../../Icons';
 import {Form} from 'react-bootstrap';
-import {FieldFeedback, FieldFeedbacks} from 'react-form-with-constraints';
 
 class DatePickerRow extends Component {
   constructor(props) {
@@ -59,9 +58,6 @@ class DatePickerRow extends Component {
             placeholderText="Select from date"
           />
         </div>
-        <FieldFeedbacks for="availableFrom">
-          <FieldFeedback when={true}>Mandatory</FieldFeedback>
-        </FieldFeedbacks>
         <div className="col-5 m-0">
           <DatePicker
             dateFormat="yyyy/MM/dd"
