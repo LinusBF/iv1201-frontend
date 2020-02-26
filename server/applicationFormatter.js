@@ -1,8 +1,7 @@
 'use strict';
 
-const formatApplication = (body, uid) => {
+const formatApplication = body => {
   return {
-    uid: uid,
     userId: '12314134134134',
     applyDate: Date.toString(),
     approved: false,

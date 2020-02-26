@@ -28,3 +28,15 @@
     margin-left: 0.8rem;
 }
 
+/* AVAILABILITY */
+#availabilityContainer input {
+    height: 2.5rem;
+    border-radius: 0.25rem;
+    border-style: solid;
+    border-width: 0.5px;
+    border-color: #ced4da;
+    padding-left: 0.8rem;
+}
+#availabilityContainer > div > div > div.col-5 {
+    padding: 0;
+}

@@ -8,7 +8,7 @@ const icons = {
 };
 
 const Icon = props => (
-  <svg width="22" height="22" color={'#ffffff'} viewBox="0 0 1024 1024">
+  <svg width="18" height="18" color={'#ffffff'} viewBox="0 0 1024 1024">
     <path d={icons[props.icon]}></path>
   </svg>
 );

@@ -7,6 +7,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import Button from 'react-bootstrap/Button';
 import DatePickerComponent from './datepicker/DatePickerComponent';
 import ExpertiseComponent from './expertisepicker/ExpertiseComponent';
+import FormatSubmission from './formatSubmission';
 
 class ApplicationForm extends Component {
   constructor(props) {
@@ -22,7 +23,6 @@ class ApplicationForm extends Component {
   }
   handleSubmit(event) {
     event.preventDefault();
-    console.log('SUBMIT');
     // eslint-disable-next-line no-undef
     const formData = new FormData(event.target);
     formData.append('letter', this.state.letter);
@@ -32,7 +32,7 @@ class ApplicationForm extends Component {
     while ((entry = data.next()).done === false) {
       valueArray.push(entry.value);
     }
-    console.log(valueArray);
+    console.log(FormatSubmission(valueArray));
   }
 
   render() {
@@ -64,6 +64,7 @@ class ApplicationForm extends Component {
                 <input
                   type="text"
                   name={'ssn'}
+                  autoComplete={'off'}
                   className="form-control"
                   placeholder="Personal number"
                 />

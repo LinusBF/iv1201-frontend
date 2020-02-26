@@ -44,7 +44,7 @@ class DatePickerRow extends Component {
             placeholderText="Select from date"
           />
         </div>
-        <div className="col-5 ml-3">
+        <div className="col-5 m-0">
           <DatePicker
             autoComplete={'off'}
             selected={this.state.toDate}
@@ -54,8 +54,8 @@ class DatePickerRow extends Component {
             placeholderText="Select to date"
           />
         </div>
-        <div className="col-1">
-          <Button variant={'outline-danger'} onClick={this.deleteRow}>
+        <div className="col">
+          <Button variant={'outline-danger'} className={'w-100'} onClick={this.deleteRow}>
             <Icon icon={'bin2'} />
           </Button>
         </div>
