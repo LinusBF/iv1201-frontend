@@ -5,6 +5,8 @@ import {connect} from 'react-redux';
 import {login} from '../../redux/actions';
 import '../login/Login.css';
 import Logo from '../logo/Logo';
+import {Formik} from 'formik';
+import {loginFormSchema} from '../../yupSchemas/loginSchema';
 
 class Register extends Component {
   constructor(props) {
@@ -13,11 +15,10 @@ class Register extends Component {
   }
 
   handleSubmit(e) {
-    e.preventDefault();
     const that = this;
     firebase
       .auth()
-      .createUserWithEmailAndPassword(e.target[0].value, e.target[1].value)
+      .createUserWithEmailAndPassword(e.email, e.password)
       .then(r => {
         console.info(r);
         firebase
@@ -46,22 +47,51 @@ class Register extends Component {
           <div id={'headline1'}>You are here to</div>
           <div id={'headline2'}>Make people laugh</div>
           <div id={'headline3'}>Welcome back! Please log in to your account</div>
-          <Form onSubmit={this.handleSubmit}>
-            <Form.Group style={{marginBottom: 0}} controlId="formBasicEmail">
-              <Form.Control id={'inputMail'} type="email" placeholder="Enter your email" />
-            </Form.Group>
-            <Form.Group style={{marginTop: 0}} controlId="formBasicPassword">
-              <Form.Control id={'inputPass'} type="password" placeholder="Enter your Password" />
-            </Form.Group>
-            <ButtonToolbar>
-              <Button id={'loginButton'} type="submit" variant={'dark'}>
-                Sign Up
-              </Button>
-              <Button href={'/'} id={'signUpButton'} type="submit" variant={'light'}>
-                Login instead
-              </Button>
-            </ButtonToolbar>
-          </Form>
+          <Formik
+            validationSchema={loginFormSchema}
+            onSubmit={this.handleSubmit}
+            initialValues={{email: '', password: ''}}
+          >
+            {/* eslint-disable-next-line no-unused-vars */}
+            {({handleSubmit, handleChange, handleBlur, values, touched, isInvalid, errors}) => (
+              <Form noValidate onSubmit={handleSubmit}>
+                <Form.Group style={{marginBottom: 0}} controlId="formBasicEmail">
+                  <Form.Control
+                    className={'inputMail'}
+                    type="email"
+                    placeholder="Enter your email"
+                    name="email"
+                    onBlur={handleBlur}
+                    value={values.email}
+                    onChange={handleChange}
+                    isInvalid={touched.email && errors.email}
+                  />
+                  <Form.Control.Feedback type="invalid">{errors.email}</Form.Control.Feedback>
+                </Form.Group>
+                <Form.Group style={{marginTop: 0}} controlId="formBasicPassword">
+                  <Form.Control
+                    className={'inputPass'}
+                    type="password"
+                    placeholder="Enter your Password"
+                    name="password"
+                    onBlur={handleBlur}
+                    value={values.password}
+                    onChange={handleChange}
+                    isInvalid={touched.password && errors.password}
+                  />
+                  <Form.Control.Feedback type="invalid">{errors.password}</Form.Control.Feedback>
+                </Form.Group>
+                <ButtonToolbar>
+                  <Button id={'loginButton'} type="submit" variant={'dark'}>
+                    Sign Up
+                  </Button>
+                  <Button href={'/Login'} id={'signUpButton'} variant={'light'}>
+                    Login instead
+                  </Button>
+                </ButtonToolbar>
+              </Form>
+            )}
+          </Formik>
         </div>
       </div>
     );
