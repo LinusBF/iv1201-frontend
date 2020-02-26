@@ -40,3 +40,15 @@
 #availabilityContainer > div > div > div.col-5 {
     padding: 0;
 }
+/* VALIDATION */
+.error {
+    color: red;
+    font-size: 0.7rem;
+    display: block;
+    margin: -1.7rem 0rem 0 0;
+    text-align: right;
+    padding: 0 1rem 0 0;
+}
+#personalDetails > span:nth-child(3) {
+    margin-bottom: 0.6rem;
+}

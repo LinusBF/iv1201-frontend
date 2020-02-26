@@ -8,6 +8,7 @@ import Button from 'react-bootstrap/Button';
 import DatePickerComponent from './datepicker/DatePickerComponent';
 import ExpertiseComponent from './expertisepicker/ExpertiseComponent';
 import FormatSubmission from './formatSubmission';
+import {FormWithConstraints, FieldFeedbacks, FieldFeedback} from 'react-form-with-constraints';
 
 class ApplicationForm extends Component {
   constructor(props) {
@@ -15,11 +16,15 @@ class ApplicationForm extends Component {
     this.state = {letter: ''};
     this.handleSubmit = this.handleSubmit.bind(this);
     this.personalLetterChange = this.personalLetterChange.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
   personalLetterChange(event) {
     let state = this.state;
     state['letter'] = event.target.value;
     this.setState(state);
+  }
+  handleChange(e) {
+    this.form.validateFields(e.target);
   }
   handleSubmit(event) {
     event.preventDefault();
@@ -40,7 +45,11 @@ class ApplicationForm extends Component {
       <div className={'container justify-content-md-center'}>
         <Card className={'col-7'}>
           <Card.Body>
-            <Form onSubmit={this.handleSubmit}>
+            <FormWithConstraints
+              onSubmit={this.handleSubmit}
+              ref={form => (this.form = form)}
+              noValidate
+            >
               <h5>Personal information</h5>
               <div id="personalDetails">
                 <div className="row">
@@ -48,17 +57,33 @@ class ApplicationForm extends Component {
                     <input
                       type="text"
                       name={'firstName'}
+                      onChange={this.handleChange}
                       className="form-control"
                       placeholder="First name"
+                      required
                     />
+                    <FieldFeedbacks for="firstName">
+                      <FieldFeedback when={value => !/^$|^[a-zA-Z]+$/.test(value)}>
+                        Only letters...
+                      </FieldFeedback>
+                      <FieldFeedback when={value => value.length < 3}>Too short...</FieldFeedback>
+                    </FieldFeedbacks>
                   </div>
                   <div className="col">
                     <input
                       type="text"
                       name={'lastName'}
+                      onChange={this.handleChange}
                       className="form-control"
                       placeholder="Last name"
+                      required
                     />
+                    <FieldFeedbacks for="lastName">
+                      <FieldFeedback when={value => !/^$|^[a-zA-Z]+$/.test(value)}>
+                        Only letters...
+                      </FieldFeedback>
+                      <FieldFeedback when={value => value.length < 3}>Too short...</FieldFeedback>
+                    </FieldFeedbacks>
                   </div>
                 </div>
                 <input
@@ -66,14 +91,31 @@ class ApplicationForm extends Component {
                   name={'ssn'}
                   autoComplete={'off'}
                   className="form-control"
+                  onChange={this.handleChange}
                   placeholder="Personal number"
+                  required
                 />
+                <FieldFeedbacks for="ssn">
+                  <FieldFeedback when={value => value.length === 0}>Mandatory field!</FieldFeedback>
+                  <FieldFeedback when={value => value.length !== 12}>YYYYMMDDXXX</FieldFeedback>
+                  <FieldFeedback when={value => !/^(19|20)?[0-9]{6}[- ]?[0-9]{4}$/.test(value)}>
+                    YYYYMMDDXXX
+                  </FieldFeedback>
+                </FieldFeedbacks>
                 <input
                   type="email"
                   name={'email'}
                   className="form-control"
                   placeholder="Email adress"
+                  onChange={this.handleChange}
+                  required
                 />
+                <FieldFeedbacks for="email">
+                  <FieldFeedback when={value => value.length === 0}>Mandatory field!</FieldFeedback>
+                  <FieldFeedback when={value => !/\S+@\S+/.test(value)}>
+                    Invalid email
+                  </FieldFeedback>
+                </FieldFeedbacks>
               </div>
               <h5>Your expertise</h5>
               <div className="row w-100">
@@ -98,7 +140,7 @@ class ApplicationForm extends Component {
               <Button type={'submit'} variant={'primary'} size={'md'} className={'mt-2'} block>
                 Submit application
               </Button>
-            </Form>
+            </FormWithConstraints>
           </Card.Body>
         </Card>
       </div>
