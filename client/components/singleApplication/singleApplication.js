@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
 import axios from 'axios';
 import './singleApplication.css';
 import PersonalDetailsViewComponent from './childComponents/PersonalDetailsViewComponent';
@@ -8,6 +8,8 @@ import AvailabilityViewComponent from './childComponents/AvailabilityViewCompone
 import LetterViewComponent from './childComponents/LetterViewComponent';
 import ApprovalComponent from './childComponents/ApprovalComponent';
 import MainMenu from '../menu/MainMenu';
+import {connect} from 'react-redux';
+import {login} from '../../redux/actions';
 
 class SingleApplication extends Component {
   constructor(props) {
@@ -42,14 +44,7 @@ class SingleApplication extends Component {
         const application = res.data.application;
         this.setState({
           ...this.state,
-          firstName: application.firstName,
-          lastName: application.lastName,
-          ssn: application.ssn,
-          email: application.email,
-          letter: application.letter,
-          approved: application.approved,
-          expertise: application.expertise,
-          available: application.available,
+          ...application,
         });
       });
     }
@@ -83,9 +78,13 @@ class SingleApplication extends Component {
             <ApprovalComponent approved={this.state.approved} />
           </div>
         </div>
+        {typeof this.props.idToken === 'undefined' ? <Redirect to='/' /> : <div />}
       </div>
     );
   }
 }
 
-export default SingleApplication;
+function mapStateToProps(state) {
+  return {idToken: state.login.idToken};
+}
+export default connect(mapStateToProps, {login})(SingleApplication);

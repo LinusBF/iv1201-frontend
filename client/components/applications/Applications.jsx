@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import ListGroup from 'react-bootstrap/ListGroup';
 import {ListGroupItem} from 'react-bootstrap';
@@ -24,6 +24,7 @@ class Applications extends Component {
   }
 
   componentDidMount() {
+    console.log(this.props.idToken);
     this.fetchMoreData();
     setTimeout(this.fetchMoreData, 5000);
   }
@@ -39,6 +40,7 @@ class Applications extends Component {
   }
 
   fetchMoreData() {
+    if (typeof this.props.idToken === 'undefined') return;
     axios
       .post('/fetch-applications', {
         offset: this.state.items.length,
@@ -101,6 +103,11 @@ class Applications extends Component {
             ))}
           </InfiniteScroll>
         </ListGroup>
+        {typeof this.props.idToken === 'undefined' ? (
+          <Redirect to='/'/>
+        ) : (
+          <div/>
+        )}
       </div>
     );
     /* eslint-enable */
