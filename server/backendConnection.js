@@ -48,7 +48,13 @@ const get = (path, options) => {
       options ? options.data : {},
       'GET'
     );
-    return request.get(req).auth(null, null, true, token);
+    return request
+      .get(req)
+      .auth(null, null, true, token)
+      .then(res => {
+        console.debug(res);
+        return res;
+      });
   });
 };
 

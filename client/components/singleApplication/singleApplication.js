@@ -18,40 +18,48 @@ class SingleApplication extends Component {
       match: {params},
       location: {state},
     } = this.props;
+    this.state = {
+      uId: params.uId,
+      noSubmission: false,
+      firstName: '',
+      lastName: '',
+      ssn: '',
+      email: '',
+      letter: '',
+      approved: null,
+      expertise: [],
+      available: [],
+    };
     if (state) {
       this.state = {
+        ...this.state,
         ...state,
       };
-    } else {
-      this.state = {
-        firstName: '',
-        lastName: '',
-        ssn: '',
-        email: '',
-        letter: '',
-        approved: null,
-        expertise: [],
-        available: [],
-      };
     }
-    this.state.uId = params.uId;
   }
 
   componentDidMount() {
-    if (this.state.email === '') {
-      axios.get(`/fetch-application/${this.state.uId ? this.state.uId : ''}`).then(res => {
-        console.log(res.data);
-        const application = res.data.application;
-        this.setState({
-          ...this.state,
-          ...application,
+    if (this.state.email === '' && typeof this.props.idToken !== 'undefined') {
+      axios
+        .post(`/fetch-application${this.state.uId ? '/' + this.state.uId : ''}`, {
+          token: this.props.idToken,
+        })
+        .then(res => {
+          const application = res.data.application;
+          this.setState({
+            ...this.state,
+            ...application,
+          });
+        })
+        .catch(response => {
+          if (response.status === 404) {
+            this.setState({...this.state, noSubmission: true});
+          }
         });
-      });
     }
   }
 
   render() {
-    console.log(this.state.firstName);
     return (
       <div className='container-fluid'>
         <MainMenu />
@@ -79,6 +87,7 @@ class SingleApplication extends Component {
           </div>
         </div>
         {typeof this.props.idToken === 'undefined' ? <Redirect to='/' /> : <div />}
+        {this.state.noSubmission === true ? <Redirect to='/ApplicationForm' /> : <div />}
       </div>
     );
   }

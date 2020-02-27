@@ -14,21 +14,22 @@ import PersonalDetailsComponent from './childComponents/PersonalDetailsComponent
 import LetterComponent from './childComponents/LetterComponent';
 import MainMenu from '../menu/MainMenu';
 import './ApplicationForm.css';
+import {Redirect} from 'react-router';
 
 class ApplicationForm extends Component {
   constructor(props) {
     super(props);
-    this.state = {letter: ''};
+    this.state = {letter: '', submitted: false};
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.extractApplication = this.extractApplication.bind(this);
     this.updateLetter = this.updateLetter.bind(this);
-    this.token =
-      'eyJhbGciOiJSUzI1NiIsImtpZCI6IjBlYTNmN2EwMjQ4YmU0ZTBkZjAyYWVlZWIyMGIxZDJlMmI3ZjI0NzQiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vZ2xvYmFsLWFwcGxpY2F0aW9uLWV4YW1wbGUiLCJhdWQiOiJnbG9iYWwtYXBwbGljYXRpb24tZXhhbXBsZSIsImF1dGhfdGltZSI6MTU4MjgyNzc1MiwidXNlcl9pZCI6Im43RENKUG5UdDhnYXJWeXdyTEhjeHBxT2pjSDIiLCJzdWIiOiJuN0RDSlBuVHQ4Z2FyVnl3ckxIY3hwcU9qY0gyIiwiaWF0IjoxNTgyODI3NzUyLCJleHAiOjE1ODI4MzEzNTIsImVtYWlsIjoibWVsa2VyLm1vc3NiZXJnQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJlbWFpbCI6WyJtZWxrZXIubW9zc2JlcmdAZ21haWwuY29tIl19LCJzaWduX2luX3Byb3ZpZGVyIjoicGFzc3dvcmQifX0.BXrXyCUYxE7PwOUgXYfWzJYwD7r0KeamRhGPFsXjf3J1X0lOGHT8xRXc7BxxDee7CRyoO95yVt52uRziHOarTH_EF7WPdjchADFMTaiUbf916JXikv4otngvZ74_VJLRCLo4lOIXz44yTZGKpFgUctEynJKpZSmFDXrgi4fDejI4hk-qpWVzacpnJEf_1rRCplCItBCkqw37jzuCXwMAGMPT-a_czYjlrTekAnl7DgoM7vEHQoX7VRgcVnV3bC4q8yKc3ZHdXhbdJOtCN1-1O0ibWJiLrS2J29YmtnSec4fRifG3yUnlFBONRmUIxaMl1nQdXDBGJQ5oMaDdyyGF2w';
   }
+
   handleChange(e) {
     this.form.validateFields(e.target);
   }
+
   handleSubmit(event) {
     event.preventDefault();
     const formattedApplication = this.extractApplication(event);
@@ -37,9 +38,13 @@ class ApplicationForm extends Component {
       if (this.form.isValid()) {
         console.log('Field is valid: submit');
         axios
-          .post('/submit', {token: this.token, application: formattedApplication})
+          .post('/submit', {token: this.props.idToken, application: formattedApplication})
           .then(ans => {
             console.log(ans);
+            this.setState({
+              ...this.state,
+              submitted: true,
+            });
           })
           .catch(error => {
             console.log(error);
@@ -95,11 +100,13 @@ class ApplicationForm extends Component {
             </Card.Body>
           </Card>
         </div>
+        {typeof this.props.idToken === 'undefined' ? <Redirect to='/' /> : <div />}
+        {this.state.submitted === true ? <Redirect to='/SingleApplication' /> : <div />}
       </div>
     );
   }
 }
 function mapStateToProps(state) {
-  return {uid: state.login.uid};
+  return {uid: state.login.uid, idToken: state.login.idToken};
 }
 export default connect(mapStateToProps, {login})(ApplicationForm);

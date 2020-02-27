@@ -12,6 +12,7 @@ function verifyToken(idToken) {
       .auth()
       .verifyIdToken(idToken)
       .then(decodedToken => {
+        console.info('Verify token success');
         resolve(decodedToken.uid);
       })
       .catch(reason => {

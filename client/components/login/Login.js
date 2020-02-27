@@ -36,6 +36,7 @@ class Login extends Component {
             axios
               .post('/user-status', {token: idT})
               .then(res => {
+                console.log(res.data);
                 that.setState({
                   ...that.state,
                   loggedIn: true,
@@ -63,9 +64,9 @@ class Login extends Component {
         <LoginForm handleSubmit={this.handleSubmit} />
         {this.state.loggedIn === true ? (
           this.state.isAdmin === true ? (
-            <Redirect to='/applications' />
+            <Redirect to='/Applications' />
           ) : (
-            <Redirect to='/applicationForm' />
+            <Redirect to='/SingleApplication' />
           )
         ) : (
           <div></div>
