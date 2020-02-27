@@ -45,7 +45,7 @@
   "mocha": {
     "spec": "test/**/*.test.js",
     "recursive": true,
-    "exclude": "**/*.local.test.js",
+    "exclude": "**/*.integration.test.js",
     "require": "dotenv/config",
     "timeout": "20000"
   },
