@@ -2,7 +2,7 @@ const data = {
   uid: '5e4d7300f839819583a664c5',
   userId: '7e66c03f-13fe-40af-bb34-0fbe06a3e2b4',
   applyDate: '2017-11-04',
-  approved: true,
+  approved: null,
   firstName: 'Benjamin',
   lastName: 'Dale',
   email: 'benjamindale@comveyer.com',

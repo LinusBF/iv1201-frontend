@@ -50,15 +50,19 @@ div.input-group-text {
 
 /*PENDING APPLICATION*/
 #statusColumn div.pending{
-    background-color: #F0F0F0;
-    border: none;
+    background-color: white;
+    border-width: 1px;
+    border-color: #e3e3e3;
 }
 #statusColumn div.pending > div{
-    background-color: #E4E4E4;
+    background-color: #f3f3f3;
     border: none;
 }
 #statusColumn div.pending p{
     color: black;
 }
 
-
+/*ADMIN STUFF*/
+#statusColumn > div > div.row {
+    background-color: transparent;
+}
