@@ -7,7 +7,16 @@ class ExpertiseComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      options: ['test', 'lorem', 'ipsum', 'dolor', 'sit', 'amet'],
+      options: [
+        'Work as cashier',
+        'Work in citchen',
+        'Serve food',
+        'Being a clown',
+        'Scaring children',
+        'Fixing broken stuff',
+        'Cleaning toilets',
+        'Taking group photos',
+      ],
       numRows: 0,
     };
     this.renderAllLists = this.renderAllLists.bind(this);
