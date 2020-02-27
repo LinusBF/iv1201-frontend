@@ -4,8 +4,8 @@ import {connect} from 'react-redux';
 import {login} from '../../redux/actions';
 import '../login/Login.css';
 import {Redirect} from 'react-router-dom';
-import LoginForm from '../login/LoginForm';
 import MainMenu from '../menu/MainMenu';
+import RegisterForm from './RegisterForm';
 
 class Register extends Component {
   constructor(props) {
@@ -37,7 +37,7 @@ class Register extends Component {
       <div className={'container-fluid'}>
         <MainMenu></MainMenu>
         <div className="container">
-          <LoginForm handleSubmit={this.handleSubmit} />
+          <RegisterForm handleSubmit={this.handleSubmit} />
           {this.props.loggedIn === true ? <Redirect to="/ApplicationForm" /> : <div></div>}
         </div>
       </div>
