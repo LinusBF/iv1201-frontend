@@ -1,7 +1,6 @@
 /* eslint-disable max-lines */
 import React, {Component} from 'react';
 import './ApplicationForm.css';
-import {Form} from 'react-bootstrap';
 import Card from 'react-bootstrap/Card';
 import 'react-datepicker/dist/react-datepicker.css';
 import Button from 'react-bootstrap/Button';
@@ -11,6 +10,7 @@ import FormatSubmission from './formatSubmission';
 // eslint-disable-next-line no-unused-vars
 import {FormWithConstraints, FieldFeedbacks, FieldFeedback} from 'react-form-with-constraints';
 import PersonalDetailsComponent from './PersonalDetailsComponent';
+import LetterComponent from './LetterComponent';
 
 class ApplicationForm extends Component {
   constructor(props) {
@@ -31,23 +31,21 @@ class ApplicationForm extends Component {
   }
   handleSubmit(event) {
     event.preventDefault();
+    // eslint-disable-next-line no-undef
+    const formData = new FormData(event.target);
+    formData.append('letter', this.state.letter);
+    const data = formData.entries();
+    let entry;
+    const valueArray = [];
+    while ((entry = data.next()).done === false) {
+      valueArray.push(entry.value);
+    }
+    console.log(FormatSubmission(valueArray));
     this.form.validateFields().then(r => {
-      console.log(r);
-      if (!this.form.isValid()) {
-        console.log('form is invalid: do not submit');
-        // eslint-disable-next-line no-undef
+      if (this.form.isValid()) {
+        console.log('Field is valid: submit');
       } else {
-        console.log('form is valid: submit');
-        // eslint-disable-next-line no-undef
-        const formData = new FormData(event.target);
-        formData.append('letter', this.state.letter);
-        const data = formData.entries();
-        let entry;
-        const valueArray = [];
-        while ((entry = data.next()).done === false) {
-          valueArray.push(entry.value);
-        }
-        console.log(FormatSubmission(valueArray));
+        console.log(`Field invalid... ${r}`);
       }
     });
   }
@@ -73,27 +71,7 @@ class ApplicationForm extends Component {
                 <DatePickerComponent changeHandler={this.handleChange} />
               </div>
               <h5>Personal Letter</h5>
-              <div id={'letter'} className="w-100">
-                <Form.Group controlId="exampleForm.ControlTextarea1">
-                  <Form.Control
-                    placeholder={'Enter your personal letter here'}
-                    value={this.state.letter}
-                    onChange={this.personalLetterChange}
-                    as="textarea"
-                    name={'letter'}
-                    rows="3"
-                    required
-                  />
-                </Form.Group>
-                <FieldFeedbacks for="letter">
-                  <FieldFeedback when="valueMissing">
-                    Personal letter is a mandatory field...
-                  </FieldFeedback>
-                  <FieldFeedback when={value => value.length > 200}>
-                    Yeeeeez man, 200 chars maximum!
-                  </FieldFeedback>
-                </FieldFeedbacks>
-              </div>
+              <LetterComponent changeHandler={this.handleChange} />
               <Button type={'submit'} variant={'primary'} size={'md'} className={'mt-2'} block>
                 Submit application
               </Button>

@@ -34,9 +34,22 @@ class DatePickerRow extends Component {
   checkDateError() {
     const fromDate = new Date(this.state.fromDate);
     const toDate = new Date(this.state.toDate);
-    if (toDate < fromDate && this.state.fromDate && this.state.toDate)
+    if (toDate < fromDate && this.state.fromDate && this.state.toDate) {
       // eslint-disable-next-line react/jsx-key
-      return [<div className={'w-100 error'}>Start date must be before end date...</div>];
+      return [
+        <div key={'err-orderDates'} className={'w-100 error'}>
+          Start date must be before end date...
+        </div>,
+      ];
+    }
+    if (fromDate < new Date() && this.state.fromDate) {
+      // eslint-disable-next-line react/jsx-key
+      return [
+        <div key={'err-pastDates'} className={'w-100 error'}>
+          Dates in the past are not valid...
+        </div>,
+      ];
+    }
     return null;
   }
   deleteRow() {
