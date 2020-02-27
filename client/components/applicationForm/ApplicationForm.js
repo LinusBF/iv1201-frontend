@@ -85,6 +85,10 @@ class ApplicationForm extends Component {
       <div className='container-fluid'>
         <MainMenu />
         <div className={'container justify-content-md-center mt-3 pt-1'}>
+          <div id={'header'}>
+            <h2>Welcome!</h2>
+            <p>The first step towards becoming a clown is filling in this form.</p>
+          </div>
           <Card className={'col-7'}>
             <Card.Body>
               <FormWithConstraints
