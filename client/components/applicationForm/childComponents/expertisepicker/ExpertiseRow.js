@@ -54,7 +54,7 @@ class ExpertiseRow extends Component {
             Numbers
           </FieldFeedback>
         </FieldFeedbacks>
-        <div className="col-2-sm">
+        <div className="col-2-sm ml-2">
           <Button variant={'outline-danger'} onClick={this.deleteList}>
             <Icon icon={'bin2'} />
           </Button>

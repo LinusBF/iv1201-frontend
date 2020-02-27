@@ -11,7 +11,7 @@ class PersonalDetailsComponent extends Component {
     return (
       <div id="personalDetails">
         <div className="row">
-          <div className="col">
+          <div className="col pr-0">
             <input
               type="text"
               name={'firstName'}
@@ -27,7 +27,7 @@ class PersonalDetailsComponent extends Component {
               <FieldFeedback when={value => value.length < 3}>Too short...</FieldFeedback>
             </FieldFeedbacks>
           </div>
-          <div className="col">
+          <div className="col pl-0">
             <input
               type="text"
               name={'lastName'}

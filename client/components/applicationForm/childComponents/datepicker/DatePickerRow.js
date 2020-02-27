@@ -82,7 +82,7 @@ class DatePickerRow extends Component {
             placeholderText="Select to date"
           />
         </div>
-        <div className="col">
+        <div className="col-2 p-0">
           <Button variant={'outline-danger'} className={'w-100'} onClick={this.deleteRow}>
             <Icon icon={'bin2'} />
           </Button>
