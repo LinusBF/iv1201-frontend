@@ -3,9 +3,9 @@ import firebase from '../../firebaseConfig';
 import {connect} from 'react-redux';
 import {login} from '../../redux/actions';
 import '../login/Login.css';
-import Logo from '../menu/Logo';
 import {Redirect} from 'react-router-dom';
 import LoginForm from '../login/LoginForm';
+import MainMenu from '../menu/MainMenu';
 
 class Register extends Component {
   constructor(props) {
@@ -34,10 +34,12 @@ class Register extends Component {
   }
   render() {
     return (
-      <div>
-        <Logo />
-        <LoginForm handleSubmit={this.handleSubmit} />
-        {this.props.loggedIn === true ? <Redirect to="/ApplicationForm" /> : <div></div>}
+      <div className={'container-fluid'}>
+        <MainMenu></MainMenu>
+        <div className="container">
+          <LoginForm handleSubmit={this.handleSubmit} />
+          {this.props.loggedIn === true ? <Redirect to="/ApplicationForm" /> : <div></div>}
+        </div>
       </div>
     );
   }
