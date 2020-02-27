@@ -1,5 +1,4 @@
-import {LOGGED_IN} from './actionTypes';
-import {LOGGED_OUT} from './actionTypes';
+import {LOGGED_IN, LOGGED_IN_STATUS, LOGGED_OUT} from './actionTypes';
 
 export const login = content => ({
   type: LOGGED_IN,
@@ -9,4 +8,9 @@ export const login = content => ({
 export const logout = () => ({
   type: LOGGED_OUT,
   payload: {loggedIn: false, idToken: null},
+});
+
+export const setLoginStatus = content => ({
+  type: LOGGED_IN_STATUS,
+  payload: {userStatus: content},
 });

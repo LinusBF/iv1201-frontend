@@ -1,50 +1,20 @@
 import React, {Component} from 'react';
-import firebase from '../../firebaseConfig';
-import {Form, Button, ButtonToolbar} from 'react-bootstrap';
-import {connect} from 'react-redux';
-import {login} from '../../redux/actions';
-import '../login/Login.css';
-import Logo from '../menu/Logo';
 import {Formik} from 'formik';
 import {loginFormSchema} from '../../yupSchemas/loginSchema';
-import {Redirect} from 'react-router-dom';
+import {Button, ButtonToolbar, Form} from 'react-bootstrap';
+import './Login.css';
 
-class Register extends Component {
-  constructor(props) {
-    super(props);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-  handleSubmit(e) {
-    const that = this;
-    firebase
-      .auth()
-      .createUserWithEmailAndPassword(e.email, e.password)
-      .then(() => {
-        firebase
-          .auth()
-          .currentUser.getIdToken(/* forceRefresh */ true)
-          .then(function(idToken) {
-            that.props.login(idToken);
-          })
-          .catch(function(error) {
-            console.error(error);
-          });
-      })
-      .catch(e => {
-        console.error('sign up not successful', e);
-      });
-  }
+class LoginForm extends Component {
   render() {
     return (
       <div>
-        <Logo />
         <div className={'loginForm'}>
           <div id={'headline1'}>You are here to</div>
           <div id={'headline2'}>Make people laugh</div>
           <div id={'headline3'}>Welcome back! Please log in to your account</div>
           <Formik
             validationSchema={loginFormSchema}
-            onSubmit={this.handleSubmit}
+            onSubmit={this.props.handleSubmit}
             initialValues={{email: '', password: ''}}
           >
             {/* eslint-disable-next-line no-unused-vars */}
@@ -78,22 +48,19 @@ class Register extends Component {
                 </Form.Group>
                 <ButtonToolbar>
                   <Button id={'loginButton'} type="submit" variant={'dark'}>
-                    Sign Up
+                    Login
                   </Button>
-                  <Button href={'/Login'} id={'signUpButton'} variant={'light'}>
-                    Login instead
+                  <Button href={'/Register'} id={'signUpButton'} variant={'light'}>
+                    Sign Up
                   </Button>
                 </ButtonToolbar>
               </Form>
             )}
           </Formik>
         </div>
-        {this.props.loggedIn === true ? <Redirect to="/ApplicationForm" /> : <div></div>}
       </div>
     );
   }
 }
-function mapStateToProps(state) {
-  return {loggedIn: state.login.loggedIn};
-}
-export default connect(mapStateToProps, {login})(Register);
+
+export default LoginForm;
