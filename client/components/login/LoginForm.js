@@ -14,7 +14,7 @@ class LoginForm extends Component {
           <div id={'headline3'}>Welcome back! Please log in to your account</div>
           <Formik
             validationSchema={loginFormSchema}
-            onSubmit={this.handleSubmit}
+            onSubmit={this.props.handleSubmit}
             initialValues={{email: '', password: ''}}
           >
             {/* eslint-disable-next-line no-unused-vars */}

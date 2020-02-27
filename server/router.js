@@ -65,7 +65,7 @@ module.exports = router => {
           .then(userStatus => {
             res.status(200).send(userStatus);
           })
-          .catch(res.status(400).send('Request to BackendConnection Failed'));
+          .catch(res.status(500).send('Request to BackendConnection Failed'));
       })
       .catch(error => {
         console.info(`Verify token failed: ${error.message}`);
