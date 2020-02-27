@@ -20,7 +20,8 @@ class Login extends Component {
     firebase
       .auth()
       .signInWithEmailAndPassword(e.email, e.password)
-      .then(() => {
+      .then(r => {
+        console.log(r.user.uid);
         firebase
           .auth()
           .currentUser.getIdToken(/* forceRefresh */ true)

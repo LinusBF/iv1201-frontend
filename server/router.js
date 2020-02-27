@@ -54,10 +54,22 @@ module.exports = router => {
   /**
    * Requests a status of single application
    */
-  router.post('/status', (req, res) => {
-    console.info('Received a post request for status of application');
-    backendConnection.post(`/application/${req.body.applicationId}/status`).then(status => {
-      res.status(200).send(status);
-    });
+  router.post('/user-status', (req, res) => {
+    console.info('Received a request to get user status');
+    const idToken = req.body.token;
+    verifyToken(idToken)
+      .then(token => {
+        console.info(`Uid from firebase: ${token}`);
+        backendConnection
+          .get(`/user/${token.uid}/user-status`)
+          .then(userStatus => {
+            res.status(200).send(userStatus);
+          })
+          .catch(res.status(400).send('Request to BackendConnection Failed'));
+      })
+      .catch(error => {
+        console.info(`Verify token failed: ${error.message}`);
+        res.status(400).send(`Verify token failed`);
+      });
   });
 };
