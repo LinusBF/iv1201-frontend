@@ -4,27 +4,20 @@ import './ApplicationForm.css';
 import Card from 'react-bootstrap/Card';
 import 'react-datepicker/dist/react-datepicker.css';
 import Button from 'react-bootstrap/Button';
-import DatePickerComponent from './datepicker/DatePickerComponent';
-import ExpertiseComponent from './expertisepicker/ExpertiseComponent';
 import FormatSubmission from './formatSubmission';
 // eslint-disable-next-line no-unused-vars
 import {FormWithConstraints, FieldFeedbacks, FieldFeedback} from 'react-form-with-constraints';
-import PersonalDetailsComponent from './PersonalDetailsComponent';
-import LetterComponent from './LetterComponent';
+import ExpertiseComponent from './childComponents/expertisepicker/ExpertiseComponent';
+import DatePickerComponent from './childComponents/datepicker/DatePickerComponent';
+import PersonalDetailsComponent from './childComponents/PersonalDetailsComponent';
+import LetterComponent from './childComponents/LetterComponent';
 
 class ApplicationForm extends Component {
   constructor(props) {
     super(props);
     this.state = {letter: ''};
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.personalLetterChange = this.personalLetterChange.bind(this);
     this.handleChange = this.handleChange.bind(this);
-  }
-  personalLetterChange(event) {
-    let state = this.state;
-    state['letter'] = event.target.value;
-    this.setState(state);
-    this.handleChange(event);
   }
   handleChange(e) {
     this.form.validateFields(e.target);

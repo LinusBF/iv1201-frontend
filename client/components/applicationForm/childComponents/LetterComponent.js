@@ -5,7 +5,14 @@ import {Form} from 'react-bootstrap';
 class LetterComponent extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {letter: ''};
+    this.personalLetterChange = this.personalLetterChange.bind(this);
+  }
+  personalLetterChange(event) {
+    this.props.changeHandler(event);
+    let state = this.state;
+    state['letter'] = event.target.value;
+    this.setState(state);
   }
   render() {
     return (
@@ -14,7 +21,7 @@ class LetterComponent extends Component {
           <Form.Control
             placeholder={'Enter your personal letter here'}
             value={this.state.letter}
-            onChange={this.props.changeHandler}
+            onChange={this.personalLetterChange}
             as="textarea"
             name={'letter'}
             rows="3"

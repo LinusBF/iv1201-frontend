@@ -24,6 +24,7 @@ class ExpertiseComponent extends Component {
       arr.push(
         <ExpertiseRow
           key={`exp-${i}`}
+          index={i}
           options={this.state.options}
           changeHandler={this.props.changeHandler}
         />
