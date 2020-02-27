@@ -7,7 +7,7 @@ export const login = content => ({
 
 export const logout = () => ({
   type: LOGGED_OUT,
-  payload: {loggedIn: false, idToken: null},
+  payload: {loggedIn: false, idToken: null, uid: null},
 });
 
 export const setLoginStatus = content => ({

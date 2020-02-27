@@ -9,7 +9,9 @@ import {Redirect} from 'react-router-dom';
 class MainMenu extends Component {
   constructor(props) {
     super(props);
-    this.state = {doLogOut: false};
+    this.state = {
+      doLogOut: false,
+    };
     this.logout = this.logout.bind(this);
   }
   logout() {
@@ -19,7 +21,9 @@ class MainMenu extends Component {
       .signOut()
       .then(
         function() {
+          console.log(that.props);
           that.props.logout();
+          console.log(that.props);
           that.setState({doLogOut: true});
         },
         function(error) {
@@ -34,18 +38,24 @@ class MainMenu extends Component {
           <div className={'w-100'}>
             <Logo />
           </div>
-          <div className={'flex-shrink-0 mt-3'}>
-            <div>
-              <a href='#' onClick={this.logout}>
-                Log Out
-              </a>
+          {typeof this.props.idToken === 'undefined' ? (
+            <div />
+          ) : (
+            <div className={'flex-shrink-0 mt-3'}>
+              <div>
+                <a href='#' onClick={this.logout}>
+                  Log Out
+                </a>
+              </div>
             </div>
-          </div>
+          )}
         </div>
         {this.state.doLogOut === true ? <Redirect to='/' /> : <div />}
       </div>
     );
   }
 }
-
-export default connect(null, {logout, setLoginStatus})(MainMenu);
+function mapStateToProps(state) {
+  return {idToken: state.login.idToken};
+}
+export default connect(mapStateToProps, {logout, setLoginStatus})(MainMenu);
