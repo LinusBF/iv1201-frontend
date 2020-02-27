@@ -7,7 +7,7 @@ import '../login/Login.css';
 class RegisterForm extends Component {
   render() {
     return (
-      <div id={'formContainer'} className={'container justify-content-center mt-3 pt-5'}>
+      <div className={'col-5'} style={{marginLeft: 'auto', marginRight: 'auto'}}>
         <div id={'headline1'}>You are here to</div>
         <div id={'headline2'}>Make people laugh</div>
         <div id={'headline3'}>Welcome back! Please log in to your account</div>

@@ -36,7 +36,7 @@ class Register extends Component {
     return (
       <div className={'container-fluid'}>
         <MainMenu></MainMenu>
-        <div className="container">
+        <div id={'formcontainer'} className="row mt-3 pt-5">
           <RegisterForm handleSubmit={this.handleSubmit} />
           {this.props.loggedIn === true ? <Redirect to="/ApplicationForm" /> : <div></div>}
         </div>
