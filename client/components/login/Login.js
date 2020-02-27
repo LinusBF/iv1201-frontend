@@ -20,15 +20,15 @@ class Login extends Component {
       .auth()
       .signInWithEmailAndPassword(e.email, e.password)
       .then(r => {
-        console.log(r.user.uid);
+        const userid = r.user.uid;
         firebase
           .auth()
           .currentUser.getIdToken(/* forceRefresh */ true)
-          .then(function(idToken) {
+          .then(function(idT) {
             // eslint-disable-next-line react/prop-types
-            that.props.login(idToken);
+            that.props.login({idToken: idT, uid: userid});
             axios
-              .post('/user-status', {token: idToken})
+              .post('/user-status', {token: idT})
               .then(res => {
                 console.info(res);
               })
