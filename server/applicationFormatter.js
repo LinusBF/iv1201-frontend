@@ -7,7 +7,7 @@ const formatApplication = function(body, uid) {
         data: {
           userId: uid,
           applyDate: body.applyDate,
-          approved: false,
+          approved: null,
           firstName: body.firstName,
           lastName: body.lastName,
           ssn: body.ssn,

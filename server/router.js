@@ -50,9 +50,9 @@ module.exports = router => {
         formatApplication(req.body.application, uid)
           .then(application => {
             console.info('APPLICATION');
-            console.info(application);
+            console.info(JSON.stringify(application, null, 2));
             backendConnection
-              .post(`/application`, application)
+              .post(`/application`, {data: application})
               .then(status => {
                 res.status(200).send(status);
               })
