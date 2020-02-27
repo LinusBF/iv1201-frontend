@@ -11,6 +11,7 @@ import ExpertiseComponent from './childComponents/expertisepicker/ExpertiseCompo
 import DatePickerComponent from './childComponents/datepicker/DatePickerComponent';
 import PersonalDetailsComponent from './childComponents/PersonalDetailsComponent';
 import LetterComponent from './childComponents/LetterComponent';
+import Logo from '../logo/Logo';
 
 class ApplicationForm extends Component {
   constructor(props) {
@@ -45,32 +46,35 @@ class ApplicationForm extends Component {
 
   render() {
     return (
-      <div className={'container justify-content-md-center'}>
-        <Card className={'col-7'}>
-          <Card.Body>
-            <FormWithConstraints
-              onSubmit={this.handleSubmit}
-              ref={form => (this.form = form)}
-              noValidate
-            >
-              <h5>Personal information</h5>
-              <PersonalDetailsComponent changeHandler={this.handleChange} />
-              <h5>Your expertise</h5>
-              <div className="row w-100">
-                <ExpertiseComponent changeHandler={this.handleChange} />
-              </div>
-              <h5 className={'mt-2'}>Your availability</h5>
-              <div id={'availabilityContainer'} className="w-100">
-                <DatePickerComponent changeHandler={this.handleChange} />
-              </div>
-              <h5>Personal Letter</h5>
-              <LetterComponent changeHandler={this.handleChange} />
-              <Button type={'submit'} variant={'primary'} size={'md'} className={'mt-2'} block>
-                Submit application
-              </Button>
-            </FormWithConstraints>
-          </Card.Body>
-        </Card>
+      <div className="container-fluid">
+        <Logo />
+        <div className={'container justify-content-md-center'}>
+          <Card className={'col-7'}>
+            <Card.Body>
+              <FormWithConstraints
+                onSubmit={this.handleSubmit}
+                ref={form => (this.form = form)}
+                noValidate
+              >
+                <h5>Personal information</h5>
+                <PersonalDetailsComponent changeHandler={this.handleChange} />
+                <h5>Your expertise</h5>
+                <div className="row w-100">
+                  <ExpertiseComponent changeHandler={this.handleChange} />
+                </div>
+                <h5 className={'mt-2'}>Your availability</h5>
+                <div id={'availabilityContainer'} className="w-100">
+                  <DatePickerComponent changeHandler={this.handleChange} />
+                </div>
+                <h5>Personal Letter</h5>
+                <LetterComponent changeHandler={this.handleChange} />
+                <Button type={'submit'} variant={'primary'} size={'md'} className={'mt-2'} block>
+                  Submit application
+                </Button>
+              </FormWithConstraints>
+            </Card.Body>
+          </Card>
+        </div>
       </div>
     );
   }
