@@ -1,11 +1,64 @@
-.card-body .row {
-    margin: 0;
+h5 {
+    margin-top: 2rem;
+    margin-bottom: 0.6rem;
+}
+h5:nth-child(1) {
+    margin-top: 0;
+}
+div.input-group-text {
+    font-size: 0.8rem;
+}
+#expertises > div.row {
+    padding-right: 1rem;
+}
+.form-control:disabled, .form-control[readonly]{
+    background-color: white;
+}
+.input-group-text {
+    background-color: #f7f7f7;
 }
 
-.card-body .row .col{
-    padding: 0;
+#statusColumn div > div p{
+    font-size: 0.9rem;
+    margin: 0.5rem 0 0.5rem 0.4rem;
+}
+/*ACCEPTED APPLICATION*/
+#statusColumn div.accepted{
+    background-color: #E6F1F8;
+    border: none;
+}
+#statusColumn div.accepted > div{
+    background-color: #D1E6F3;
+    border: none;
+}
+#statusColumn div.accepted p{
+    color: #2482C3;
 }
 
-.card-body form h5:not(:first-child){
-    margin-top: 1rem;
+/*REJECTED APPLICATION*/
+#statusColumn div.rejected{
+    background-color: #F2BDB9;
+    border: none;
 }
+#statusColumn div.rejected > div{
+    background-color: #EC9E98;
+    border: none;
+}
+#statusColumn div.rejected p{
+    color: #D32617;
+}
+
+/*PENDING APPLICATION*/
+#statusColumn div.pending{
+    background-color: #F0F0F0;
+    border: none;
+}
+#statusColumn div.pending > div{
+    background-color: #E4E4E4;
+    border: none;
+}
+#statusColumn div.pending p{
+    color: black;
+}
+
+
