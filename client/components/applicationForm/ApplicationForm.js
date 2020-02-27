@@ -1,5 +1,6 @@
 /* eslint-disable max-lines */
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
 import './ApplicationForm.css';
 import Card from 'react-bootstrap/Card';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -12,6 +13,7 @@ import DatePickerComponent from './childComponents/datepicker/DatePickerComponen
 import PersonalDetailsComponent from './childComponents/PersonalDetailsComponent';
 import LetterComponent from './childComponents/LetterComponent';
 import MainMenu from '../menu/MainMenu';
+import {login} from '../../redux/actions';
 
 class ApplicationForm extends Component {
   constructor(props) {
@@ -19,6 +21,9 @@ class ApplicationForm extends Component {
     this.state = {letter: ''};
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
+  }
+  componentDidMount() {
+    console.log('did mount');
   }
   handleChange(e) {
     this.form.validateFields(e.target);
@@ -77,5 +82,7 @@ class ApplicationForm extends Component {
     );
   }
 }
-
-export default ApplicationForm;
+function mapStateToProps(state) {
+  return {idToken: state.login.idToken};
+}
+export default connect(mapStateToProps, {login})(ApplicationForm);
