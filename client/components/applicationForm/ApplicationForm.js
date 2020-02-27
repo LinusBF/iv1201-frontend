@@ -1,19 +1,18 @@
 /* eslint-disable max-lines */
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import './ApplicationForm.css';
 import Card from 'react-bootstrap/Card';
 import 'react-datepicker/dist/react-datepicker.css';
 import Button from 'react-bootstrap/Button';
 import FormatSubmission from './formatSubmission';
-// eslint-disable-next-line no-unused-vars
-import {FormWithConstraints, FieldFeedbacks, FieldFeedback} from 'react-form-with-constraints';
+import {login} from '../../redux/actions';
+import {FormWithConstraints} from 'react-form-with-constraints';
 import ExpertiseComponent from './childComponents/expertisepicker/ExpertiseComponent';
 import DatePickerComponent from './childComponents/datepicker/DatePickerComponent';
 import PersonalDetailsComponent from './childComponents/PersonalDetailsComponent';
 import LetterComponent from './childComponents/LetterComponent';
 import MainMenu from '../menu/MainMenu';
-import {login} from '../../redux/actions';
+import './ApplicationForm.css';
 
 class ApplicationForm extends Component {
   constructor(props) {
@@ -23,7 +22,7 @@ class ApplicationForm extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
   componentDidMount() {
-    console.log('did mount');
+    console.log(`UID: ${this.props.uid}`);
   }
   handleChange(e) {
     this.form.validateFields(e.target);
@@ -51,7 +50,7 @@ class ApplicationForm extends Component {
 
   render() {
     return (
-      <div className="container-fluid">
+      <div className='container-fluid'>
         <MainMenu />
         <div className={'container justify-content-md-center mt-3 pt-1'}>
           <Card className={'col-7'}>
@@ -59,14 +58,13 @@ class ApplicationForm extends Component {
               <FormWithConstraints
                 onSubmit={this.handleSubmit}
                 ref={form => (this.form = form)}
-                noValidate
-              >
+                noValidate>
                 <h5>Personal information</h5>
                 <PersonalDetailsComponent changeHandler={this.handleChange} />
                 <h5>Your expertise</h5>
                 <ExpertiseComponent changeHandler={this.handleChange} />
                 <h5 className={'mt-2'}>Your availability</h5>
-                <div id={'availabilityContainer'} className="w-100">
+                <div id={'availabilityContainer'} className='w-100'>
                   <DatePickerComponent changeHandler={this.handleChange} />
                 </div>
                 <h5>Personal Letter</h5>
@@ -83,6 +81,6 @@ class ApplicationForm extends Component {
   }
 }
 function mapStateToProps(state) {
-  return {idToken: state.login.idToken};
+  return {uid: state.login.uid};
 }
 export default connect(mapStateToProps, {login})(ApplicationForm);
