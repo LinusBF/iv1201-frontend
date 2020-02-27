@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 import {Formik} from 'formik';
 import {login} from '../../redux/actions';
 import './Login.css';
-import Logo from '../logo/Logo';
+import Logo from '../menu/Logo';
 import {loginFormSchema} from '../../yupSchemas/loginSchema';
 
 class Login extends Component {

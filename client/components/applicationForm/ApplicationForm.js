@@ -11,7 +11,7 @@ import ExpertiseComponent from './childComponents/expertisepicker/ExpertiseCompo
 import DatePickerComponent from './childComponents/datepicker/DatePickerComponent';
 import PersonalDetailsComponent from './childComponents/PersonalDetailsComponent';
 import LetterComponent from './childComponents/LetterComponent';
-import Logo from '../logo/Logo';
+import Logo from '../menu/Logo';
 
 class ApplicationForm extends Component {
   constructor(props) {

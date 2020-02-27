@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import './singleApplication.css';
-import Logo from '../logo/Logo';
 import {
   firstName,
   lastName,
@@ -16,6 +15,7 @@ import ExpertiseViewComponent from './childComponents/ExpertiseViewComponent';
 import AvailabilityViewComponent from './childComponents/AvailabilityViewComponent';
 import LetterViewComponent from './childComponents/LetterViewComponent';
 import ApprovalComponent from './childComponents/ApprovalComponent';
+import MainMenu from '../menu/MainMenu';
 
 class SingleApplication extends Component {
   constructor(props) {
@@ -26,12 +26,13 @@ class SingleApplication extends Component {
   render() {
     console.log(firstName);
     return (
-      <div className="container-flui">
-        <Logo />
+      <div className="container-fluid">
+        <MainMenu />
         <div className="container">
           <div className="row mt-5">
             <div className="col-sm-8 p-0 pr-md-3 m-2 m-sm-0">
               <div className="card p-5 mt-0">
+                <a href="#">Go Back to list</a>
                 <h5>Personal information</h5>
                 <PersonalDetailsViewComponent data={this.personalData} />
                 <h5>Expertise</h5>
