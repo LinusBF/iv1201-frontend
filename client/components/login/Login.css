@@ -1,10 +1,6 @@
-.loginForm {
-    width: 20%;
-    margin: auto;
-    margin-top: 170px;
-
+#formContainer{
+    width: 35%;
 }
-
 #headline1 {
     font-size: 35px;
     font-weight: bold;

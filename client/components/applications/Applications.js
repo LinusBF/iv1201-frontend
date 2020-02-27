@@ -7,6 +7,7 @@ import './Applications.css';
 import clown from '../../Images/flat.svg';
 import data from './fakeApplicationData';
 import sortApplications from './applicationSort';
+import MainMenu from '../menu/MainMenu';
 
 class Applications extends Component {
   constructor(props) {
@@ -51,16 +52,7 @@ class Applications extends Component {
   render() {
     return (
       <div className={'container-fluid'}>
-        <div className={'logo'}>
-          <div className={'clownIcon'}>
-            <img src={clown} alt={'...'} />
-          </div>
-          <div className={'logoright'}>
-            <div className={'logoHeader1'}>HireTheseClowns</div>
-            <div className={'logoHeader2'}>Recruitment Service</div>
-          </div>
-        </div>
-
+        <MainMenu />
         <ListGroup id={'listGroup'} className={'container justify-content-md-center'} >
           <ListGroupItem className={'list-group-item list-group-item-action active flex-column align-items-start'} id={'listGroup-header'}>
             <div className='d-flex w-100 justify-content-between' >

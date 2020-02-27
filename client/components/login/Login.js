@@ -5,7 +5,7 @@ import {login, setLoginStatus} from '../../redux/actions';
 import './Login.css';
 import axios from 'axios';
 import LoginForm from './LoginForm';
-import Logo from '../menu/Logo';
+import MainMenu from '../menu/MainMenu';
 
 class Login extends Component {
   constructor(props) {
@@ -47,8 +47,8 @@ class Login extends Component {
 
   render() {
     return (
-      <div>
-        <Logo />
+      <div className={'container-fluid'}>
+        <MainMenu />
         <LoginForm handleSubmit={this.handleSubmit} />
       </div>
     );
