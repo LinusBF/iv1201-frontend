@@ -15,7 +15,7 @@ class Applications extends Component {
     this.state = {
       sortingOn: 1,
       loadedSoFar: 30,
-      items: data.apps.slice(0,30)
+      items: data.apps.slice(0, 30),
     };
     this.sort = this.sort.bind(this);
     this.fetchMoreData = this.fetchMoreData.bind(this);
@@ -27,24 +27,26 @@ class Applications extends Component {
     setTimeout(() => {
       this.setState({
         sortingOn: this.state.sortingOn,
-        items: this.state.items.concat(data.apps.slice(this.state.loadedSoFar, this.state.loadedSoFar+30)),
-        loadedSoFar: (this.state.loadedSoFar + 30)
+        items: this.state.items.concat(
+          data.apps.slice(this.state.loadedSoFar, this.state.loadedSoFar + 30),
+        ),
+        loadedSoFar: this.state.loadedSoFar + 30,
       });
     }, 1500);
   }
 
-  sort(col){
+  sort(col) {
     sortApplications(col, this.state.items).then(updatedArray => {
       this.setState({
         sortingOn: this.state.sortingOn,
         items: updatedArray,
-        loadedSoFar: this.state.loadedSoFar
+        loadedSoFar: this.state.loadedSoFar,
       });
       this.forceUpdate();
     });
   }
 
-  calcAge(ssn){
+  calcAge(ssn) {
     //Todo: should calculate age be done server-side?
     return 25;
   }
