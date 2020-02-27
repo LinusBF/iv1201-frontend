@@ -2,7 +2,7 @@ import {LOGGED_IN, LOGGED_IN_STATUS, LOGGED_OUT} from './actionTypes';
 
 export const login = content => ({
   type: LOGGED_IN,
-  payload: {loggedIn: true, idToken: content},
+  payload: {loggedIn: true, idToken: content.idToken, uid: content.uid},
 });
 
 export const logout = () => ({

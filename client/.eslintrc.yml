@@ -3,6 +3,9 @@ extends:
   - 'eslint:recommended'
   - 'plugin:react/recommended'
   - prettier
+plugins:
+  - prettier
+  - react
 parserOptions:
   sourceType: module
   ecmaFeatures:
