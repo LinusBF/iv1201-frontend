@@ -5,6 +5,7 @@
   "main": "server/index.js",
   "scripts": {
     "start": "node server/index.js",
+    "dev-server": "node -r dotenv/config server/index.js",
     "dev": "webpack --mode development && node -r dotenv/config server/index.js",
     "build": "webpack --mode production",
     "test": "mocha"

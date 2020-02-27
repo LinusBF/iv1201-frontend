@@ -1,67 +1,86 @@
 import React, {Component} from 'react';
 import Button from 'react-bootstrap/Button';
+import axios from 'axios';
 
 class ApprovalComponent extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
-    this.message = '';
-    this.styling = this.setStyling(this.props.approved);
+    this.state = {
+      approval: 'pending',
+      message: 'Result pending...',
+      styling: 'pending',
+    };
     this.setStyling = this.setStyling.bind(this);
     this.sendApproval = this.sendApproval.bind(this);
     this.isUserAdmin = true;
   }
+
+  componentDidMount() {
+    this.setStyling(this.props.approved);
+  }
+
   setStyling(approved) {
-    console.log(approved);
     switch (approved) {
-      case true:
-        this.message = 'This application has been approved!';
-        return 'accepted';
-      case false:
-        this.message = 'This application has been rejected.';
-        return 'rejected';
-      case null:
-        this.message = 'Result pending...';
-        return 'pending';
+      case 'approved':
+        this.setState({
+          ...this.state,
+          approval: approved,
+          message: 'This application has been approved!',
+          styling: 'accepted',
+        });
+        break;
+      case 'rejected':
+        this.setState({
+          ...this.state,
+          approval: approved,
+          message: 'This application has been rejected.',
+          styling: 'rejected',
+        });
+        break;
+      case 'pending':
+        this.setState({
+          ...this.state,
+          approval: approved,
+          message: 'Result pending...',
+          styling: 'pending',
+        });
     }
   }
-  sendApproval() {
-    return;
+  sendApproval(status) {
+    console.log(`Updating status of application to ${status}`);
+    axios
+      .post('/update-approval', {
+        token: this.props.idToken,
+        applicationId: this.props.applicationId,
+        oldStatus: this.props.approved,
+        newStatus: status,
+      })
+      .then(() => {
+        this.setStyling(status);
+      });
   }
   renderAdminStuff() {
-    const HTML = [
-      // eslint-disable-next-line react/jsx-key
+    return (
       <div className={'row m-0 p-0 pt-2 mt-2'}>
-        <Button
-          block
-          key={'approve'}
-          name={'approve'}
-          variant='primary'
-          onClick={this.sendApproval('approve')}>
+        <Button block key={1} variant='primary' onClick={() => this.sendApproval('approved')}>
           Approve
         </Button>
-        <Button
-          block
-          key={'reject'}
-          name={'reject'}
-          variant='danger'
-          onClick={this.sendApproval('reject')}>
+        <Button block key={2} variant='danger' onClick={() => this.sendApproval('rejected')}>
           Reject
         </Button>
-      </div>,
-    ];
-    return HTML;
+      </div>
+    );
   }
 
   render() {
     const adminStuff =
-      this.isUserAdmin && this.props.approved === null ? this.renderAdminStuff() : null;
+      this.isUserAdmin && this.state.approval === 'pending' ? this.renderAdminStuff() : null;
     return (
       <div id={'statusColumn'} key={'status'} className='col-sm-4 p-0 m-2 m-sm-0'>
-        <div className={`card p-4 mt-0 ${this.styling}`}>
+        <div className={`card p-4 mt-0 ${this.state.styling}`}>
           <p>Application result</p>
           <div className='card m-0 p-2'>
-            <p>{this.message}</p>
+            <p>{this.state.message}</p>
           </div>
           {adminStuff}
         </div>

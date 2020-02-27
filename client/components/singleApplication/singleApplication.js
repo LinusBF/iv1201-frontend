@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Link, Redirect} from 'react-router-dom';
 import axios from 'axios';
 import './singleApplication.css';
+import FormWrapper from './childComponents/FormWrapper';
 import PersonalDetailsViewComponent from './childComponents/PersonalDetailsViewComponent';
 import ExpertiseViewComponent from './childComponents/ExpertiseViewComponent';
 import AvailabilityViewComponent from './childComponents/AvailabilityViewComponent';
@@ -10,82 +11,74 @@ import ApprovalComponent from './childComponents/ApprovalComponent';
 import MainMenu from '../menu/MainMenu';
 import {connect} from 'react-redux';
 import {login} from '../../redux/actions';
+import baseState from './baseState';
 
 class SingleApplication extends Component {
   constructor(props) {
     super(props);
     const {
       match: {params},
-      location: {state},
+      location: {applicationState},
     } = this.props;
-    this.state = {
-      uId: params.uId,
-      noSubmission: false,
-      firstName: '',
-      lastName: '',
-      ssn: '',
-      email: '',
-      letter: '',
-      approved: null,
-      expertise: [],
-      available: [],
-    };
-    if (state) {
+    this.state = baseState;
+    this.state.uId = params.uId;
+    if (applicationState) {
       this.state = {
         ...this.state,
-        ...state,
+        ...applicationState,
       };
     }
   }
 
   componentDidMount() {
     if (this.state.email === '' && typeof this.props.idToken !== 'undefined') {
+      const that = this;
       axios
         .post(`/fetch-application${this.state.uId ? '/' + this.state.uId : ''}`, {
           token: this.props.idToken,
         })
         .then(res => {
           const application = res.data.application;
-          this.setState({
-            ...this.state,
+          that.setState({
+            ...that.state,
             ...application,
           });
         })
-        .catch(response => {
-          if (response.status === 404) {
-            this.setState({...this.state, noSubmission: true});
+        .catch(error => {
+          if (error.response.status === 404) {
+            that.setState({...that.state, noSubmission: true});
           }
         });
     }
   }
 
   render() {
+    const sidebar = (
+      <ApprovalComponent
+        approved={this.state.approved}
+        applicationId={this.state.uId}
+        idToken={this.props.idToken}
+      />
+    );
     return (
       <div className='container-fluid'>
         <MainMenu />
-        <div className='container'>
-          <div className='row mt-5'>
-            <div className='col-sm-8 p-0 pr-md-3 m-2 m-sm-0'>
-              <div className='card p-5 mt-0'>
-                <Link to={'/Applications'}>Go Back to list</Link>
-                <h5>Personal information</h5>
-                <PersonalDetailsViewComponent
-                  firstName={this.state.firstName}
-                  lastName={this.state.lastName}
-                  ssn={this.state.ssn}
-                  email={this.state.email}
-                />
-                <h5>Expertise</h5>
-                <ExpertiseViewComponent expertise={this.state.expertise} />
-                <h5>Availability</h5>
-                <AvailabilityViewComponent available={this.state.available} />
-                <h5>Personal letter</h5>
-                <LetterViewComponent letter={this.state.letter} />
-              </div>
-            </div>
-            <ApprovalComponent approved={this.state.approved} />
-          </div>
-        </div>
+        <FormWrapper sidebar={sidebar}>
+          <Link to={'/Applications'}>Go Back to list</Link>
+          <h5>Personal information</h5>
+          <PersonalDetailsViewComponent
+            firstName={this.state.firstName}
+            lastName={this.state.lastName}
+            ssn={this.state.ssn}
+            email={this.state.email}
+          />
+          <h5>Expertise</h5>
+          <ExpertiseViewComponent expertise={this.state.expertise} />
+          <h5>Availability</h5>
+          <AvailabilityViewComponent available={this.state.available} />
+          <h5>Personal letter</h5>
+          <LetterViewComponent letter={this.state.letter} />
+        </FormWrapper>
         {typeof this.props.idToken === 'undefined' ? <Redirect to='/' /> : <div />}
         {this.state.noSubmission === true ? <Redirect to='/ApplicationForm' /> : <div />}
       </div>
@@ -96,4 +89,5 @@ class SingleApplication extends Component {
 function mapStateToProps(state) {
   return {idToken: state.login.idToken};
 }
+
 export default connect(mapStateToProps, {login})(SingleApplication);

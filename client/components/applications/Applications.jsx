@@ -17,6 +17,7 @@ class Applications extends Component {
     super(props);
     this.state = {
       sortingOn: 'firstName',
+      redirect: false,
       items: [],
     };
     this.sortByProperty = this.sortByProperty.bind(this);
@@ -24,7 +25,6 @@ class Applications extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props.idToken);
     this.fetchMoreData();
     setTimeout(this.fetchMoreData, 5000);
   }
@@ -42,10 +42,21 @@ class Applications extends Component {
   fetchMoreData() {
     if (typeof this.props.idToken === 'undefined') return;
     axios
-      .post('/fetch-applications', {
-        offset: this.state.items.length,
-        count: COUNT_TO_LOAD,
-        token: this.props.idToken,
+      .post('/user-status', {token: this.props.idToken})
+      .then(res => {
+        if (res.data === 'admin') {
+          return axios.post('/fetch-applications', {
+            offset: this.state.items.length,
+            count: COUNT_TO_LOAD,
+            token: this.props.idToken,
+          });
+        } else {
+          this.setState({
+            ...this.state,
+            redirect: true,
+          });
+          return {data: {applications: []}};
+        }
       })
       .then(res => {
         const newItemList = this.state.items;
@@ -87,7 +98,7 @@ class Applications extends Component {
             loader={<h5>Loading...</h5>}
           >
             {this.state.items.map((i, index) => (
-              <Link to={{pathname: '/SingleApplication/' + i.uId, state: i}} key={index}>
+              <Link to={{pathname: '/SingleApplication/' + i.uId, applicationState: i}} key={index}>
                 <ListGroupItem className={'list-group-item list-group-item-action flex-column align-items-start'}>
                   <div className='d-flex w-100'>
                     <p className={'col-2-sm'} style={{marginRight: '3rem'}}>{i.applyDate}</p>
@@ -96,14 +107,14 @@ class Applications extends Component {
                     <p className={'col'}>{i.expertise.length}</p>
                     <p className={'col'}>{i.available.length}</p>
                     <p className={'col-2-sm'} style={{marginRight: '4rem'}}>{i.available[0].from}</p>
-                    <div className='alert alert-warning col text-center' role='alert'>{i.approved !== null ? i.approved.toString() : 'Undecided'}</div>
+                    <div className='alert alert-warning col text-center' role='alert'>{i.approved}</div>
                   </div>
                 </ListGroupItem>
               </Link>
             ))}
           </InfiniteScroll>
         </ListGroup>
-        {typeof this.props.idToken === 'undefined' ? (
+        {typeof this.props.idToken === 'undefined' || this.state.redirect ? (
           <Redirect to='/'/>
         ) : (
           <div/>
