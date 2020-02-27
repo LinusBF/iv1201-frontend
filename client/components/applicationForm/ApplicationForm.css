@@ -24,8 +24,14 @@
 }
 
 /* EXPERTISES */
-#expertises > div > div > div {
-    margin-left: 0.8rem;
+#expertises {
+    margin: 0;
+}
+#expertises > div {
+    margin-left: 0;
+}
+#expertises > div > div {
+    margin: 0;
 }
 
 /* AVAILABILITY */
@@ -36,6 +42,9 @@
     border-width: 0.5px;
     border-color: #ced4da;
     padding-left: 0.8rem;
+}
+#availabilityContainer > div > div {
+    margin: 0;
 }
 #availabilityContainer > div > div > div.col-5 {
     padding: 0;

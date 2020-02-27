@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
 import Button from 'react-bootstrap/Button';
-import Icon from '../../../Icons';
+import Icon from '../../Icons';
 import {Form} from 'react-bootstrap';
-import {FieldFeedback, FieldFeedbacks} from 'react-form-with-constraints';
 
 class ExpertiseRow extends Component {
   constructor(props) {
@@ -13,7 +12,6 @@ class ExpertiseRow extends Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.deleteList = this.deleteList.bind(this);
-    this.handleChange = this.props.changeHandler;
   }
   handleChange(newSelection) {
     const state = this.state;
@@ -37,24 +35,16 @@ class ExpertiseRow extends Component {
     if (!this.state.shouldRender) return null;
     return (
       <div className={'w-100 row mt-2'}>
-        <Form.Control className="col-8" name={`expertise${this.props.index}`} as="select">
-          <optgroup label="Expertises:">{options}</optgroup>
+        <Form.Control className="col-8" name={'expertise'} as="select">
+          {options}
         </Form.Control>
         <input
           type="text"
-          name={`years${this.props.index}`}
+          name={'years'}
           className="form-control col ml-2 mr-0 pl-2"
           placeholder="Years"
-          onChange={this.handleChange}
-          required
         />
-        <FieldFeedbacks for={`years${this.props.index}`}>
-          <FieldFeedback when="valueMissing">Mandatory</FieldFeedback>
-          <FieldFeedback when={value => !/[+-]?([0-9]*[.])?[0-9]+$/.test(value)}>
-            Numbers
-          </FieldFeedback>
-        </FieldFeedbacks>
-        <div className="col-2-sm ml-2">
+        <div className="col-2-sm">
           <Button variant={'outline-danger'} onClick={this.deleteList}>
             <Icon icon={'bin2'} />
           </Button>

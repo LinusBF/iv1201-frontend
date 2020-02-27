@@ -11,7 +11,7 @@ import ExpertiseComponent from './childComponents/expertisepicker/ExpertiseCompo
 import DatePickerComponent from './childComponents/datepicker/DatePickerComponent';
 import PersonalDetailsComponent from './childComponents/PersonalDetailsComponent';
 import LetterComponent from './childComponents/LetterComponent';
-import Logo from '../menu/Logo';
+import MainMenu from '../menu/MainMenu';
 
 class ApplicationForm extends Component {
   constructor(props) {
@@ -47,8 +47,8 @@ class ApplicationForm extends Component {
   render() {
     return (
       <div className="container-fluid">
-        <Logo />
-        <div className={'container justify-content-md-center'}>
+        <MainMenu />
+        <div className={'container justify-content-md-center mt-3 pt-1'}>
           <Card className={'col-7'}>
             <Card.Body>
               <FormWithConstraints
@@ -59,9 +59,7 @@ class ApplicationForm extends Component {
                 <h5>Personal information</h5>
                 <PersonalDetailsComponent changeHandler={this.handleChange} />
                 <h5>Your expertise</h5>
-                <div className="row w-100">
-                  <ExpertiseComponent changeHandler={this.handleChange} />
-                </div>
+                <ExpertiseComponent changeHandler={this.handleChange} />
                 <h5 className={'mt-2'}>Your availability</h5>
                 <div id={'availabilityContainer'} className="w-100">
                   <DatePickerComponent changeHandler={this.handleChange} />
