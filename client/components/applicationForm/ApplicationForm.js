@@ -19,7 +19,7 @@ import {Redirect} from 'react-router';
 class ApplicationForm extends Component {
   constructor(props) {
     super(props);
-    this.state = {letter: '', submitted: false};
+    this.state = {letter: '', submitted: false, expAndAvailError: null};
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.extractApplication = this.extractApplication.bind(this);
@@ -35,7 +35,10 @@ class ApplicationForm extends Component {
     const formattedApplication = this.extractApplication(event);
     console.log(formattedApplication);
     this.form.validateFields().then(r => {
-      if (this.form.isValid()) {
+      const hasExpAndAvail =
+        formattedApplication.expertise.length > 0 && formattedApplication.available.length > 0;
+      console.log(`hasExpAvail${hasExpAndAvail}`);
+      if (this.form.isValid() && hasExpAndAvail) {
         console.log('Field is valid: submit');
         axios
           .post('/submit', {token: this.props.idToken, application: formattedApplication})
@@ -51,6 +54,18 @@ class ApplicationForm extends Component {
           });
       } else {
         console.log(`Field invalid... ${r}`);
+        if (!hasExpAndAvail) {
+          console.log('yaya');
+          this.setState({
+            letter: this.state.letter,
+            expAndAvailError: [
+              // eslint-disable-next-line react/jsx-key
+              <div key={'error-expAndAvail'} name={'error-expAndAvail'} className={'error last'}>
+                <p>You must have at least one expertise and available period...</p>
+              </div>,
+            ],
+          });
+        }
       }
     });
   }
@@ -67,13 +82,17 @@ class ApplicationForm extends Component {
     return FormatSubmission(valueArray);
   }
   updateLetter(text) {
-    this.setState({letter: text});
+    this.setState({letter: text, expAndAvailError: this.state.expAndAvailError});
   }
   render() {
     return (
       <div className='container-fluid'>
         <MainMenu />
         <div className={'container justify-content-md-center mt-3 pt-1'}>
+          <div id={'header'}>
+            <h2>Welcome!</h2>
+            <p>The first step towards becoming a clown is filling in this form.</p>
+          </div>
           <Card className={'col-7'}>
             <Card.Body>
               <FormWithConstraints
@@ -96,6 +115,7 @@ class ApplicationForm extends Component {
                 <Button type={'submit'} variant={'primary'} size={'md'} className={'mt-2'} block>
                   Submit application
                 </Button>
+                {this.state.expAndAvailError}
               </FormWithConstraints>
             </Card.Body>
           </Card>
