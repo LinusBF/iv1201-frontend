@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Redirect} from 'react-router-dom';
 import firebase from '../../firebaseConfig';
 import {connect} from 'react-redux';
 import {login, setLoginStatus} from '../../redux/actions';
@@ -10,6 +11,10 @@ import MainMenu from '../menu/MainMenu';
 class Login extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      loggedIn: false,
+      isAdmin: false,
+    };
 
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -31,6 +36,11 @@ class Login extends Component {
             axios
               .post('/user-status', {token: idT})
               .then(res => {
+                that.setState({
+                  ...that.state,
+                  loggedIn: true,
+                  isAdmin: res.data === 'admin',
+                });
                 console.info(res);
               })
               .catch(error => {
@@ -51,6 +61,15 @@ class Login extends Component {
       <div className={'container-fluid'}>
         <MainMenu />
         <LoginForm handleSubmit={this.handleSubmit} />
+        {this.state.loggedIn === true ? (
+          this.state.isAdmin === true ? (
+            <Redirect to='/applications' />
+          ) : (
+            <Redirect to='/applicationForm' />
+          )
+        ) : (
+          <div></div>
+        )}
       </div>
     );
   }

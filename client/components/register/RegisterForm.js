@@ -14,39 +14,38 @@ class RegisterForm extends Component {
         <Formik
           validationSchema={loginFormSchema}
           onSubmit={this.props.handleSubmit}
-          initialValues={{email: '', password: ''}}
-        >
+          initialValues={{email: '', password: ''}}>
           {/* eslint-disable-next-line no-unused-vars */}
           {({handleSubmit, handleChange, handleBlur, values, touched, isInvalid, errors}) => (
             <Form noValidate onSubmit={handleSubmit}>
-              <Form.Group style={{marginBottom: 0}} controlId="formBasicEmail">
+              <Form.Group style={{marginBottom: 0}} controlId='formBasicEmail'>
                 <Form.Control
                   className={'inputMail'}
-                  type="email"
-                  placeholder="Enter your email"
-                  name="email"
+                  type='email'
+                  placeholder='Enter your email'
+                  name='email'
                   onBlur={handleBlur}
                   value={values.email}
                   onChange={handleChange}
                   isInvalid={touched.email && errors.email}
                 />
-                <Form.Control.Feedback type="invalid">{errors.email}</Form.Control.Feedback>
+                <Form.Control.Feedback type='invalid'>{errors.email}</Form.Control.Feedback>
               </Form.Group>
-              <Form.Group style={{marginTop: 0}} controlId="formBasicPassword">
+              <Form.Group style={{marginTop: 0}} controlId='formBasicPassword'>
                 <Form.Control
                   className={'inputPass'}
-                  type="password"
-                  placeholder="Enter your Password"
-                  name="password"
+                  type='password'
+                  placeholder='Enter your Password'
+                  name='password'
                   onBlur={handleBlur}
                   value={values.password}
                   onChange={handleChange}
                   isInvalid={touched.password && errors.password}
                 />
-                <Form.Control.Feedback type="invalid">{errors.password}</Form.Control.Feedback>
+                <Form.Control.Feedback type='invalid'>{errors.password}</Form.Control.Feedback>
               </Form.Group>
               <ButtonToolbar>
-                <Button id={'loginButton'} type="submit" variant={'dark'}>
+                <Button id={'loginButton'} type='submit' variant={'dark'}>
                   Sign up
                 </Button>
                 <Button href={'/Login'} id={'signUpButton'} variant={'light'}>

@@ -25,20 +25,40 @@ module.exports = router => {
         res.status(400).send(`Verify token failed`);
       });
   });
+
+  /**
+   * Request a single application
+   */
+  router.get('/fetch-application/:applicationId', (req, res) => {
+    console.info('Received a post request to fetch one application');
+    const applicationId = req.params.applicationId;
+    console.log(applicationId);
+    backendConnection
+      .get(`/application/${applicationId}`)
+      .then(application => {
+        res.status(200).send(application);
+      })
+      .catch(err => {
+        console.error(err.message);
+        res.status(500).send('Request to BackendConnection Failed');
+      });
+  });
+
   /**
    * Requests payload of several applications
    */
-  router.get('/fetch-applications', (req, res) => {
+  router.post('/fetch-applications', (req, res) => {
     console.info('Received a get request to fetch applications');
     const count = req.body.count;
     const offset = req.body.offset;
-    verifyToken(req.body.token).then(uid => {
+    verifyToken(req.body.token === '' ? process.env.TEMP_TOKEN : req.body.token).then(uid => {
       console.info(`Uid from firebase: ${uid}`);
       backendConnection.get(`/application?count=${count}&offset=${offset}`).then(applications => {
         res.status(200).send(applications);
       });
     });
   });
+
   /**
    * Submits a new application
    */
@@ -69,6 +89,7 @@ module.exports = router => {
         res.status(500).send(`Verify token failed:${error}`);
       });
   });
+
   /**
    * Requests a status of single application
    */

@@ -6,7 +6,7 @@ class ApprovalComponent extends Component {
     super(props);
     this.state = {};
     this.message = '';
-    this.styling = this.setStyling(this.props.data);
+    this.styling = this.setStyling(this.props.approved);
     this.setStyling = this.setStyling.bind(this);
     this.sendApproval = this.sendApproval.bind(this);
     this.isUserAdmin = true;
@@ -36,18 +36,16 @@ class ApprovalComponent extends Component {
           block
           key={'approve'}
           name={'approve'}
-          variant="primary"
-          onClick={this.sendApproval('approve')}
-        >
+          variant='primary'
+          onClick={this.sendApproval('approve')}>
           Approve
         </Button>
         <Button
           block
           key={'reject'}
           name={'reject'}
-          variant="danger"
-          onClick={this.sendApproval('reject')}
-        >
+          variant='danger'
+          onClick={this.sendApproval('reject')}>
           Reject
         </Button>
       </div>,
@@ -57,12 +55,12 @@ class ApprovalComponent extends Component {
 
   render() {
     const adminStuff =
-      this.isUserAdmin && this.props.data === null ? this.renderAdminStuff() : null;
+      this.isUserAdmin && this.props.approved === null ? this.renderAdminStuff() : null;
     return (
-      <div id={'statusColumn'} key={'status'} className="col-sm-4 p-0 m-2 m-sm-0">
+      <div id={'statusColumn'} key={'status'} className='col-sm-4 p-0 m-2 m-sm-0'>
         <div className={`card p-4 mt-0 ${this.styling}`}>
           <p>Application result</p>
-          <div className="card m-0 p-2">
+          <div className='card m-0 p-2'>
             <p>{this.message}</p>
           </div>
           {adminStuff}

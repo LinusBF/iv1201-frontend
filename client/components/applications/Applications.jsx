@@ -1,69 +1,80 @@
-/*eslint-disable*/
 import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import ListGroup from 'react-bootstrap/ListGroup';
 import {ListGroupItem} from 'react-bootstrap';
+import axios from 'axios';
 import './Applications.css';
-import clown from '../../Images/flat.svg';
-import data from './fakeApplicationData';
 import sortApplications from './applicationSort';
 import MainMenu from '../menu/MainMenu';
+import {connect} from 'react-redux';
+import {login} from '../../redux/actions';
+
+const COUNT_TO_LOAD = 2;
 
 class Applications extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      sortingOn: 1,
-      loadedSoFar: 30,
-      items: data.apps.slice(0, 30),
+      sortingOn: 'firstName',
+      items: [],
     };
-    this.sort = this.sort.bind(this);
+    this.sortByProperty = this.sortByProperty.bind(this);
     this.fetchMoreData = this.fetchMoreData.bind(this);
   }
 
-  fetchMoreData() {
-    // a fake async api call like which sends
-    // 20 more records in 1.5 secs
-    setTimeout(() => {
-      this.setState({
-        sortingOn: this.state.sortingOn,
-        items: this.state.items.concat(
-          data.apps.slice(this.state.loadedSoFar, this.state.loadedSoFar + 30),
-        ),
-        loadedSoFar: this.state.loadedSoFar + 30,
-      });
-    }, 1500);
+  componentDidMount() {
+    this.fetchMoreData();
+    setTimeout(this.fetchMoreData, 5000);
   }
 
-  sort(col) {
-    sortApplications(col, this.state.items).then(updatedArray => {
+  sortByProperty(propPath) {
+    sortApplications(propPath, this.state.items).then(updatedArray => {
       this.setState({
-        sortingOn: this.state.sortingOn,
+        sortingOn: propPath,
         items: updatedArray,
         loadedSoFar: this.state.loadedSoFar,
       });
-      this.forceUpdate();
     });
   }
 
+  fetchMoreData() {
+    axios
+      .post('/fetch-applications', {
+        offset: this.state.items.length,
+        count: COUNT_TO_LOAD,
+        token: this.props.idToken,
+      })
+      .then(res => {
+        const newItemList = this.state.items;
+        newItemList.push(...res.data.applications);
+        sortApplications(this.state.sortingOn, newItemList).then(updatedArray => {
+          this.setState({
+            ...this.state,
+            items: updatedArray,
+          });
+        });
+      });
+  }
+
   calcAge(ssn) {
-    //Todo: should calculate age be done server-side?
     return 25;
   }
 
   render() {
+    /* eslint-disable */
     return (
       <div className={'container-fluid'}>
         <MainMenu />
         <ListGroup id={'listGroup'} className={'container justify-content-md-center'} >
           <ListGroupItem className={'list-group-item list-group-item-action active flex-column align-items-start'} id={'listGroup-header'}>
             <div className='d-flex w-100 justify-content-between' >
-              <div className={'colHead col-2-sm'} style={{marginRight: '4rem'}}><a href={'#'} id={'head1'} onClick={() => {this.sort(1)}}>Received</a></div>
-              <div className={'colHead col-3'}><a href="#" id={'head2'} onClick={() => {this.sort(2)}}>Name</a></div>
+              <div className={'colHead col-2-sm'} style={{marginRight: '4rem'}}><a href={'#'} id={'head1'} onClick={() => {this.sortByProperty('applyDate')}}>Received</a></div>
+              <div className={'colHead col-3'}><a href="#" id={'head2'} onClick={() => {this.sortByProperty('firstName')}}>Name</a></div>
               <div className={'colHead col'}><a href={"#"} id={'head3'}>Age</a></div>
               <div className={'colHead col'} style={{marginLeft: '-2rem'}}><a href={"#"}>Skills</a></div>
               <div className={'colHead col'} style={{marginLeft: '-2rem'}}><a href={"#"}>Days</a></div>
-              <div className={'colHead col'} style={{marginLeft: '-2rem'}}><a href={"#"} onClick={() => {this.sort(6)}}>Start</a></div>
+              <div className={'colHead col'} style={{marginLeft: '-2rem'}}><a href={"#"} onClick={() => {this.sortByProperty('available[0].from')}}>Start</a></div>
               <div className={'colHead col'}><a href={"#"}>Decision</a></div>
             </div>
           </ListGroupItem>
@@ -74,23 +85,28 @@ class Applications extends Component {
             loader={<h5>Loading...</h5>}
           >
             {this.state.items.map((i, index) => (
-              <ListGroupItem className={'list-group-item list-group-item-action flex-column align-items-start'} key={index}>
-                <div className='d-flex w-100'>
-                  <p className={'col-2-sm'} style={{marginRight: '3rem'}}>{this.state.items[index].applyDate}</p>
-                  <p className={'col-3'}>{this.state.items[index].firstName} {this.state.items[index].lastName}</p>
-                  <p className={'col'}>{this.calcAge(this.state.items[index].ssn)}</p>
-                  <p className={'col'}>{this.state.items[index].expertise.length}</p>
-                  <p className={'col'}>{this.state.items[index].available.length}</p>
-                  <p className={'col-2-sm'} style={{marginRight: '4rem'}}>{this.state.items[index].available[0]}</p>
-                  <div className='alert alert-warning col text-center' role='alert'>{this.state.items[index].approved.toString()}</div>
-                </div>
-              </ListGroupItem>
+              <Link to={{pathname: '/SingleApplication/' + i.uId, state: i}} key={index}>
+                <ListGroupItem className={'list-group-item list-group-item-action flex-column align-items-start'}>
+                  <div className='d-flex w-100'>
+                    <p className={'col-2-sm'} style={{marginRight: '3rem'}}>{i.applyDate}</p>
+                    <p className={'col-3'}>{i.firstName} {i.lastName}</p>
+                    <p className={'col'}>{this.calcAge(i.ssn)}</p>
+                    <p className={'col'}>{i.expertise.length}</p>
+                    <p className={'col'}>{i.available.length}</p>
+                    <p className={'col-2-sm'} style={{marginRight: '4rem'}}>{i.available[0].from}</p>
+                    <div className='alert alert-warning col text-center' role='alert'>{i.approved !== null ? i.approved.toString() : 'Undecided'}</div>
+                  </div>
+                </ListGroupItem>
+              </Link>
             ))}
           </InfiniteScroll>
         </ListGroup>
       </div>
     );
+    /* eslint-enable */
   }
 }
-
-export default Applications;
+function mapStateToProps(state) {
+  return {idToken: state.login.idToken};
+}
+export default connect(mapStateToProps, {login})(Applications);

@@ -1,39 +1,20 @@
+const _ = require('lodash');
+
 /**
- * @param type
- * @param array
+ * @param property String
+ * @param array Array
  * @returns {Promise<array>}
  */
-const sortApplications = function(type, array) {
+const sortApplications = function(property, array) {
   return new Promise(resolve => {
     let updatedArray = array;
-    switch (type) {
-      case 1:
-        updatedArray = sortOnReceived(array);
-        break;
-      case 2:
-        updatedArray = sortIntOrString(array);
-        break;
-      default:
-        break;
-    }
+    updatedArray.sort((a, b) => {
+      let aVal = _.at(a, property);
+      let bVal = _.at(b, property);
+      return aVal < bVal ? 1 : aVal > bVal ? -1 : 0;
+    });
     resolve(updatedArray);
   });
 };
-
-function sortOnReceived(array) {
-  return array.sort((a, b) => {
-    let aD = new Date(a.applyDate);
-    let bD = new Date(b.applyDate);
-    return aD > bD ? -1 : aD < bD ? 1 : 0;
-  });
-}
-
-function sortIntOrString(array) {
-  return array.sort((a, b) => {
-    let aName = a.firstName;
-    let bName = b.firstName;
-    return aName > bName ? 1 : aName < bName ? -1 : 0;
-  });
-}
 
 module.exports = sortApplications;

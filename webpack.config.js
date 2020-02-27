@@ -9,9 +9,9 @@ const htmlPlugin = new HtmlWebPackPlugin({
 module.exports = {
   entry: './client/index.js',
   output: {
-    // NEW
-    path: path.join(__dirname, 'dist'),
-    filename: '[name].js',
+    filename: 'main.js',
+    path: path.resolve('dist'),
+    publicPath: '/',
   }, // NEW Ends
   plugins: [htmlPlugin],
   module: {

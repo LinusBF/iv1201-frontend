@@ -8,13 +8,13 @@ class LetterViewComponent extends Component {
   }
   render() {
     return (
-      <Form.Group controlId="exampleForm.ControlTextarea1">
+      <Form.Group controlId='exampleForm.ControlTextarea1'>
         <Form.Control
           disabled
-          value={this.props.data}
-          as="textarea"
+          value={this.props.letter || ''}
+          as='textarea'
           name={'letter'}
-          rows="3"
+          rows='3'
           required
         />
       </Form.Group>

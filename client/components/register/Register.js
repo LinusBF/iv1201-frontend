@@ -20,7 +20,7 @@ class Register extends Component {
       .then(() => {
         firebase
           .auth()
-          .currentUser.getIdToken(/* forceRefresh */ true)
+          .currentUser.getIdToken(true)
           .then(function(idToken) {
             that.props.login(idToken);
           })
@@ -36,9 +36,9 @@ class Register extends Component {
     return (
       <div className={'container-fluid'}>
         <MainMenu></MainMenu>
-        <div id={'formcontainer'} className="row mt-3 pt-5">
+        <div id={'formcontainer'} className='row mt-3 pt-5'>
           <RegisterForm handleSubmit={this.handleSubmit} />
-          {this.props.loggedIn === true ? <Redirect to="/ApplicationForm" /> : <div></div>}
+          {this.props.loggedIn === true ? <Redirect to='/ApplicationForm' /> : <div></div>}
         </div>
       </div>
     );

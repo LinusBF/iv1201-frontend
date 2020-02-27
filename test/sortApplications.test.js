@@ -5,9 +5,8 @@ const sortApplications = require('../client/components/applications/applicationS
 const fakeData = require('../client/components/applications/fakeApplicationData');
 
 describe('Sort application', () => {
-  it('should sort received low-to-high', done => {
-    sortApplications(1, fakeData.apps).then(newArray => {
-      newArray.forEach(elem => console.info(elem.applyDate));
+  it('should sortByProperty received low-to-high', function() {
+    return sortApplications('applyDate', fakeData.apps).then(newArray => {
       const length = newArray.length;
       let prevDate = new Date(newArray[0].applyDate);
       for (let i = 1; i < length - 1; i++) {
@@ -15,7 +14,6 @@ describe('Sort application', () => {
         expect(newDate).to.not.be.greaterThan(prevDate);
         prevDate = newDate;
       }
-      done();
     });
   });
 });

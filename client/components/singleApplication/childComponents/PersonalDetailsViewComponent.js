@@ -6,61 +6,61 @@ class PersonalDetailsViewComponent extends Component {
     this.state = {};
   }
   render() {
-    console.log(this.props.data);
+    console.log(this.props);
     return (
-      <div id="personalDetails">
-        <div className="row">
-          <div className="col pr-1">
-            <div className="input-group mb-2 mr-sm-2">
-              <div className="input-group-prepend">
-                <div className="input-group-text">Name</div>
+      <div id='personalDetails'>
+        <div className='row'>
+          <div className='col pr-1'>
+            <div className='input-group mb-2 mr-sm-2'>
+              <div className='input-group-prepend'>
+                <div className='input-group-text'>Name</div>
               </div>
               <input
                 disabled
-                type="text"
+                type='text'
                 name={'firstName'}
-                value={this.props.data.firstName}
-                className="form-control"
+                value={this.props.firstName || ''}
+                className='form-control'
               />
             </div>
           </div>
-          <div className="col pl-1">
-            <div className="input-group mb-2 mr-sm-2">
-              <div className="input-group-prepend">
-                <div className="input-group-text">Surname</div>
+          <div className='col pl-1'>
+            <div className='input-group mb-2 mr-sm-2'>
+              <div className='input-group-prepend'>
+                <div className='input-group-text'>Surname</div>
               </div>
               <input
                 disabled
-                type="text"
+                type='text'
                 name={'lastName'}
-                value={this.props.data.lastName}
-                className="form-control"
+                value={this.props.lastName || ''}
+                className='form-control'
               />
             </div>
           </div>
         </div>
-        <div className="input-group mb-2 mr-sm-2">
-          <div className="input-group-prepend">
-            <div className="input-group-text">SSN</div>
+        <div className='input-group mb-2 mr-sm-2'>
+          <div className='input-group-prepend'>
+            <div className='input-group-text'>SSN</div>
           </div>
           <input
             disabled
-            type="text"
+            type='text'
             name={'ssn'}
-            value={this.props.data.ssn}
-            className="form-control"
+            value={this.props.ssn || ''}
+            className='form-control'
           />
         </div>
-        <div className="input-group mb-2 mr-sm-2">
-          <div className="input-group-prepend">
-            <div className="input-group-text">Email</div>
+        <div className='input-group mb-2 mr-sm-2'>
+          <div className='input-group-prepend'>
+            <div className='input-group-text'>Email</div>
           </div>
           <input
             disabled
-            type="email"
+            type='email'
             name={'email'}
-            value={this.props.data.email}
-            className="form-control"
+            value={this.props.email || ''}
+            className='form-control'
           />
         </div>
       </div>

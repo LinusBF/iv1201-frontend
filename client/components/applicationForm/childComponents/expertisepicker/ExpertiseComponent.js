@@ -37,7 +37,7 @@ class ExpertiseComponent extends Component {
     return (
       <div id={'expertises'} className={'row w-100'}>
         <Form.Group className={'w-100'}>{allLists}</Form.Group>
-        <Button onClick={this.addList} className={'mt-0 mb-4'} variant="primary" size="md" block>
+        <Button onClick={this.addList} className={'mt-0 mb-4'} variant='primary' size='md' block>
           Add expertise
         </Button>
       </div>

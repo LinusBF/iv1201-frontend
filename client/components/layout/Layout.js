@@ -17,7 +17,7 @@ class Layout extends Component {
         <Switch>
           <Route path='/Register' render={() => <Register />} />
           <Route path='/Applications' render={() => <Applications />} />
-          <Route path='/SingleApplication' render={() => <SingleApplication />} />
+          <Route path='/SingleApplication/:uId' component={SingleApplication} />
           <Route path='/ApplicationForm' render={() => <ApplicationForm />} />
           <Route path='/expertise' render={() => <ExpertiseComponent />} />
           <Route path='/' render={() => <Login />} />
