@@ -5,7 +5,7 @@ import Register from '../register/Register';
 import Applications from '../applications/Applications';
 import SingleApplication from '../singleApplication/singleApplication';
 import ApplicationForm from '../applicationForm/ApplicationForm';
-import ExpertiseComponent from '../applicationForm/expertisepicker/ExpertiseComponent';
+import ExpertiseComponent from '../applicationForm/childComponents/expertisepicker/ExpertiseComponent';
 
 class Layout extends Component {
   constructor(props) {

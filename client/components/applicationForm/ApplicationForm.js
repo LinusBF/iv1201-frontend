@@ -1,25 +1,27 @@
 /* eslint-disable max-lines */
 import React, {Component} from 'react';
 import './ApplicationForm.css';
-import {Form} from 'react-bootstrap';
 import Card from 'react-bootstrap/Card';
 import 'react-datepicker/dist/react-datepicker.css';
 import Button from 'react-bootstrap/Button';
-import DatePickerComponent from './datepicker/DatePickerComponent';
-import ExpertiseComponent from './expertisepicker/ExpertiseComponent';
 import FormatSubmission from './formatSubmission';
+// eslint-disable-next-line no-unused-vars
+import {FormWithConstraints, FieldFeedbacks, FieldFeedback} from 'react-form-with-constraints';
+import ExpertiseComponent from './childComponents/expertisepicker/ExpertiseComponent';
+import DatePickerComponent from './childComponents/datepicker/DatePickerComponent';
+import PersonalDetailsComponent from './childComponents/PersonalDetailsComponent';
+import LetterComponent from './childComponents/LetterComponent';
+import Logo from '../menu/Logo';
 
 class ApplicationForm extends Component {
   constructor(props) {
     super(props);
     this.state = {letter: ''};
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.personalLetterChange = this.personalLetterChange.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
-  personalLetterChange(event) {
-    let state = this.state;
-    state['letter'] = event.target.value;
-    this.setState(state);
+  handleChange(e) {
+    this.form.validateFields(e.target);
   }
   handleSubmit(event) {
     event.preventDefault();
@@ -33,74 +35,46 @@ class ApplicationForm extends Component {
       valueArray.push(entry.value);
     }
     console.log(FormatSubmission(valueArray));
+    this.form.validateFields().then(r => {
+      if (this.form.isValid()) {
+        console.log('Field is valid: submit');
+      } else {
+        console.log(`Field invalid... ${r}`);
+      }
+    });
   }
 
   render() {
     return (
-      <div className={'container justify-content-md-center'}>
-        <Card className={'col-7'}>
-          <Card.Body>
-            <Form onSubmit={this.handleSubmit}>
-              <h5>Personal information</h5>
-              <div id="personalDetails">
-                <div className="row">
-                  <div className="col">
-                    <input
-                      type="text"
-                      name={'firstName'}
-                      className="form-control"
-                      placeholder="First name"
-                    />
-                  </div>
-                  <div className="col">
-                    <input
-                      type="text"
-                      name={'lastName'}
-                      className="form-control"
-                      placeholder="Last name"
-                    />
-                  </div>
+      <div className="container-fluid">
+        <Logo />
+        <div className={'container justify-content-md-center'}>
+          <Card className={'col-7'}>
+            <Card.Body>
+              <FormWithConstraints
+                onSubmit={this.handleSubmit}
+                ref={form => (this.form = form)}
+                noValidate
+              >
+                <h5>Personal information</h5>
+                <PersonalDetailsComponent changeHandler={this.handleChange} />
+                <h5>Your expertise</h5>
+                <div className="row w-100">
+                  <ExpertiseComponent changeHandler={this.handleChange} />
                 </div>
-                <input
-                  type="text"
-                  name={'ssn'}
-                  autoComplete={'off'}
-                  className="form-control"
-                  placeholder="Personal number"
-                />
-                <input
-                  type="email"
-                  name={'email'}
-                  className="form-control"
-                  placeholder="Email adress"
-                />
-              </div>
-              <h5>Your expertise</h5>
-              <div className="row w-100">
-                <ExpertiseComponent />
-              </div>
-              <h5 className={'mt-2'}>Your availability</h5>
-              <div id={'availabilityContainer'} className="w-100">
-                <DatePickerComponent />
-              </div>
-              <h5>Personal Letter</h5>
-              <div id={'availabilityContainer'} className="w-100">
-                <Form.Group controlId="exampleForm.ControlTextarea1">
-                  <Form.Control
-                    placeholder={'Enter some text here'}
-                    value={this.state.letter}
-                    onChange={this.personalLetterChange}
-                    as="textarea"
-                    rows="3"
-                  />
-                </Form.Group>
-              </div>
-              <Button type={'submit'} variant={'primary'} size={'md'} className={'mt-2'} block>
-                Submit application
-              </Button>
-            </Form>
-          </Card.Body>
-        </Card>
+                <h5 className={'mt-2'}>Your availability</h5>
+                <div id={'availabilityContainer'} className="w-100">
+                  <DatePickerComponent changeHandler={this.handleChange} />
+                </div>
+                <h5>Personal Letter</h5>
+                <LetterComponent changeHandler={this.handleChange} />
+                <Button type={'submit'} variant={'primary'} size={'md'} className={'mt-2'} block>
+                  Submit application
+                </Button>
+              </FormWithConstraints>
+            </Card.Body>
+          </Card>
+        </div>
       </div>
     );
   }

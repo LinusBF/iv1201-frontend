@@ -15,7 +15,14 @@ class DatePickerComponent extends Component {
     const arr = [];
     this.state.datePickRows.forEach((val, index) => {
       let row = this.state.datePickRows[index];
-      arr.push(<DatePickerRow fromDate={row.fromDate} toDate={row.toDate} key={`row-${index}`} />);
+      arr.push(
+        <DatePickerRow
+          fromDate={row.fromDate}
+          toDate={row.toDate}
+          key={`row-${index}`}
+          changeHandler={this.props.changeHandler}
+        />
+      );
     });
     return arr;
   }

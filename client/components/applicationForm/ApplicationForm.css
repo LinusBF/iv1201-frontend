@@ -40,3 +40,31 @@
 #availabilityContainer > div > div > div.col-5 {
     padding: 0;
 }
+/* VALIDATION */
+.error {
+    color: red;
+    font-size: 0.7rem;
+    display: block;
+    margin: -1.7rem 0rem 0 0;
+    text-align: right;
+    padding: 0 1rem 0 0;
+}
+#personalDetails > span:nth-child(3) {
+    margin-bottom: 0.6rem;
+}
+#expertises span {
+    margin: 0 0 0 -3rem;
+    padding: 0.75rem 0.3rem 0 0;
+    z-index: 10;
+    font-size: 0.6rem;
+}
+#availabilityContainer div.w-100.error{
+    text-align: left;
+    margin: 0.2rem 0rem 0 0;
+    padding: 0 1rem 0 0;
+    font-size: 0.8rem;
+}
+#letter span{
+    margin: -0.7rem 0 0.8rem 0;
+    text-align: left;
+}

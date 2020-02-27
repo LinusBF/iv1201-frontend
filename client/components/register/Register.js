@@ -4,7 +4,7 @@ import {Form, Button, ButtonToolbar} from 'react-bootstrap';
 import {connect} from 'react-redux';
 import {login} from '../../redux/actions';
 import '../login/Login.css';
-import Logo from '../logo/Logo';
+import Logo from '../menu/Logo';
 import {Formik} from 'formik';
 import {loginFormSchema} from '../../yupSchemas/loginSchema';
 import {Redirect} from 'react-router-dom';

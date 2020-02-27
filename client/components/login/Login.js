@@ -3,9 +3,9 @@ import firebase from '../../firebaseConfig';
 import {connect} from 'react-redux';
 import {login, setLoginStatus} from '../../redux/actions';
 import './Login.css';
-import Logo from '../logo/Logo';
 import axios from 'axios';
 import LoginForm from './LoginForm';
+import Logo from '../menu/Logo';
 
 class Login extends Component {
   constructor(props) {

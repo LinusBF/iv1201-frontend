@@ -21,7 +21,14 @@ class ExpertiseComponent extends Component {
   renderAllLists() {
     const arr = [];
     for (let i = 0; i < this.state.numRows; i++) {
-      arr.push(<ExpertiseRow key={`exp-${i}`} options={this.state.options} />);
+      arr.push(
+        <ExpertiseRow
+          key={`exp-${i}`}
+          index={i}
+          options={this.state.options}
+          changeHandler={this.props.changeHandler}
+        />
+      );
     }
     return arr;
   }
