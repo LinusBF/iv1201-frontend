@@ -7,7 +7,7 @@
     "start": "node server/index.js",
     "dev": "webpack --mode development && node -r dotenv/config server/index.js",
     "build": "webpack --mode production",
-    "test": "snyk test && mocha"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
