@@ -34,27 +34,27 @@ class DatePickerRow extends Component {
     if (!this.state.shouldRender) return null;
     return (
       <Form.Group className={'w-100 row mt-2'}>
-        <div className="col-5">
+        <div className='col-5'>
           <DatePicker
             autoComplete={'off'}
             selected={this.state.fromDate}
             className={'w-100'}
             onChange={this.changeFromDate}
             name={'availableFrom'}
-            placeholderText="Select from date"
+            placeholderText='Select from date'
           />
         </div>
-        <div className="col-5 m-0">
+        <div className='col-5 m-0'>
           <DatePicker
             autoComplete={'off'}
             selected={this.state.toDate}
             className={'w-100'}
             onChange={this.changeToDate}
             name={'availableTo'}
-            placeholderText="Select to date"
+            placeholderText='Select to date'
           />
         </div>
-        <div className="col">
+        <div className='col'>
           <Button variant={'outline-danger'} className={'w-100'} onClick={this.deleteRow}>
             <Icon icon={'bin2'} />
           </Button>
