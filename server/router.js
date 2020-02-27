@@ -1,7 +1,7 @@
 'use strict';
 const backendConnection = require('./backendConnection');
 const verifyToken = require('./verifyToken');
-const formatter = require('./applicationFormatter');
+const {formatApplication} = require('./applicationFormatter');
 
 module.exports = router => {
   /**
@@ -44,12 +44,30 @@ module.exports = router => {
    */
   router.post('/submit', (req, res) => {
     console.info('Received a post request to submit applications');
-    verifyToken(req.body.token).then(uid => {
-      const application = formatter.formatApplication(req.body, uid);
-      backendConnection.post(`/application`, application).then(applications => {
-        res.status(200).send(applications);
+    verifyToken(req.body.token)
+      .then(uid => {
+        console.info('Verify token success');
+        formatApplication(req.body.application, uid)
+          .then(application => {
+            console.info('APPLICATION');
+            console.info(application);
+            backendConnection
+              .post(`/application`, application)
+              .then(status => {
+                res.status(200).send(status);
+              })
+              .catch(error => {
+                console.info(`Post error ${error}`);
+              });
+          })
+          .catch(() => {
+            console.info('Format application failed');
+          });
+      })
+      .catch(error => {
+        console.info(`Verify token failed: ${error}`);
+        res.status(500).send(`Verify token failed:${error}`);
       });
-    });
   });
   /**
    * Requests a status of single application

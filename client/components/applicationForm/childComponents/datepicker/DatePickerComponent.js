@@ -20,6 +20,7 @@ class DatePickerComponent extends Component {
           fromDate={row.fromDate}
           toDate={row.toDate}
           key={`row-${index}`}
+          index={index}
           changeHandler={this.props.changeHandler}
         />
       );
@@ -37,7 +38,7 @@ class DatePickerComponent extends Component {
     return (
       <div>
         {allRows}
-        <Button onClick={this.addRow} className={'mt-2 mb-4'} variant="primary" size="md" block>
+        <Button onClick={this.addRow} className={'mt-2 mb-4'} variant='primary' size='md' block>
           Add row
         </Button>
       </div>

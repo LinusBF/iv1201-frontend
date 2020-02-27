@@ -60,29 +60,29 @@ class DatePickerRow extends Component {
     const dateError = this.checkDateError();
     return (
       <Form.Group className={'w-100 row mt-2'}>
-        <div className="col-5">
+        <div className='col-5'>
           <DatePicker
-            dateFormat="yyyy/MM/dd"
+            dateFormat='yyyy/MM/dd'
             autoComplete={'off'}
             selected={this.state.fromDate}
             className={'w-100'}
             onChange={this.changeFromDate}
-            name={'availableFrom'}
-            placeholderText="Select from date"
+            name={`availableFrom-${this.props.index}`}
+            placeholderText='Select from date'
           />
         </div>
-        <div className="col-5 m-0">
+        <div className='col-5 m-0'>
           <DatePicker
-            dateFormat="yyyy/MM/dd"
+            dateFormat='yyyy/MM/dd'
             autoComplete={'off'}
             selected={this.state.toDate}
             className={'w-100'}
             onChange={this.changeToDate}
-            name={'availableTo'}
-            placeholderText="Select to date"
+            name={`availableTo-${this.props.index}`}
+            placeholderText='Select to date'
           />
         </div>
-        <div className="col-2 p-0">
+        <div className='col-2 p-0'>
           <Button variant={'outline-danger'} className={'w-100'} onClick={this.deleteRow}>
             <Icon icon={'bin2'} />
           </Button>

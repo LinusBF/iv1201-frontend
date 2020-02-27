@@ -16,26 +16,18 @@ function FormatSubmission(data) {
   let availableCount = 0;
   while (input.length > 0) {
     item = input.splice(0, 1)[0];
-    switch (item[0]) {
-      case 'expertise':
-        formatted.expertise.push({expertise: item[1], years: null});
-        break;
-      case 'years':
-        formatted.expertise[expertiseCount]['years'] = item[1];
-        expertiseCount++;
-        break;
-      case 'availableFrom':
-        formatted.available.push({from: item[1], to: null});
-        break;
-      case 'availableTo':
-        formatted.available[availableCount]['to'] = item[1];
-        availableCount++;
-        break;
-      case 'letter':
-        formatted.letter = item[1];
-        break;
-      default:
-        break;
+    if (item[0].includes('expertise')) {
+      formatted.expertise.push({expertise: item[1].split('-')[0], years: null});
+    } else if (item[0].includes('years')) {
+      formatted.expertise[expertiseCount]['years'] = item[1].split('-')[0];
+      expertiseCount++;
+    } else if (item[0].includes('availableFrom')) {
+      formatted.available.push({from: item[1].split('-')[0], to: null});
+    } else if (item[0].includes('availableTo')) {
+      formatted.available[availableCount]['to'] = item[1].split('-')[0];
+      availableCount++;
+    } else if (item[0].includes('letter')) {
+      formatted.letter = item[1];
     }
   }
   return formatted;

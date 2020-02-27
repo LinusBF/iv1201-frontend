@@ -1,18 +1,26 @@
 'use strict';
 
-const formatApplication = body => {
-  return {
-    userId: '12314134134134',
-    applyDate: Date.toString(),
-    approved: false,
-    firstName: body.firstName,
-    lastName: body.lastName,
-    ssn: body.ssn,
-    email: body.email,
-    expertise: body.expertise,
-    available: body.available,
-    letter: body.letter,
-  };
+const formatApplication = function(body, uid) {
+  return new Promise(function(resolve, reject) {
+    try {
+      resolve({
+        data: {
+          userId: uid,
+          applyDate: body.applyDate,
+          approved: false,
+          firstName: body.firstName,
+          lastName: body.lastName,
+          ssn: body.ssn,
+          email: body.email,
+          expertise: body.expertise,
+          available: body.available,
+          letter: body.letter,
+        },
+      });
+    } catch (e) {
+      reject(e);
+    }
+  });
 };
 
 module.exports = {formatApplication};

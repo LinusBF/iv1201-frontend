@@ -10,26 +10,27 @@ class LetterComponent extends Component {
   }
   personalLetterChange(event) {
     this.props.changeHandler(event);
+    this.props.changeLetter(event.target.value);
     let state = this.state;
     state['letter'] = event.target.value;
     this.setState(state);
   }
   render() {
     return (
-      <div id={'letter'} className="w-100">
-        <Form.Group controlId="exampleForm.ControlTextarea1">
+      <div id={'letter'} className='w-100'>
+        <Form.Group controlId='exampleForm.ControlTextarea1'>
           <Form.Control
             placeholder={'Enter your personal letter here'}
             value={this.state.letter}
             onChange={this.personalLetterChange}
-            as="textarea"
+            as='textarea'
             name={'letter'}
-            rows="3"
+            rows='3'
             required
           />
         </Form.Group>
-        <FieldFeedbacks for="letter">
-          <FieldFeedback when="valueMissing">Personal letter is a mandatory field...</FieldFeedback>
+        <FieldFeedbacks for='letter'>
+          <FieldFeedback when='valueMissing'>Personal letter is a mandatory field...</FieldFeedback>
           <FieldFeedback when={value => value.length > 200}>
             Yeeeeez man, 200 chars maximum!
           </FieldFeedback>

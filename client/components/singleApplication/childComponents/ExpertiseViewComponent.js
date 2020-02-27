@@ -9,41 +9,41 @@ class ExpertiseViewComponent extends Component {
     const expertises = [];
     this.props.data.forEach((expertise, index) => {
       expertises.push(
-        <div name={`expertise${index}`} key={`expertise${index}`} className="row mb-2">
-          <div className="col-8 pr-0">
-            <div className="input-group ml-0">
-              <div className="input-group-prepend">
-                <div className="input-group-text">Expertise</div>
+        <div name={`expertise-${index}`} key={`expertise-${index}`} className='row mb-2'>
+          <div className='col-8 pr-0'>
+            <div className='input-group ml-0'>
+              <div className='input-group-prepend'>
+                <div className='input-group-text'>Expertise</div>
               </div>
               <input
                 disabled
-                type="text"
+                type='text'
                 name={`name${index}`}
                 key={`name${index}`}
                 value={expertise.name}
-                className="form-control"
+                className='form-control'
               />
             </div>
           </div>
-          <div className="col-4 pl-0">
-            <div className="input-group">
-              <div className="input-group-prepend">
-                <div className="input-group-text">Years</div>
+          <div className='col-4 pl-0'>
+            <div className='input-group'>
+              <div className='input-group-prepend'>
+                <div className='input-group-text'>Years</div>
               </div>
               <input
                 disabled
-                type="text"
+                type='text'
                 name={`lastName${index}`}
                 key={`lastName${index}`}
                 value={expertise.years}
-                className="form-control"
+                className='form-control'
               />
             </div>
           </div>
         </div>
       );
     });
-    return <div id="expertises">{expertises}</div>;
+    return <div id='expertises'>{expertises}</div>;
   }
 }
 

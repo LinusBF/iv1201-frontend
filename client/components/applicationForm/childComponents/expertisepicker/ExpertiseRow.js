@@ -37,24 +37,24 @@ class ExpertiseRow extends Component {
     if (!this.state.shouldRender) return null;
     return (
       <div className={'w-100 row mt-2'}>
-        <Form.Control className="col-8" name={`expertise${this.props.index}`} as="select">
-          <optgroup label="Expertises:">{options}</optgroup>
+        <Form.Control className='col-8' name={`expertise-${this.props.index}`} as='select'>
+          <optgroup label='Expertises:'>{options}</optgroup>
         </Form.Control>
         <input
-          type="text"
-          name={`years${this.props.index}`}
-          className="form-control col ml-2 mr-0 pl-2"
-          placeholder="Years"
+          type='text'
+          name={`years-${this.props.index}`}
+          className='form-control col ml-2 mr-0 pl-2'
+          placeholder='Years'
           onChange={this.handleChange}
           required
         />
         <FieldFeedbacks for={`years${this.props.index}`}>
-          <FieldFeedback when="valueMissing">Mandatory</FieldFeedback>
+          <FieldFeedback when='valueMissing'>Mandatory</FieldFeedback>
           <FieldFeedback when={value => !/[+-]?([0-9]*[.])?[0-9]+$/.test(value)}>
             Numbers
           </FieldFeedback>
         </FieldFeedbacks>
-        <div className="col-2-sm ml-2">
+        <div className='col-2-sm ml-2'>
           <Button variant={'outline-danger'} onClick={this.deleteList}>
             <Icon icon={'bin2'} />
           </Button>

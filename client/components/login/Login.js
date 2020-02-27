@@ -27,6 +27,7 @@ class Login extends Component {
           .then(function(idT) {
             // eslint-disable-next-line react/prop-types
             that.props.login({idToken: idT, uid: userid});
+            console.log(idT);
             axios
               .post('/user-status', {token: idT})
               .then(res => {
