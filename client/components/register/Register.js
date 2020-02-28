@@ -17,12 +17,13 @@ class Register extends Component {
     firebase
       .auth()
       .createUserWithEmailAndPassword(e.email, e.password)
-      .then(() => {
+      .then(r => {
+        const userid = r.user.uid;
         firebase
           .auth()
           .currentUser.getIdToken(true)
-          .then(function(idToken) {
-            that.props.login(idToken);
+          .then(function(idT) {
+            that.props.login({idToken: idT, uid: userid});
           })
           .catch(function(error) {
             console.error(error);
