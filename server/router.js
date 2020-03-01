@@ -53,10 +53,13 @@ module.exports = router => {
     const newStatus = req.body.newStatus;
     verifyToken(idToken)
       .then(uId => {
+        console.log(uId);
         return backendConnection.get(`/user/${uId}/user-status`);
       })
       .then(userStatus => {
+        console.log(userStatus);
         if (userStatus === 'admin') {
+          console.log(applicationId);
           backendConnection
             .post(`/application/${applicationId}/status`, {data: {status: newStatus, oldStatus}})
             .then(() => res.status(200).send('Updated!'))

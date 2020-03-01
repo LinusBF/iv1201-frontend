@@ -22,6 +22,7 @@ class SingleApplication extends Component {
     this.state = baseState;
     this.state.uId = params.uId;
     if (applicationState) {
+      console.info(applicationState);
       this.state = {
         ...this.state,
         ...applicationState,
@@ -63,7 +64,7 @@ class SingleApplication extends Component {
         <MainMenu />
         <FormWrapper
           approved={this.state.approved}
-          applicationId={this.state.uid}
+          applicationId={this.state.uId}
           idToken={this.props.idToken}>
           {goBackToList}
           <h5>Personal information</h5>

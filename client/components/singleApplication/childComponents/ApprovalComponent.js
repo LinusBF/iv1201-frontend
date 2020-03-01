@@ -8,6 +8,7 @@ class ApprovalComponent extends Component {
     super(props);
     this.state = {
       approval: 'pending',
+      message: 'This application is pending',
       styling: 'pending',
     };
     this.setStyling = this.setStyling.bind(this);
@@ -50,12 +51,11 @@ class ApprovalComponent extends Component {
     }
   }
   sendApproval(status) {
-    console.log(`Updating status of application to ${status}`);
     axios
       .post('/update-approval', {
         token: this.props.idToken,
         applicationId: this.props.applicationId,
-        oldStatus: this.props.approved,
+        oldStatus: 'pending',
         newStatus: status,
       })
       .then(() => {

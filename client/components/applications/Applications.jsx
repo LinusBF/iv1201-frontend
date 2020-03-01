@@ -47,7 +47,7 @@ class Applications extends Component {
         if (res.data === 'admin') {
           return axios.post('/fetch-applications', {
             offset: this.state.items.length,
-            count: COUNT_TO_LOAD,
+            count: 10,
             token: this.props.idToken,
           });
         } else {
