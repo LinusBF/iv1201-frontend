@@ -35,7 +35,7 @@ module.exports = router => {
       .then(token => {
         console.info(token);
         backendConnection
-          .post(`/user/${token}/user-status`)
+          .get(`/user/${token}/user-status`)
           .then(userStatus => res.status(200).send(userStatus))
           .catch(() => res.status(500).send('Request to BackendConnection Failed'));
       })
