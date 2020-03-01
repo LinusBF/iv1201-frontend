@@ -48,7 +48,7 @@ class ExpertiseRow extends Component {
           onChange={this.handleChange}
           required
         />
-        <FieldFeedbacks for={`years${this.props.index}`}>
+        <FieldFeedbacks for={`years-${this.props.index}`}>
           <FieldFeedback when='valueMissing'>Mandatory</FieldFeedback>
           <FieldFeedback when={value => !/[+-]?([0-9]*[.])?[0-9]+$/.test(value)}>
             Numbers
