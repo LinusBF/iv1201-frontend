@@ -38,7 +38,8 @@ class MainMenu extends Component {
           <div className={'w-100'}>
             <Logo />
           </div>
-          {typeof this.props.idToken === 'undefined' ? (
+          {/* eslint-disable-next-line eqeqeq */}
+          {this.props.idToken == null ? (
             <div />
           ) : (
             <div className={'flex-shrink-0 mt-3'}>
