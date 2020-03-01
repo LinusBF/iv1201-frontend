@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import Button from 'react-bootstrap/Button';
 import axios from 'axios';
+import {connect} from 'react-redux';
+import {login} from '../../../redux/actions';
 
 class ApprovalComponent extends Component {
   constructor(props) {
@@ -12,13 +14,10 @@ class ApprovalComponent extends Component {
     };
     this.setStyling = this.setStyling.bind(this);
     this.sendApproval = this.sendApproval.bind(this);
-    this.isUserAdmin = true;
   }
-
   componentDidMount() {
     this.setStyling(this.props.approved);
   }
-
   setStyling(approved) {
     switch (approved) {
       case 'approved':
@@ -74,7 +73,11 @@ class ApprovalComponent extends Component {
 
   render() {
     const adminStuff =
-      this.isUserAdmin && this.state.approval === 'pending' ? this.renderAdminStuff() : null;
+      this.props.userStatus === 'admin' && this.state.approval === 'pending' ? (
+        this.renderAdminStuff()
+      ) : (
+        <div></div>
+      );
     return (
       <div id={'statusColumn'} key={'status'} className='col-sm-4 p-0 m-2 m-sm-0'>
         <div className={`card p-4 mt-0 ${this.state.styling}`}>
@@ -89,4 +92,8 @@ class ApprovalComponent extends Component {
   }
 }
 
-export default ApprovalComponent;
+function mapStateToProps(state) {
+  return {userStatus: state.login.userStatus};
+}
+
+export default connect(mapStateToProps, {login})(ApprovalComponent);

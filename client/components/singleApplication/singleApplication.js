@@ -53,6 +53,12 @@ class SingleApplication extends Component {
   }
 
   render() {
+    const goBackToList =
+      this.props.userStatus === 'admin' ? (
+        <Link to={'/Applications'}>Go Back To List</Link>
+      ) : (
+        <div></div>
+      );
     const sidebar = (
       <ApprovalComponent
         approved={this.state.approved}
@@ -64,7 +70,7 @@ class SingleApplication extends Component {
       <div className='container-fluid'>
         <MainMenu />
         <FormWrapper sidebar={sidebar}>
-          <Link to={'/Applications'}>Go Back to list</Link>
+          {goBackToList}
           <h5>Personal information</h5>
           <PersonalDetailsViewComponent
             firstName={this.state.firstName}
@@ -87,7 +93,7 @@ class SingleApplication extends Component {
 }
 
 function mapStateToProps(state) {
-  return {idToken: state.login.idToken};
+  return {idToken: state.login.idToken, userStatus: state.login.userStatus};
 }
 
 export default connect(mapStateToProps, {login})(SingleApplication);
