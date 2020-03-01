@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import ApprovalComponent from './ApprovalComponent';
 
 class FormWrapper extends Component {
   constructor(props) {
@@ -12,7 +13,11 @@ class FormWrapper extends Component {
           <div className='col-sm-8 p-0 pr-md-3 m-2 m-sm-0'>
             <div className='card p-5 mt-0'>{this.props.children}</div>
           </div>
-          {this.props.sidebar}
+          <ApprovalComponent
+            approved={this.props.approved}
+            applicationId={this.props.applicationId}
+            idToken={this.props.idToken}
+          />
         </div>
       </div>
     );

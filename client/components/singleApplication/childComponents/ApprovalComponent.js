@@ -3,13 +3,11 @@ import Button from 'react-bootstrap/Button';
 import axios from 'axios';
 import {connect} from 'react-redux';
 import {login} from '../../../redux/actions';
-
 class ApprovalComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
       approval: 'pending',
-      message: 'Result pending...',
       styling: 'pending',
     };
     this.setStyling = this.setStyling.bind(this);
@@ -17,6 +15,12 @@ class ApprovalComponent extends Component {
   }
   componentDidMount() {
     this.setStyling(this.props.approved);
+  }
+  // eslint-disable-next-line no-unused-vars
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (prevProps !== this.props) {
+      this.setStyling(this.props.approved);
+    }
   }
   setStyling(approved) {
     switch (approved) {
@@ -70,7 +74,6 @@ class ApprovalComponent extends Component {
       </div>
     );
   }
-
   render() {
     const adminStuff =
       this.props.userStatus === 'admin' && this.state.approval === 'pending' ? (
@@ -91,9 +94,7 @@ class ApprovalComponent extends Component {
     );
   }
 }
-
 function mapStateToProps(state) {
   return {userStatus: state.login.userStatus};
 }
-
 export default connect(mapStateToProps, {login})(ApprovalComponent);

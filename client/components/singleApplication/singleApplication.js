@@ -7,7 +7,6 @@ import PersonalDetailsViewComponent from './childComponents/PersonalDetailsViewC
 import ExpertiseViewComponent from './childComponents/ExpertiseViewComponent';
 import AvailabilityViewComponent from './childComponents/AvailabilityViewComponent';
 import LetterViewComponent from './childComponents/LetterViewComponent';
-import ApprovalComponent from './childComponents/ApprovalComponent';
 import MainMenu from '../menu/MainMenu';
 import {connect} from 'react-redux';
 import {login} from '../../redux/actions';
@@ -59,17 +58,13 @@ class SingleApplication extends Component {
       ) : (
         <div></div>
       );
-    const sidebar = (
-      <ApprovalComponent
-        approved={this.state.approved}
-        applicationId={this.state.uId}
-        idToken={this.props.idToken}
-      />
-    );
     return (
       <div className='container-fluid'>
         <MainMenu />
-        <FormWrapper sidebar={sidebar}>
+        <FormWrapper
+          approved={this.state.approved}
+          applicationId={this.state.uid}
+          idToken={this.props.idToken}>
           {goBackToList}
           <h5>Personal information</h5>
           <PersonalDetailsViewComponent
