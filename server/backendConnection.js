@@ -41,13 +41,19 @@ const post = (path, options) => {
   });
 };
 
-const get = (path, options) => {
+const get = path => {
   return getRequestToken(BASE_BACKEND_URL).then(token => {
-    const req = prepareCloudRunCall(
+    const req = {
+      method: 'GET',
+      url: `${BASE_BACKEND_URL}${path}`,
+      resolveWithFullResponse: false,
+      simple: true,
+    };
+    /*const req = prepareCloudRunCall(
       `${BASE_BACKEND_URL}${path}`,
       options ? options.data : {},
       'GET'
-    );
+    );*/
     return request
       .get(req)
       .auth(null, null, true, token)
