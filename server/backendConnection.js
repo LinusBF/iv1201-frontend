@@ -22,7 +22,7 @@ const getRequestToken = cloudRunUrl => {
 const prepareCloudRunCall = (url, body, reqType) => {
   return {
     method: reqType,
-    url,
+    url: url,
     resolveWithFullResponse: false,
     simple: true,
     json: true,

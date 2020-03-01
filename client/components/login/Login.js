@@ -11,10 +11,6 @@ import MainMenu from '../menu/MainMenu';
 class Login extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      loggedIn: false,
-      isAdmin: false,
-    };
 
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -30,18 +26,14 @@ class Login extends Component {
           .auth()
           .currentUser.getIdToken(/* forceRefresh */ true)
           .then(function(idT) {
+            const idTok = idT;
             // eslint-disable-next-line react/prop-types
-            that.props.login({idToken: idT, uid: userid});
             console.log(idT);
             axios
-              .post('/user-status', {token: idT})
+              .post('/user-status', {token: idTok})
               .then(res => {
+                that.props.login({idToken: idT, uid: userid, userStatus: res.data});
                 console.log(res.data);
-                that.setState({
-                  ...that.state,
-                  loggedIn: true,
-                  isAdmin: res.data === 'admin',
-                });
                 console.info(res);
               })
               .catch(error => {
@@ -62,8 +54,8 @@ class Login extends Component {
       <div className={'container-fluid'}>
         <MainMenu />
         <LoginForm handleSubmit={this.handleSubmit} />
-        {this.state.loggedIn === true ? (
-          this.state.isAdmin === true ? (
+        {this.props.loggedIn === true ? (
+          this.props.userStatus === 'admin' ? (
             <Redirect to='/Applications' />
           ) : (
             <Redirect to='/SingleApplication' />
@@ -75,4 +67,9 @@ class Login extends Component {
     );
   }
 }
-export default connect(null, {login, setLoginStatus})(Login);
+
+function mapStateToProps(state) {
+  return {loggedIn: state.login.loggedIn, userStatus: state.login.userStatus};
+}
+
+export default connect(mapStateToProps, {login, setLoginStatus})(Login);

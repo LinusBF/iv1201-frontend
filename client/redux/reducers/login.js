@@ -12,6 +12,7 @@ export default function(state = initialState, action) {
         loggedIn: action.payload.loggedIn,
         idToken: action.payload.idToken,
         uid: action.payload.uid,
+        userStatus: action.payload.userStatus,
       };
     }
     case LOGGED_OUT: {
@@ -20,6 +21,7 @@ export default function(state = initialState, action) {
         loggedIn: action.payload.loggedIn,
         idToken: null,
         uid: null,
+        userStatus: null,
       };
     }
   }
