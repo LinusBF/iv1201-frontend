@@ -10,7 +10,7 @@ import MainMenu from '../menu/MainMenu';
 import {connect} from 'react-redux';
 import {login} from '../../redux/actions';
 
-const COUNT_TO_LOAD = 2;
+const COUNT_TO_LOAD = 15;
 
 class Applications extends Component {
   constructor(props) {
@@ -47,7 +47,7 @@ class Applications extends Component {
         if (res.data === 'admin') {
           return axios.post('/fetch-applications', {
             offset: this.state.items.length,
-            count: 10,
+            count: COUNT_TO_LOAD,
             token: this.props.idToken,
           });
         } else {
@@ -71,7 +71,8 @@ class Applications extends Component {
   }
 
   calcAge(ssn) {
-    return 25;
+    const year = ssn.slice(0, 4);
+    return 2020 - parseInt(year);
   }
 
   render() {
@@ -114,7 +115,7 @@ class Applications extends Component {
             ))}
           </InfiniteScroll>
         </ListGroup>
-        {typeof this.props.idToken === 'undefined' || this.state.redirect ? (
+        {typeof this.props.loggedIn === false || this.state.redirect ? (
           <Redirect to='/'/>
         ) : (
           <div/>
@@ -125,6 +126,6 @@ class Applications extends Component {
   }
 }
 function mapStateToProps(state) {
-  return {idToken: state.login.idToken};
+  return {idToken: state.login.idToken, loggedIn: state.login.loggedIn};
 }
 export default connect(mapStateToProps, {login})(Applications);

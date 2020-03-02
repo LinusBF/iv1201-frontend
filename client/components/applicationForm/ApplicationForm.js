@@ -33,17 +33,14 @@ class ApplicationForm extends Component {
   handleSubmit(event) {
     event.preventDefault();
     const formattedApplication = this.extractApplication(event);
-    console.log(formattedApplication);
     this.form.validateFields().then(r => {
       const hasExpAndAvail =
         formattedApplication.expertise.length > 0 && formattedApplication.available.length > 0;
-      console.log(`hasExpAvail${hasExpAndAvail}`);
       if (this.form.isValid() && hasExpAndAvail) {
         console.log('Field is valid: submit');
         axios
           .post('/submit', {token: this.props.idToken, application: formattedApplication})
-          .then(ans => {
-            console.log(ans);
+          .then(() => {
             this.setState({
               ...this.state,
               submitted: true,

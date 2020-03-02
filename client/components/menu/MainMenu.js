@@ -38,8 +38,7 @@ class MainMenu extends Component {
           <div className={'w-100'}>
             <Logo />
           </div>
-          {/* eslint-disable-next-line eqeqeq */}
-          {this.props.idToken == null ? (
+          {this.props.loggedIn === false ? (
             <div />
           ) : (
             <div className={'flex-shrink-0 mt-3'}>
@@ -57,6 +56,6 @@ class MainMenu extends Component {
   }
 }
 function mapStateToProps(state) {
-  return {idToken: state.login.idToken};
+  return {idToken: state.login.idToken, loggedIn: state.login.loggedIn};
 }
 export default connect(mapStateToProps, {logout, setLoginStatus})(MainMenu);
