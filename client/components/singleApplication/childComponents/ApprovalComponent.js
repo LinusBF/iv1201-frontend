@@ -55,7 +55,7 @@ class ApprovalComponent extends Component {
       .post('/update-approval', {
         token: this.props.idToken,
         applicationId: this.props.applicationId,
-        oldStatus: 'pending',
+        oldStatus: this.props.approved,
         newStatus: status,
       })
       .then(() => {

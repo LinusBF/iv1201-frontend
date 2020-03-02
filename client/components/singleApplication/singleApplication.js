@@ -22,7 +22,6 @@ class SingleApplication extends Component {
     this.state = baseState;
     this.state.uId = params.uId;
     if (applicationState) {
-      console.info(applicationState);
       this.state = {
         ...this.state,
         ...applicationState,

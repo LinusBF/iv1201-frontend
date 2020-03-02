@@ -21,9 +21,7 @@ class MainMenu extends Component {
       .signOut()
       .then(
         function() {
-          console.log(that.props);
           that.props.logout();
-          console.log(that.props);
           that.setState({doLogOut: true});
         },
         function(error) {
