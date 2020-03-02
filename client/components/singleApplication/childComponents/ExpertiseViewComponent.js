@@ -11,7 +11,7 @@ class ExpertiseViewComponent extends Component {
       this.props.expertise.forEach((expertise, index) => {
         expertises.push(
           <div name={`expertise${index}`} key={`expertise${index}`} className='row mb-2'>
-            <div className='col-8 pr-0'>
+            <div className='col-8 pr-2 pl-0'>
               <div className='input-group ml-0'>
                 <div className='input-group-prepend'>
                   <div className='input-group-text'>Expertise</div>
