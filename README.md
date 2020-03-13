@@ -46,3 +46,17 @@ yarn add    //Add dependancies
 "pre-commit": "lint-staged && snyk test && yarn test",
 "post-merge": "yarn install"
 ```
+## Folder structure
+```.
+├── client                  # React JS client-side code
+│   ├── components            # React JS component subfolders
+│   ├── images                # Project Graphics
+│   └── redux                 # Redux config and logic
+├── server                  # Express JS & server-side functions
+├── test                    # Test folder
+├── cloudbuild.yaml         # Config for Google Cloud Build
+├── Dockerfile              # Docker-config for deployment
+├── package.json            # Node JS dependancies
+├── README.md               
+└── webpack.config.js       # Webpack resource bundler config 
+```
